@@ -18,6 +18,11 @@ extern "C" {
     BOOL SkipLoopFilter();
     BOOL LoopFilterOptimization();
     BOOL RowThreading();
+    BOOL ShowReloadButton() {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"YTUHDShowReloadButton"];
+}
+
+
 }
 
 // -------------------- Format Filtering --------------------
@@ -182,7 +187,7 @@ static UIImage *reloadImage(NSString *qualityLabel) {
 }
 %end
 
-%%hook YTInlinePlayerBarContainerView
+%hook YTInlinePlayerBarContainerView
 - (UIImage *)buttonImage:(NSString *)tweakId {
     if ([tweakId isEqualToString:ReloadTweakKey]) {
         return ShowReloadButton() ? reloadImage(@"3") : nil;
