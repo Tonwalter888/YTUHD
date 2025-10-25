@@ -11,7 +11,7 @@ INSTALL_TARGET_PROCESSES = YouTube
 include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = YTUHD
-$(TWEAK_NAME)_FILES = Tweak.xm Settings.xm
+$(TWEAK_NAME)_FILES = Tweak.xm Settings.x
 $(TWEAK_NAME)_CFLAGS = -fobjc-arc $(EXTRA_CFLAGS)
 $(TWEAK_NAME)_FRAMEWORKS = VideoToolbox
 
