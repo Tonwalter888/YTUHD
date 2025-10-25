@@ -182,17 +182,6 @@ static UIImage *reloadImage(NSString *qualityLabel) {
 }
 %end
 
-%new(v@:@)
-- (void)didPressYTUHDReload:(id)arg {
-    YTMainAppVideoPlayerOverlayView *mainOverlayView = (YTMainAppVideoPlayerOverlayView *)self.superview;
-    YTMainAppVideoPlayerOverlayViewController *mainOverlayController = (YTMainAppVideoPlayerOverlayViewController *)mainOverlayView.delegate;
-    YTPlayerViewController *playerViewController = mainOverlayController.parentViewController;
-    if (playerViewController) {
-        [playerViewController didPressYTUHDReload];
-    }
-}
-%end
-
 %%hook YTInlinePlayerBarContainerView
 - (UIImage *)buttonImage:(NSString *)tweakId {
     if ([tweakId isEqualToString:ReloadTweakKey]) {
