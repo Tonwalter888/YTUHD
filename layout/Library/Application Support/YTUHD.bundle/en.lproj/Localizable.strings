@@ -14,7 +14,3 @@
 "LOOP_FILTER_OPTIMIZATION" = "Loop filter optimization";
 
 "ROW_THREADING" = "Row threading";
-
-"SHOW_RELOAD_BUTTON" = "Show Reload Button";
-"SHOW_RELOAD_BUTTON_DESC" = "Enable a reload button in the video overlay to retry stuck videos.";
-
