@@ -1,4 +1,6 @@
 #import <UIKit/UIKit.h>
+#import "../YTVideoOverlay/Header.h"
+#import "../YTVideoOverlay/Init.x"
 #import <YouTubeHeader/YTPlayerViewController.h>
 #import <YouTubeHeader/YTMainAppVideoPlayerOverlayViewController.h>
 #import <YouTubeHeader/YTMainAppVideoPlayerOverlayView.h>
@@ -149,8 +151,13 @@ static void hookFormats(MLABRPolicy *self) {
 @end
 
 static UIImage *reloadImage(NSString *qualityLabel) {
-    return [%c(QTMIcon) tintImage:[UIImage systemImageNamed:@"arrow.clockwise"]
-                              color:[%c(YTColor) white1]];
+    UIImage *img = nil;
+    if (@available(iOS 13.0, *)) {
+        img = [UIImage systemImageNamed:@"arrow.clockwise"];
+    } else {
+        img = [UIImage imageNamed:@"ReloadFallback"];
+    }
+    return [img imageWithTintColor:[UIColor whiteColor]];
 }
 
 %group Reload
