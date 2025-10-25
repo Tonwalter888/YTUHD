@@ -178,7 +178,7 @@ static void hookFormats(MLABRPolicy *self) {
 %hook UIDevice
 
 - (NSString *)systemVersion {
-    return @"15.8.4";
+    return @"15.8.5";
 }
 
 %end
@@ -189,7 +189,7 @@ static void hookFormats(MLABRPolicy *self) {
     NSOperatingSystemVersion version;
     version.majorVersion = 15;
     version.minorVersion = 8;
-    version.patchVersion = 4;
+    version.patchVersion = 5;
     return version;
 }
 
