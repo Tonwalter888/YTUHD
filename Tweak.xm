@@ -1,11 +1,3 @@
-#import <UIKit/UIKit.h>
-#import "../YTVideoOverlay/Header.h"
-#import "../YTVideoOverlay/Init.x"
-#import <YouTubeHeader/YTPlayerViewController.h>
-#import <YouTubeHeader/YTMainAppVideoPlayerOverlayViewController.h>
-#import <YouTubeHeader/YTMainAppVideoPlayerOverlayView.h>
-#import <YouTubeHeader/YTMainAppControlsOverlayView.h>
-#import <YouTubeHeader/YTInlinePlayerBarContainerView.h>
 #import <substrate.h>
 #import <sys/sysctl.h>
 #import <version.h>
@@ -17,12 +9,7 @@ extern "C" {
     int DecodeThreads();
     BOOL SkipLoopFilter();
     BOOL LoopFilterOptimization();
-    BOOL RowThreading();
-    BOOL ShowReloadButton() {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:@"YTUHDShowReloadButton"];
-}
-
-
+    BOOL RowThreading(); 
 }
 
 // -------------------- Format Filtering --------------------
@@ -127,106 +114,6 @@ static void hookFormats(MLABRPolicy *self) {
 }
 %end
 
-// -------------------- Reload Button --------------------
-#define ReloadTweakKey @"YTUHDReload"
-
-@interface YTMainAppVideoPlayerOverlayViewController (YTUHDReload)
-@property (nonatomic, weak) YTPlayerViewController *parentViewController;
-@end
-
-@interface YTMainAppVideoPlayerOverlayView (YTUHDReload)
-@property (nonatomic, weak, readwrite) YTMainAppVideoPlayerOverlayViewController *delegate;
-@end
-
-@interface YTMainAppControlsOverlayView (YTUHDReload)
-@property (nonatomic, weak) YTPlayerViewController *playerViewController;
-- (void)didPressYTUHDReload:(id)arg;
-@end
-
-@interface YTPlayerViewController (YTUHDReload)
-- (void)didPressYTUHDReload;
-@end
-
-@interface YTInlinePlayerBarController : NSObject
-@end
-
-@interface YTInlinePlayerBarContainerView (YTUHDReload)
-@property (nonatomic, strong) YTInlinePlayerBarController *delegate;
-- (void)didPressYTUHDReload:(id)arg;
-@end
-
-static UIImage *reloadImage(NSString *qualityLabel) {
-    UIImage *img;
-    if (@available(iOS 13.0, *)) {
-        img = [UIImage systemImageNamed:@"arrow.clockwise"];
-    }
-    if (!img) {
-        img = [UIImage imageNamed:@"arrow.clockwise"];
-    }
-    return [img imageWithTintColor:[UIColor whiteColor]];
-}
-
-%group Reload
-
-%hook YTMainAppControlsOverlayView
-- (UIImage *)buttonImage:(NSString *)tweakId {
-    if ([tweakId isEqualToString:ReloadTweakKey]) {
-        return ShowReloadButton() ? reloadImage(@"3") : nil;
-    }
-    return %orig;
-}
-
-%new(v@:@)
-- (void)didPressYTUHDReload:(id)arg {
-    YTMainAppVideoPlayerOverlayView *mainOverlayView = (YTMainAppVideoPlayerOverlayView *)self.superview;
-    YTMainAppVideoPlayerOverlayViewController *mainOverlayController = (YTMainAppVideoPlayerOverlayViewController *)mainOverlayView.delegate;
-    YTPlayerViewController *playerViewController = mainOverlayController.parentViewController;
-    if (playerViewController) {
-        [playerViewController didPressYTUHDReload];
-    }
-}
-%end
-
-%hook YTInlinePlayerBarContainerView
-- (UIImage *)buttonImage:(NSString *)tweakId {
-    if ([tweakId isEqualToString:ReloadTweakKey]) {
-        return ShowReloadButton() ? reloadImage(@"3") : nil;
-    }
-    return %orig;
-}
-%new(v@:@)
-- (void)didPressYTUHDReload:(id)arg {
-    YTMainAppVideoPlayerOverlayView *mainOverlayView = (YTMainAppVideoPlayerOverlayView *)self.superview;
-    YTMainAppVideoPlayerOverlayViewController *mainOverlayController = (YTMainAppVideoPlayerOverlayViewController *)mainOverlayView.delegate;
-    YTPlayerViewController *playerViewController = mainOverlayController.parentViewController;
-    if (playerViewController) {
-        [playerViewController didPressYTUHDReload];
-    }
-}
-%end
-
-%hook YTPlayerViewController
-
-%new
-- (void)didPressYTUHDReload {
-    @try {
-        YTLocalPlaybackController *playbackController = [self valueForKey:@"_localPlaybackController"];
-        if (playbackController) {
-            id responder = [playbackController parentResponder];
-            YTPlayerTapToRetryResponderEvent *event =
-                [%c(YTPlayerTapToRetryResponderEvent) eventWithFirstResponder:responder];
-            [event send];
-        } else {
-            NSLog(@"[YTUHD] Reload: no playbackController found");
-        }
-    }
-    @catch (NSException *e) {
-        NSLog(@"[YTUHD] Reload crashed: %@", e);
-    }
-}
-%end
-%end
-
 // -------------------- ctor --------------------
 %ctor {
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{
@@ -238,14 +125,5 @@ static UIImage *reloadImage(NSString *qualityLabel) {
     %init;
     if (!IS_IOS_OR_NEWER(iOS_15_0)) {
         %init(Spoofing);
-    }
-
-    // Register Reload overlay button only if toggle is on
-    if (ShowReloadButton()) {
-        initYTVideoOverlay(ReloadTweakKey, @{
-            AccessibilityLabelKey: @"Reload Video",
-            SelectorKey: @"didPressYTUHDReload:",
-        });
-        %init(Reload);
     }
 }
