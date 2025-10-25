@@ -8,27 +8,13 @@
 
 #define LOC(x) [YTUHDBundle() localizedStringForKey:x value:nil table:nil]
 
-BOOL UseVP9() {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:UseVP9Key];
-}
-BOOL AllVP9() {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:AllVP9Key];
-}
-int DecodeThreads() {
-    return [[NSUserDefaults standardUserDefaults] integerForKey:DecodeThreadsKey];
-}
-BOOL SkipLoopFilter() {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:SkipLoopFilterKey];
-}
-BOOL LoopFilterOptimization() {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:LoopFilterOptimizationKey];
-}
-BOOL RowThreading() {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:RowThreadingKey];
-}
-BOOL ShowReloadButton() {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:@"YTUHDShowReloadButton"];
-}
+BOOL UseVP9() { return [[NSUserDefaults standardUserDefaults] boolForKey:UseVP9Key]; }
+BOOL AllVP9() { return [[NSUserDefaults standardUserDefaults] boolForKey:AllVP9Key]; }
+int DecodeThreads() { return [[NSUserDefaults standardUserDefaults] integerForKey:DecodeThreadsKey]; }
+BOOL SkipLoopFilter() { return [[NSUserDefaults standardUserDefaults] boolForKey:SkipLoopFilterKey]; }
+BOOL LoopFilterOptimization() { return [[NSUserDefaults standardUserDefaults] boolForKey:LoopFilterOptimizationKey]; }
+BOOL RowThreading() { return [[NSUserDefaults standardUserDefaults] boolForKey:RowThreadingKey]; }
+BOOL ShowReloadButton() { return [[NSUserDefaults standardUserDefaults] boolForKey:@"YTUHDShowReloadButton"]; }
 
 NSBundle *YTUHDBundle() {
     static NSBundle *bundle = nil;
@@ -45,10 +31,9 @@ NSBundle *YTUHDBundle() {
 - (void)viewDidLoad {
     %orig;
 
-    // Create a new section just for YTUHD
+    // Create a brand new section for YTUHD
     NSMutableArray<YTSettingsSectionItem *> *items = [NSMutableArray array];
     Class ItemClass = %c(YTSettingsSectionItem);
-
     BOOL hasVP9 = VTIsHardwareDecodeSupported(kCMVideoCodecType_VP9);
 
     // --- VP9 toggle ---
@@ -161,16 +146,24 @@ NSBundle *YTUHDBundle() {
             accessibilityIdentifier:nil
                            switchOn:ShowReloadButton()
                         switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                            [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"YTUHDShowReloadButton"];
+                            [[NSUserDefaults standardUserDefaults] setBool:enabled
+                                                                  forKey:@"YTUHDShowReloadButton"];
                             return YES;
                         }
                        settingItemId:0];
     [items addObject:reloadButton];
 
-    // Add a new custom section called YTUHD
-    [self addSectionWithTitle:@"YTUHD"
-              titleDescription:@"Advanced video options"
-                  sectionItems:items
-                   forCategory:999];
+    // Wrap into its own section header
+    YTSettingsSectionItem *ytuhdSection =
+      [%c(YTSettingsSectionItem) sectionItemWithTitle:@"YTUHD"
+                                     titleDescription:@"Advanced video options"
+                                                items:items];
+
+    // Inject at the end of the settings list
+    NSMutableArray *allSections = [self valueForKey:@"_sectionItems"];
+    if (allSections) {
+        [allSections addObject:ytuhdSection];
+        [self reloadData];
+    }
 }
 %end
