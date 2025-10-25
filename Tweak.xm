@@ -92,15 +92,19 @@ NSTimer *bufferingTimer = nil;
             YTSingleVideoController *video = (YTSingleVideoController *)strongSelf.delegate;
             YTLocalPlaybackController *playbackController = (YTLocalPlaybackController *)video.delegate;
 
-            // Save current timestamp before retry
-            CGFloat currentTime = [playbackController currentMediaTime];
+            // Navigate to parent YTPlayerViewController
+            YTPlayerViewController *playerVC = (YTPlayerViewController *)[playbackController parentResponder];
+            if (!playerVC) return;
 
-            // Send retry event
+            // Save current time
+            CGFloat currentTime = playerVC.currentVideoMediaTime;
+
+            // Trigger retry
             [[%c(YTPlayerTapToRetryResponderEvent) eventWithFirstResponder:[playbackController parentResponder]] send];
 
-            // Restore timestamp after short delay
+            // Restore position
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [playbackController seekToTime:currentTime];
+                [playerVC seekToTime:currentTime];
             });
         }];
     } else {
