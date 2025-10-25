@@ -152,19 +152,6 @@ static void addSectionItem(YTSettingsViewController *settingsViewController, NSM
         }
         settingItemId:0];
     [sectionItems addObject:rowThreading];
-
-    // --- Reload button toggle ---
-    YTSettingsSectionItem *reloadButton =
-      [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"SHOW_RELOAD_BUTTON")
-                    titleDescription:LOC(@"SHOW_RELOAD_BUTTON_DESC")
-            accessibilityIdentifier:nil
-                           switchOn:[[NSUserDefaults standardUserDefaults] boolForKey:@"YTUHDShowReloadButton"]
-                        switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                            [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"YTUHDShowReloadButton"];
-                            return YES;
-                        }
-                       settingItemId:0];
-    [sectionItems addObject:reloadButton];
 }
 
 %hook YTSettingsViewController
