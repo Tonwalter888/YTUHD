@@ -9,10 +9,10 @@ extern "C" {
     int DecodeThreads();
     BOOL SkipLoopFilter();
     BOOL LoopFilterOptimization();
-    BOOL RowThreading(); 
+    BOOL RowThreading();
 }
 
-// -------------------- Format Filtering --------------------
+// Remove any <= 1080p VP9 formats if AllVP9 is disabled
 NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *formats) {
     if (AllVP9()) return formats;
     NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(MLFormat *format, NSDictionary *bindings) {
@@ -42,65 +42,159 @@ static void hookFormats(MLABRPolicy *self) {
 }
 
 %hook MLABRPolicy
+
 - (void)setFormats:(NSArray *)formats {
     hookFormats(self);
     %orig(filteredFormats(formats));
 }
+
 %end
 
 %hook MLABRPolicyOld
+
 - (void)setFormats:(NSArray *)formats {
     hookFormats(self);
     %orig(filteredFormats(formats));
 }
+
 %end
 
 %hook MLABRPolicyNew
+
 - (void)setFormats:(NSArray *)formats {
     hookFormats(self);
     %orig(filteredFormats(formats));
 }
+
 %end
 
-// -------------------- Hot/Cold Configs --------------------
+// %hook MLHAMPlayerItem
+
+// - (void)load {
+//     hookFormatsBase([self valueForKey:@"_hamplayerConfig"]);
+//     %orig;
+// }
+
+// - (void)loadWithInitialSeekRequired:(BOOL)initialSeekRequired initialSeekTime:(double)initialSeekTime {
+//     hookFormatsBase([self valueForKey:@"_hamplayerConfig"]);
+//     %orig;
+// }
+
+// %end
+
 %hook YTIHamplayerHotConfig
-%new(i@:) - (int)libvpxDecodeThreads { return DecodeThreads(); }
-%new(B@:) - (BOOL)libvpxRowThreading { return RowThreading(); }
-%new(B@:) - (BOOL)libvpxSkipLoopFilter { return SkipLoopFilter(); }
-%new(B@:) - (BOOL)libvpxLoopFilterOptimization { return LoopFilterOptimization(); }
+
+%new(i@:)
+- (int)libvpxDecodeThreads {
+    return DecodeThreads();
+}
+
+%new(B@:)
+- (BOOL)libvpxRowThreading {
+    return RowThreading();
+}
+
+%new(B@:)
+- (BOOL)libvpxSkipLoopFilter {
+    return SkipLoopFilter();
+}
+
+%new(B@:)
+- (BOOL)libvpxLoopFilterOptimization {
+    return LoopFilterOptimization();
+}
+
 %end
 
 %hook YTColdConfig
-- (BOOL)iosPlayerClientSharedConfigPopulateSwAv1MediaCapabilities { return YES; }
+
+- (BOOL)iosPlayerClientSharedConfigPopulateSwAv1MediaCapabilities {
+    return YES;
+}
+
 %end
 
 %hook YTHotConfig
-- (BOOL)iosPlayerClientSharedConfigDisableServerDrivenAbr { return YES; }
-- (BOOL)iosPlayerClientSharedConfigPostponeCabrPreferredFormatFiltering { return YES; }
-- (BOOL)iosPlayerClientSharedConfigHamplayerPrepareVideoDecoderForAvsbdl { return YES; }
-- (BOOL)iosPlayerClientSharedConfigHamplayerAlwaysEnqueueDecodedSampleBuffersToAvsbdl { return YES; }
+
+- (BOOL)iosPlayerClientSharedConfigDisableServerDrivenAbr {
+    return YES;
+}
+
+- (BOOL)iosPlayerClientSharedConfigPostponeCabrPreferredFormatFiltering {
+    return YES;
+}
+
+- (BOOL)iosPlayerClientSharedConfigHamplayerPrepareVideoDecoderForAvsbdl {
+    return YES;
+}
+
+- (BOOL)iosPlayerClientSharedConfigHamplayerAlwaysEnqueueDecodedSampleBuffersToAvsbdl {
+    return YES;
+}
+
 %end
 
+// %hook HAMDefaultABRPolicy
+
+// - (id)getSelectableFormatDataAndReturnError:(NSError **)error {
+//     @try {
+//         HAMDefaultABRPolicyConfig config = MSHookIvar<HAMDefaultABRPolicyConfig>(self, "_config");
+//         config.softwareAV1Filter.maxArea = MAX_PIXELS;
+//         config.softwareAV1Filter.maxFPS = MAX_FPS;
+//         config.softwareVP9Filter.maxArea = MAX_PIXELS;
+//         config.softwareVP9Filter.maxFPS = MAX_FPS;
+//         MSHookIvar<HAMDefaultABRPolicyConfig>(self, "_config") = config;
+//     } @catch (id ex) {}
+//     return %orig;
+// }
+
+// - (void)setFormats:(NSArray *)formats {
+//     @try {
+//         HAMDefaultABRPolicyConfig config = MSHookIvar<HAMDefaultABRPolicyConfig>(self, "_config");
+//         config.softwareAV1Filter.maxArea = MAX_PIXELS;
+//         config.softwareAV1Filter.maxFPS = MAX_FPS;
+//         config.softwareVP9Filter.maxArea = MAX_PIXELS;
+//         config.softwareVP9Filter.maxFPS = MAX_FPS;
+//         MSHookIvar<HAMDefaultABRPolicyConfig>(self, "_config") = config;
+//     } @catch (id ex) {}
+//     %orig;
+// }
+
+// %end
+
 %hook MLHLSStreamSelector
+
 - (void)didLoadHLSMasterPlaylist:(id)arg1 {
     %orig;
     MLHLSMasterPlaylist *playlist = [self valueForKey:@"_completeMasterPlaylist"];
     NSArray *remotePlaylists = [playlist remotePlaylists];
     [[self delegate] streamSelectorHasSelectableVideoFormats:remotePlaylists];
 }
+
 %end
 
-// -------------------- iOS Spoofing --------------------
 %group Spoofing
+
 %hook UIDevice
-- (NSString *)systemVersion { return @"15.8.4"; }
+
+- (NSString *)systemVersion {
+    return @"15.8.4";
+}
+
 %end
+
 %hook NSProcessInfo
+
 - (NSOperatingSystemVersion)operatingSystemVersion {
-    NSOperatingSystemVersion version = {15, 8, 4};
+    NSOperatingSystemVersion version;
+    version.majorVersion = 15;
+    version.minorVersion = 8;
+    version.patchVersion = 4;
     return version;
 }
+
 %end
+
 %hookf(int, sysctlbyname, const char *name, void *oldp, size_t *oldlenp, void *newp, size_t newlen) {
     if (strcmp(name, "kern.osversion") == 0) {
         int ret = %orig;
@@ -112,15 +206,13 @@ static void hookFormats(MLABRPolicy *self) {
     }
     return %orig;
 }
+
 %end
 
-// -------------------- ctor --------------------
 %ctor {
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{
-        DecodeThreadsKey: @2,
-        @"YTUHDShowReloadButton": @NO
+        DecodeThreadsKey: @2
     }];
-
     if (!UseVP9()) return;
     %init;
     if (!IS_IOS_OR_NEWER(iOS_15_0)) {
