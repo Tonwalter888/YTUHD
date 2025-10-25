@@ -113,7 +113,6 @@ static void hookFormats(MLABRPolicy *self) {
     return %orig;
 }
 %end
-%end
 
 // -------------------- Reload Button --------------------
 #define ReloadTweakKey @"YTUHDReload"
