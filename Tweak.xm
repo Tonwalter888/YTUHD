@@ -151,11 +151,12 @@ static void hookFormats(MLABRPolicy *self) {
 @end
 
 static UIImage *reloadImage(NSString *qualityLabel) {
-    UIImage *img = nil;
+    UIImage *img;
     if (@available(iOS 13.0, *)) {
         img = [UIImage systemImageNamed:@"arrow.clockwise"];
-    } else {
-        img = [UIImage imageNamed:@"ReloadFallback"];
+    }
+    if (!img) {
+        img = [UIImage imageNamed:@"arrow.clockwise"];
     }
     return [img imageWithTintColor:[UIColor whiteColor]];
 }
@@ -163,7 +164,11 @@ static UIImage *reloadImage(NSString *qualityLabel) {
 %group Reload
 
 %hook YTMainAppControlsOverlayView
-    return [tweakId isEqualToString:ReloadTweakKey] ? reloadImage(@"3") : %orig;
+- (UIImage *)buttonImage:(NSString *)tweakId {
+    if ([tweakId isEqualToString:ReloadTweakKey]) {
+        return ShowReloadButton() ? reloadImage(@"3") : nil;
+    }
+    return %orig;
 }
 
 %new(v@:@)
@@ -177,17 +182,52 @@ static UIImage *reloadImage(NSString *qualityLabel) {
 }
 %end
 
-%hook YTInlinePlayerBarContainerView
+%new(v@:@)
+- (void)didPressYTUHDReload:(id)arg {
+    YTMainAppVideoPlayerOverlayView *mainOverlayView = (YTMainAppVideoPlayerOverlayView *)self.superview;
+    YTMainAppVideoPlayerOverlayViewController *mainOverlayController = (YTMainAppVideoPlayerOverlayViewController *)mainOverlayView.delegate;
+    YTPlayerViewController *playerViewController = mainOverlayController.parentViewController;
+    if (playerViewController) {
+        [playerViewController didPressYTUHDReload];
+    }
+}
+%end
+
+%%hook YTInlinePlayerBarContainerView
 - (UIImage *)buttonImage:(NSString *)tweakId {
-    return [tweakId isEqualToString:ReloadTweakKey] ? reloadImage(@"3") : %orig;
+    if ([tweakId isEqualToString:ReloadTweakKey]) {
+        return ShowReloadButton() ? reloadImage(@"3") : nil;
+    }
+    return %orig;
 }
 %new(v@:@)
 - (void)didPressYTUHDReload:(id)arg {
-    YTInlinePlayerBarController *delegate = self.delegate;
-    YTMainAppVideoPlayerOverlayViewController *_delegate = [delegate valueForKey:@"_delegate"];
-    YTPlayerViewController *parentViewController = _delegate.parentViewController;
-    if (parentViewController) {
-        [parentViewController didPressYTUHDReload];
+    YTMainAppVideoPlayerOverlayView *mainOverlayView = (YTMainAppVideoPlayerOverlayView *)self.superview;
+    YTMainAppVideoPlayerOverlayViewController *mainOverlayController = (YTMainAppVideoPlayerOverlayViewController *)mainOverlayView.delegate;
+    YTPlayerViewController *playerViewController = mainOverlayController.parentViewController;
+    if (playerViewController) {
+        [playerViewController didPressYTUHDReload];
+    }
+}
+%end
+
+%hook YTPlayerViewController
+
+%new
+- (void)didPressYTUHDReload {
+    @try {
+        YTLocalPlaybackController *playbackController = [self valueForKey:@"_localPlaybackController"];
+        if (playbackController) {
+            id responder = [playbackController parentResponder];
+            YTPlayerTapToRetryResponderEvent *event =
+                [%c(YTPlayerTapToRetryResponderEvent) eventWithFirstResponder:responder];
+            [event send];
+        } else {
+            NSLog(@"[YTUHD] Reload: no playbackController found");
+        }
+    }
+    @catch (NSException *e) {
+        NSLog(@"[YTUHD] Reload crashed: %@", e);
     }
 }
 %end
@@ -196,19 +236,22 @@ static UIImage *reloadImage(NSString *qualityLabel) {
 // -------------------- ctor --------------------
 %ctor {
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{
-        DecodeThreadsKey: @2
+        DecodeThreadsKey: @2,
+        @"YTUHDShowReloadButton": @NO
     }];
+
     if (!UseVP9()) return;
     %init;
     if (!IS_IOS_OR_NEWER(iOS_15_0)) {
         %init(Spoofing);
     }
 
-    // Register Reload button
-    initYTVideoOverlay(ReloadTweakKey, @{
-        AccessibilityLabelKey: @"Reload Video",
-        SelectorKey: @"didPressYTUHDReload:",
-    });
-    %init(Reload);
+    // Register Reload overlay button only if toggle is on
+    if (ShowReloadButton()) {
+        initYTVideoOverlay(ReloadTweakKey, @{
+            AccessibilityLabelKey: @"Reload Video",
+            SelectorKey: @"didPressYTUHDReload:",
+        });
+        %init(Reload);
+    }
 }
-
