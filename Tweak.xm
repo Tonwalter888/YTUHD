@@ -163,11 +163,7 @@ static UIImage *reloadImage(NSString *qualityLabel) {
 %group Reload
 
 %hook YTMainAppControlsOverlayView
-- (UIImage *)buttonImage:(NSString *)tweakId {
-    if ([tweakId isEqualToString:ReloadTweakKey]) {
-        return ShowReloadButton() ? reloadImage(@"3") : nil;
-    }
-    return %orig;
+    return [tweakId isEqualToString:ReloadTweakKey] ? reloadImage(@"3") : %orig;
 }
 
 %new(v@:@)
