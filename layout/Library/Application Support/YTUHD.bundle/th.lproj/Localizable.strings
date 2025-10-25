@@ -14,6 +14,3 @@
 "LOOP_FILTER_OPTIMIZATION" = "Loop filter optimization";
 
 "ROW_THREADING" = "Row threading";
-
-"SHOW_RELOAD_BUTTON" = "แสดงปุ่มรีโหลดวิดีโอ";
-"SHOW_RELOAD_BUTTON_DESC" = "ปุ่มรีโหลดวิดีโอในโอเวอร์เลย์วิดีโอเมื่อวิดีโอไม่โหลดหรือค้าง";
