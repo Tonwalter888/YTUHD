@@ -164,8 +164,12 @@ static UIImage *reloadImage(NSString *qualityLabel) {
 
 %hook YTMainAppControlsOverlayView
 - (UIImage *)buttonImage:(NSString *)tweakId {
-    return [tweakId isEqualToString:ReloadTweakKey] ? reloadImage(@"3") : %orig;
+    if ([tweakId isEqualToString:ReloadTweakKey]) {
+        return ShowReloadButton() ? reloadImage(@"3") : nil;
+    }
+    return %orig;
 }
+
 %new(v@:@)
 - (void)didPressYTUHDReload:(id)arg {
     YTMainAppVideoPlayerOverlayView *mainOverlayView = (YTMainAppVideoPlayerOverlayView *)self.superview;
