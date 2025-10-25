@@ -1,3 +1,9 @@
+#import <UIKit/UIKit.h>
+#import <YouTubeHeader/YTPlayerViewController.h>
+#import <YouTubeHeader/YTMainAppVideoPlayerOverlayViewController.h>
+#import <YouTubeHeader/YTMainAppVideoPlayerOverlayView.h>
+#import <YouTubeHeader/YTMainAppControlsOverlayView.h>
+#import <YouTubeHeader/YTInlinePlayerBarContainerView.h>
 #import <substrate.h>
 #import <sys/sysctl.h>
 #import <version.h>
@@ -116,11 +122,6 @@ static void hookFormats(MLABRPolicy *self) {
 
 // -------------------- Reload Button --------------------
 #define ReloadTweakKey @"YTUHDReload"
-
-@interface YTPlayerTapToRetryResponderEvent : NSObject
-+ (instancetype)eventWithFirstResponder:(id)responder;
-- (void)send;
-@end
 
 @interface YTMainAppVideoPlayerOverlayViewController (YTUHDReload)
 @property (nonatomic, weak) YTPlayerViewController *parentViewController;
