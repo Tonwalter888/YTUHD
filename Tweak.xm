@@ -68,14 +68,12 @@ static void hookFormats(MLABRPolicy *self) {
 
 %end
 
-// Keep the timer global to avoid duplicates
 NSTimer *bufferingTimer = nil;
 
 %hook MLHAMQueuePlayer
 
 - (void)setState:(NSInteger)state {
     %orig;
-    // States 5, 6, 8 = buffering / stalled
     if (state == 5 || state == 6 || state == 8) {
         if (bufferingTimer) {
             [bufferingTimer invalidate];
@@ -88,31 +86,15 @@ NSTimer *bufferingTimer = nil;
             bufferingTimer = nil;
             __strong typeof(weakSelf) strongSelf = weakSelf;
             if (!strongSelf) return;
-            @try {
-                // Get video + playback controller
-                YTSingleVideoController *video = (YTSingleVideoController *)strongSelf.delegate;
-                YTLocalPlaybackController *playbackController = (YTLocalPlaybackController *)video.delegate;
-                // Safely get the underlying AVPlayer (MLHAMQueuePlayer)
-                MLHAMQueuePlayer *player = nil;
-                if ([playbackController respondsToSelector:@selector(player)]) {
-                    player = [playbackController performSelector:@selector(player)];
-                } else {
-                    player = [playbackController valueForKey:@"_player"];
+            // Force-cast MLHAMQueuePlayer → AVPlayer
+            AVPlayer *player = (AVPlayer *)strongSelf;
+            if (player) {
+                CMTime currentTime = [player currentTime];
+                CMTime seekTime = CMTimeSubtract(currentTime, CMTimeMakeWithSeconds(0.01, NSEC_PER_SEC));
+                if (CMTIME_COMPARE_INLINE(seekTime, <, kCMTimeZero)) {
+                    seekTime = kCMTimeZero;
                 }
-                if (player) {
-                    // Trigger the built-in retry event
-                    [[%c(YTPlayerTapToRetryResponderEvent) eventWithFirstResponder:[playbackController parentResponder]] send];
-                    // Tiny backseek (-0.001s) to kickstart playback
-                    CMTime currentTime = [player currentTime];
-                    CMTime seekTime = CMTimeSubtract(currentTime, CMTimeMakeWithSeconds(0.001, NSEC_PER_SEC));
-                    if (CMTIME_COMPARE_INLINE(seekTime, <, kCMTimeZero)) {
-                        seekTime = kCMTimeZero;
-                    }
-                    [player seekToTime:seekTime completionHandler:nil];
-                }
-            }
-            @catch (NSException *exception) {
-                NSLog(@"[YTReload] Exception: %@", exception);
+                [player seekToTime:seekTime completionHandler:nil];
             }
         }];
     } else {
