@@ -82,28 +82,17 @@ NSTimer *bufferingTimer = nil;
         }
 
         __weak typeof(self) weakSelf = self;
-        bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:5
-                                                          repeats:NO
-                                                            block:^(NSTimer *timer) {
-            bufferingTimer = nil;
-            __strong typeof(weakSelf) strongSelf = weakSelf;
-            if (strongSelf) {
-                YTSingleVideoController *video = (YTSingleVideoController *)strongSelf.delegate;
-                YTLocalPlaybackController *playbackController = (YTLocalPlaybackController *)video.delegate;
-                // send retry event
-                id responder = [playbackController parentResponder];
-                if (responder && [responder conformsToProtocol:@protocol(YTResponder)]) {
-                    [[%c(YTPlayerTapToRetryResponderEvent) eventWithFirstResponder:responder] send];
-                    NSLog(@"[YTReload] Sent TapToRetry event");
-                }
-                // Add a small seek to refresh video buffer
-                double currentTime = [playbackController currentTime];
-                double seekTime = MAX(0, currentTime - 1); // go back 1 sec safely
-                [playbackController seekToTime:seekTime completionHandler:^(BOOL finished) {
-                    NSLog(@"[YTReload] Forced tiny seek to %.2f", seekTime);
-                }];
-            }
-        }];
+        bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:7
+                            repeats:NO
+                            block:^(NSTimer *timer) {
+                                bufferingTimer = nil;
+                                __strong typeof(weakSelf) strongSelf = weakSelf;
+                                if (strongSelf) {
+                                    YTSingleVideoController *video = (YTSingleVideoController *)strongSelf.delegate;
+                                    YTLocalPlaybackController *playbackController = (YTLocalPlaybackController *)video.delegate;
+                                    [[%c(YTPlayerTapToRetryResponderEvent) eventWithFirstResponder:[playbackController parentResponder]] send];
+                                }
+                            }];
     } else {
         if (bufferingTimer) {
             [bufferingTimer invalidate];
