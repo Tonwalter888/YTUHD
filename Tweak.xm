@@ -74,11 +74,13 @@ NSTimer *bufferingTimer = nil;
 
 - (void)setState:(NSInteger)state {
     %orig;
+
     if (state == 5 || state == 6 || state == 8) {
         if (bufferingTimer) {
             [bufferingTimer invalidate];
             bufferingTimer = nil;
         }
+
         __weak typeof(self) weakSelf = self;
         bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:5
                                                           repeats:NO
@@ -86,15 +88,23 @@ NSTimer *bufferingTimer = nil;
             bufferingTimer = nil;
             __strong typeof(weakSelf) strongSelf = weakSelf;
             if (!strongSelf) return;
-            // Force-cast MLHAMQueuePlayer → AVPlayer
+
+            // Cast MLHAMQueuePlayer → AVPlayer
             AVPlayer *player = (AVPlayer *)strongSelf;
-            if (player) {
+
+            if (player && player.status == AVPlayerStatusReadyToPlay) {
                 CMTime currentTime = [player currentTime];
                 CMTime seekTime = CMTimeSubtract(currentTime, CMTimeMakeWithSeconds(0.01, NSEC_PER_SEC));
+
                 if (CMTIME_COMPARE_INLINE(seekTime, <, kCMTimeZero)) {
                     seekTime = kCMTimeZero;
                 }
-                [player seekToTime:seekTime completionHandler:nil];
+
+                // Provide an empty completion handler instead of nil
+                [player seekToTime:seekTime
+                   completionHandler:^(BOOL finished) {
+                       // no-op
+                   }];
             }
         }];
     } else {
