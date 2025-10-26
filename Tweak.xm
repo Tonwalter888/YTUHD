@@ -82,31 +82,17 @@ NSTimer *bufferingTimer = nil;
         }
 
         __weak typeof(self) weakSelf = self;
-        bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:5
-                                                          repeats:NO
-                                                            block:^(NSTimer *timer) {
-            bufferingTimer = nil;
-            __strong typeof(weakSelf) strongSelf = weakSelf;
-            if (!strongSelf) return;
-
-            // Cast MLHAMQueuePlayer → AVPlayer
-            AVPlayer *player = (AVPlayer *)strongSelf;
-
-            if (player && player.status == AVPlayerStatusReadyToPlay) {
-                CMTime currentTime = [player currentTime];
-                CMTime seekTime = CMTimeSubtract(currentTime, CMTimeMakeWithSeconds(0.01, NSEC_PER_SEC));
-
-                if (CMTIME_COMPARE_INLINE(seekTime, <, kCMTimeZero)) {
-                    seekTime = kCMTimeZero;
-                }
-
-                // Provide an empty completion handler instead of nil
-                [player seekToTime:seekTime
-                   completionHandler:^(BOOL finished) {
-                       // no-op
-                   }];
-            }
-        }];
+        bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:6
+                            repeats:NO
+                            block:^(NSTimer *timer) {
+                                bufferingTimer = nil;
+                                __strong typeof(weakSelf) strongSelf = weakSelf;
+                                if (strongSelf) {
+                                    YTSingleVideoController *video = (YTSingleVideoController *)strongSelf.delegate;
+                                    YTLocalPlaybackController *playbackController = (YTLocalPlaybackController *)video.delegate;
+                                    [[%c(YTPlayerTapToRetryResponderEvent) eventWithFirstResponder:[playbackController parentResponder]] send];
+                                }
+                            }];
     } else {
         if (bufferingTimer) {
             [bufferingTimer invalidate];
