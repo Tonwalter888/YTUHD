@@ -74,56 +74,49 @@ NSTimer *bufferingTimer = nil;
 
 - (void)setState:(NSInteger)state {
     %orig;
-    // Buffering/stalling states
+
+    // States: 5/6/8 = buffering/stalled
     if (state == 5 || state == 6 || state == 8) {
         if (bufferingTimer) {
             [bufferingTimer invalidate];
             bufferingTimer = nil;
         }
+
         __weak typeof(self) weakSelf = self;
-        bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:6
+        bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:5
                                                           repeats:NO
                                                             block:^(NSTimer *timer) {
             bufferingTimer = nil;
             __strong typeof(weakSelf) strongSelf = weakSelf;
             if (!strongSelf) return;
-            id delegate = nil;
-            if ([strongSelf respondsToSelector:@selector(delegate)]) {
-                delegate = [strongSelf delegate];
-            }
-            id playbackController = nil;
-            if (delegate && [delegate respondsToSelector:@selector(delegate)]) {
-                playbackController = [delegate delegate];
-            }
-            if (playbackController &&
-                [playbackController respondsToSelector:@selector(parentResponder)]) {
-                id responder = [playbackController parentResponder];
-                if (responder &&
-                    [%c(YTPlayerTapToRetryResponderEvent) respondsToSelector:@selector(eventWithFirstResponder:)]) {
-                    id event = [%c(YTPlayerTapToRetryResponderEvent) eventWithFirstResponder:responder];
-                    if ([event respondsToSelector:@selector(send)]) {
-                        [event send];
-                    }
-                    // seek back
-                    SEL currentTimeSel = @selector(currentTime);
-                    SEL seekSel = @selector(seekToTime:completionHandler:);
-                    if ([strongSelf respondsToSelector:currentTimeSel] &&
-                        [strongSelf respondsToSelector:seekSel]) {
-                        CMTime (*msgSendCurrent)(id, SEL) =
-                            (CMTime (*)(id, SEL))objc_msgSend;
-                        CMTime current = msgSendCurrent(strongSelf, currentTimeSel);
-                        // Subtract 1s
-                        CMTime offset = CMTimeMakeWithSeconds(1.0, NSEC_PER_SEC);
-                        CMTime seekTime = CMTimeSubtract(current, offset);
-                        if (CMTIME_COMPARE_INLINE(seekTime, <, kCMTimeZero)) {
-                            seekTime = kCMTimeZero;
-                        }
-                        void (*msgSendSeek)(id, SEL, CMTime, id) =
-                            (void (*)(id, SEL, CMTime, id))objc_msgSend;
-                        msgSendSeek(strongSelf, seekSel, seekTime, nil);
-                    }
+
+            // If these selectors don’t exist → crash
+            CMTime currentTime = ((CMTime (*)(id, SEL))objc_msgSend)(strongSelf, @selector(currentTime));
+            Float64 seconds = CMTimeGetSeconds(currentTime);
+
+            CMTime targetTime;
+            if (seconds <= 0.01) {
+                // At 0:00 → seek forward
+                targetTime = CMTimeAdd(currentTime, CMTimeMakeWithSeconds(0.01, NSEC_PER_SEC));
+                NSLog(@"[YTUHD] Seeking forward 0.01s from %.3f", seconds);
+            } else {
+                // After 0:00 → seek backward
+                targetTime = CMTimeSubtract(currentTime, CMTimeMakeWithSeconds(0.01, NSEC_PER_SEC));
+                if (CMTIME_COMPARE_INLINE(targetTime, <, kCMTimeZero)) {
+                    targetTime = kCMTimeZero;
                 }
+                NSLog(@"[YTUHD] Seeking backward 0.01s from %.3f", seconds);
             }
+
+            // Direct seek (will crash if selector is missing)
+            ((void (*)(id, SEL, CMTime, void (^)(BOOL)))objc_msgSend)(
+                strongSelf,
+                @selector(seekToTime:completionHandler:),
+                targetTime,
+                ^(BOOL finished) {
+                    NSLog(@"[YTUHD] Seek finished: %d", finished);
+                }
+            );
         }];
     } else {
         if (bufferingTimer) {
