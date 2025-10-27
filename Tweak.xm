@@ -70,60 +70,81 @@ static void hookFormats(MLABRPolicy *self) {
 
 NSTimer *bufferingTimer = nil;
 
+// Unique key for associating timers with each MLHAMQueuePlayer instance
+static const void *kYTBufferingTimerKey = &kYTBufferingTimerKey;
+
+// Getter for timer
+static inline NSTimer *YT_GetTimer(id player) {
+    return (NSTimer *)objc_getAssociatedObject(player, kYTBufferingTimerKey);
+}
+
+// Setter for timer
+static inline void YT_SetTimer(id player, NSTimer *timer) {
+    objc_setAssociatedObject(player, kYTBufferingTimerKey, timer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
 %hook MLHAMQueuePlayer
 
 - (void)setState:(NSInteger)state {
     %orig;
 
-    // States: 5/6/8 = buffering/stalled
-    if (state == 5 || state == 6 || state == 8) {
-        if (bufferingTimer) {
-            [bufferingTimer invalidate];
-            bufferingTimer = nil;
-        }
+    BOOL isBuffering = (state == 5 || state == 6 || state == 8);
 
-        __weak typeof(self) weakSelf = self;
-        bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:5
-                                                          repeats:NO
-                                                            block:^(NSTimer *timer) {
-            bufferingTimer = nil;
-            __strong typeof(weakSelf) strongSelf = weakSelf;
-            if (!strongSelf) return;
-
-            // If these selectors don’t exist → crash
-            CMTime currentTime = ((CMTime (*)(id, SEL))objc_msgSend)(strongSelf, @selector(currentTime));
-            Float64 seconds = CMTimeGetSeconds(currentTime);
-
-            CMTime targetTime;
-            if (seconds <= 0.01) {
-                // At 0:00 → seek forward
-                targetTime = CMTimeAdd(currentTime, CMTimeMakeWithSeconds(0.01, NSEC_PER_SEC));
-                NSLog(@"[YTUHD] Seeking forward 0.01s from %.3f", seconds);
-            } else {
-                // After 0:00 → seek backward
-                targetTime = CMTimeSubtract(currentTime, CMTimeMakeWithSeconds(0.01, NSEC_PER_SEC));
-                if (CMTIME_COMPARE_INLINE(targetTime, <, kCMTimeZero)) {
-                    targetTime = kCMTimeZero;
-                }
-                NSLog(@"[YTUHD] Seeking backward 0.01s from %.3f", seconds);
-            }
-
-            // Direct seek (will crash if selector is missing)
-            ((void (*)(id, SEL, CMTime, void (^)(BOOL)))objc_msgSend)(
-                strongSelf,
-                @selector(seekToTime:completionHandler:),
-                targetTime,
-                ^(BOOL finished) {
-                    NSLog(@"[YTUHD] Seek finished: %d", finished);
-                }
-            );
-        }];
-    } else {
-        if (bufferingTimer) {
-            [bufferingTimer invalidate];
-            bufferingTimer = nil;
-        }
+    // Always clear old timer
+    NSTimer *existing = YT_GetTimer(self);
+    if (existing) {
+        [existing invalidate];
+        YT_SetTimer(self, nil);
     }
+
+    // Only schedule retry if buffering
+    if (!isBuffering) return;
+
+    __weak typeof(self) weakSelf = self;
+    NSTimer *t = [NSTimer scheduledTimerWithTimeInterval:5.0
+                                                  repeats:NO
+                                                    block:^(__unused NSTimer *timer) {
+        __strong typeof(weakSelf) selfStrong = weakSelf;
+        YT_SetTimer(selfStrong, nil);
+        if (!selfStrong) return;
+
+        // Step 1: Try to grab delegate (YTSingleVideoController)
+        id video = nil;
+        if ([selfStrong respondsToSelector:@selector(delegate)]) {
+            video = [selfStrong delegate];
+        }
+
+        // Step 2: Try to grab playbackController from video.delegate
+        id playbackController = nil;
+        if (video && [video respondsToSelector:@selector(delegate)]) {
+            playbackController = [video delegate];
+        }
+
+        // Step 3: Find a parentResponder candidate
+        id firstResponder = nil;
+        if ([selfStrong respondsToSelector:@selector(parentResponder)]) {
+            firstResponder = [selfStrong parentResponder];
+        } else if (playbackController && [playbackController respondsToSelector:@selector(parentResponder)]) {
+            firstResponder = [playbackController parentResponder];
+        } else if (video && [video respondsToSelector:@selector(parentResponder)]) {
+            firstResponder = [video parentResponder];
+        }
+
+        // Step 4: Fire retry event
+        Class RetryEvt = objc_getClass("YTPlayerTapToRetryResponderEvent");
+        if (RetryEvt &&
+            firstResponder &&
+            [RetryEvt respondsToSelector:@selector(eventWithFirstResponder:)]) {
+
+            id evt = ((id (*)(id, SEL, id))objc_msgSend)(RetryEvt, @selector(eventWithFirstResponder:), firstResponder);
+
+            if (evt && [evt respondsToSelector:@selector(send)]) {
+                ((void (*)(id, SEL))objc_msgSend)(evt, @selector(send));
+            }
+        }
+    }];
+
+    YT_SetTimer(self, t);
 }
 
 %end
