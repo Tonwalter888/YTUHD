@@ -74,12 +74,14 @@ NSTimer *bufferingTimer = nil;
 
 - (void)setState:(NSInteger)state {
     %orig;
-    // States 5/6/8 = buffering/stalling
+
+    // Buffering/stalling states
     if (state == 5 || state == 6 || state == 8) {
         if (bufferingTimer) {
             [bufferingTimer invalidate];
             bufferingTimer = nil;
         }
+
         __weak typeof(self) weakSelf = self;
         bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:5
                                                           repeats:NO
@@ -88,6 +90,7 @@ NSTimer *bufferingTimer = nil;
             __strong typeof(weakSelf) strongSelf = weakSelf;
             if (!strongSelf) return;
 
+            // Safely get delegate chain
             id delegate = nil;
             @try {
                 if ([strongSelf respondsToSelector:@selector(delegate)]) {
@@ -113,14 +116,26 @@ NSTimer *bufferingTimer = nil;
                         [event send];
                     }
 
-                    // After retry, micro-seek backwards by 0.01s to "unstick" playback
-                    if ([strongSelf respondsToSelector:@selector(seekBy:completionHandler:)]) {
+                    // Compatibility micro-seek back by 0.01s
+                    if ([strongSelf respondsToSelector:@selector(currentTime)] &&
+                        [strongSelf respondsToSelector:@selector(seekToTime:completionHandler:)]) {
                         @try {
-                            [strongSelf seekBy:-0.01 completionHandler:^(BOOL finished){
-                                // no-op
+                            // Get currentTime
+                            CMTime currentTime = (CMTime)[strongSelf currentTime];
+                            CMTime offset = CMTimeMakeWithSeconds(0.01, NSEC_PER_SEC);
+
+                            // Subtract 0.01s safely
+                            CMTime seekTime = CMTimeSubtract(currentTime, offset);
+                            if (CMTIME_COMPARE_INLINE(seekTime, <, kCMTimeZero)) {
+                                seekTime = kCMTimeZero;
+                            }
+
+                            // Perform seek
+                            [strongSelf seekToTime:seekTime completionHandler:^(BOOL finished) {
+                                // noop, just "kick" playback
                             }];
                         } @catch (NSException *ex) {
-                            // ignore if not supported
+                            // If any crash occurs, just skip
                         }
                     }
                 }
