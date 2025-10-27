@@ -81,7 +81,7 @@ NSTimer *bufferingTimer = nil;
             bufferingTimer = nil;
         }
         __weak typeof(self) weakSelf = self;
-        bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:8
+        bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:5
                                                           repeats:NO
                                                             block:^(NSTimer *timer) {
             bufferingTimer = nil;
@@ -112,8 +112,8 @@ NSTimer *bufferingTimer = nil;
                         CMTime (*msgSendCurrent)(id, SEL) =
                             (CMTime (*)(id, SEL))objc_msgSend;
                         CMTime current = msgSendCurrent(strongSelf, currentTimeSel);
-                        // Subtract 0.01s
-                        CMTime offset = CMTimeMakeWithSeconds(0.01, NSEC_PER_SEC);
+                        // Subtract 1s
+                        CMTime offset = CMTimeMakeWithSeconds(1.0, NSEC_PER_SEC);
                         CMTime seekTime = CMTimeSubtract(current, offset);
                         if (CMTIME_COMPARE_INLINE(seekTime, <, kCMTimeZero)) {
                             seekTime = kCMTimeZero;
