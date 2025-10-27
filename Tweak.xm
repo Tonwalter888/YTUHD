@@ -81,7 +81,7 @@ NSTimer *bufferingTimer = nil;
             bufferingTimer = nil;
         }
         __weak typeof(self) weakSelf = self;
-        bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:5
+        bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:8
                                                           repeats:NO
                                                             block:^(NSTimer *timer) {
             bufferingTimer = nil;
