@@ -70,15 +70,36 @@ static void hookFormats(MLABRPolicy *self) {
 
 NSTimer *bufferingTimer = nil;
 
-// Associated object key for NSTimer
 static const void *kYTBufferingTimerKey = &kYTBufferingTimerKey;
 
 static inline NSTimer *YT_GetTimer(id player) {
     return (NSTimer *)objc_getAssociatedObject(player, kYTBufferingTimerKey);
 }
-
 static inline void YT_SetTimer(id player, NSTimer *timer) {
     objc_setAssociatedObject(player, kYTBufferingTimerKey, timer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+// rewind helper
+static inline void YT_RewindSmall(id player, Float64 offset) {
+    if (!player) return;
+
+    CMTime now = kCMTimeZero;
+    if ([player respondsToSelector:@selector(currentTime)]) {
+        now = ((CMTime (*)(id, SEL))objc_msgSend)(player, @selector(currentTime));
+    }
+    Float64 sec = CMTimeGetSeconds(now);
+    if (!isfinite(sec) || sec < 0) sec = 0;
+
+    Float64 target = sec - offset;
+    if (target < 0) target = 0;
+    CMTime seekTime = CMTimeMakeWithSeconds(target, NSEC_PER_SEC);
+
+    if ([player respondsToSelector:@selector(seekToTime:completionHandler:)]) {
+        ((void (*)(id, SEL, CMTime, id))objc_msgSend)(player,
+                                                      @selector(seekToTime:completionHandler:),
+                                                      seekTime,
+                                                      nil);
+    }
 }
 
 %hook MLHAMQueuePlayer
@@ -86,86 +107,60 @@ static inline void YT_SetTimer(id player, NSTimer *timer) {
 - (void)setState:(NSInteger)state {
     %orig;
 
-    BOOL isBuffering = (state == 5 || state == 6 || state == 8);
+    // cleanup old timer
+    NSTimer *old = YT_GetTimer(self);
+    if (old) { [old invalidate]; YT_SetTimer(self, nil); }
 
-    // Cancel old timer
-    NSTimer *existing = YT_GetTimer(self);
-    if (existing) {
-        [existing invalidate];
-        YT_SetTimer(self, nil);
+    // 5/6/8 → buffering/stalling
+    if (state == 5 || state == 6 || state == 8) {
+        __weak typeof(self) weakSelf = self;
+        NSTimer *t = [NSTimer scheduledTimerWithTimeInterval:5.0
+                                                      repeats:NO
+                                                        block:^(__unused NSTimer *timer) {
+            __strong typeof(weakSelf) selfStrong = weakSelf;
+            YT_SetTimer(selfStrong, nil);
+            if (!selfStrong) return;
+
+            // rewind before reload
+            YT_RewindSmall(selfStrong, 0.01);
+
+            // trigger reload (Tap to retry)
+            id video = nil;
+            if ([selfStrong respondsToSelector:@selector(delegate)]) {
+                video = ((id (*)(id, SEL))objc_msgSend)(selfStrong, @selector(delegate));
+            }
+            id playback = nil;
+            if (video && [video respondsToSelector:@selector(delegate)]) {
+                playback = ((id (*)(id, SEL))objc_msgSend)(video, @selector(delegate));
+            }
+
+            id firstResponder = nil;
+            SEL parentSel = @selector(parentResponder);
+            if (playback && [playback respondsToSelector:parentSel]) {
+                firstResponder = ((id (*)(id, SEL))objc_msgSend)(playback, parentSel);
+            } else if (video && [video respondsToSelector:parentSel]) {
+                firstResponder = ((id (*)(id, SEL))objc_msgSend)(video, parentSel);
+            }
+
+            Class RetryEvt = objc_getClass("YTPlayerTapToRetryResponderEvent");
+            if (RetryEvt && firstResponder &&
+                [RetryEvt respondsToSelector:@selector(eventWithFirstResponder:)]) {
+                id evt = ((id (*)(id, SEL, id))objc_msgSend)(RetryEvt,
+                                                             @selector(eventWithFirstResponder:),
+                                                             firstResponder);
+                if (evt && [evt respondsToSelector:@selector(send)]) {
+                    ((void (*)(id, SEL))objc_msgSend)(evt, @selector(send));
+                }
+            }
+        }];
+        YT_SetTimer(self, t);
     }
 
-    if (!isBuffering) return;
-
-    __weak typeof(self) weakSelf = self;
-    NSTimer *t = [NSTimer scheduledTimerWithTimeInterval:4
-                                                  repeats:NO
-                                                    block:^(__unused NSTimer *timer) {
-        __strong typeof(weakSelf) selfStrong = weakSelf;
-        YT_SetTimer(selfStrong, nil);
-        if (!selfStrong) return;
-
-        // Try get currentTime
-        CMTime currentTime = kCMTimeZero;
-        SEL currentTimeSel = @selector(currentTime);
-        if ([selfStrong respondsToSelector:currentTimeSel]) {
-            currentTime = ((CMTime (*)(id, SEL))objc_msgSend)(selfStrong, currentTimeSel);
-        }
-
-        // Seek logic:
-        // - If at 0:00 → jump forward 0.01s
-        // - Else → rewind back 0.01s
-        CMTime seekTime;
-        Float64 seconds = CMTimeGetSeconds(currentTime);
-        if (seconds < 0.1) {
-            seekTime = CMTimeMakeWithSeconds(0.01, NSEC_PER_SEC);
-        } else {
-            seekTime = CMTimeMakeWithSeconds(seconds - 0.01, NSEC_PER_SEC);
-        }
-
-        SEL seekSel = @selector(seekToTime:completionHandler:);
-        if ([selfStrong respondsToSelector:seekSel]) {
-            ((void (*)(id, SEL, CMTime, id))objc_msgSend)(selfStrong,
-                                                          seekSel,
-                                                          seekTime,
-                                                          nil);
-        }
-
-        // Retry event
-        id video = nil;
-        if ([selfStrong respondsToSelector:@selector(delegate)]) {
-            video = ((id (*)(id, SEL))objc_msgSend)(selfStrong, @selector(delegate));
-        }
-
-        id playbackController = nil;
-        if (video && [video respondsToSelector:@selector(delegate)]) {
-            playbackController = ((id (*)(id, SEL))objc_msgSend)(video, @selector(delegate));
-        }
-
-        id firstResponder = nil;
-        SEL parentSel = @selector(parentResponder);
-        if (playbackController && [playbackController respondsToSelector:parentSel]) {
-            firstResponder = ((id (*)(id, SEL))objc_msgSend)(playbackController, parentSel);
-        } else if (video && [video respondsToSelector:parentSel]) {
-            firstResponder = ((id (*)(id, SEL))objc_msgSend)(video, parentSel);
-        }
-
-        Class RetryEvt = objc_getClass("YTPlayerTapToRetryResponderEvent");
-        if (RetryEvt &&
-            firstResponder &&
-            [RetryEvt respondsToSelector:@selector(eventWithFirstResponder:)]) {
-
-            id evt = ((id (*)(id, SEL, id))objc_msgSend)(RetryEvt,
-                                                         @selector(eventWithFirstResponder:),
-                                                         firstResponder);
-
-            if (evt && [evt respondsToSelector:@selector(send)]) {
-                ((void (*)(id, SEL))objc_msgSend)(evt, @selector(send));
-            }
-        }
-    }];
-
-    YT_SetTimer(self, t);
+    // 2 → playing after reload
+    else if (state == 2) {
+        // rewind again once playback resumes
+        YT_RewindSmall(self, 0.01);
+    }
 }
 
 %end
