@@ -87,6 +87,7 @@ NSTimer *bufferingTimer = nil;
             bufferingTimer = nil;
             __strong typeof(weakSelf) strongSelf = weakSelf;
             if (!strongSelf) return;
+
             id delegate = nil;
             @try {
                 if ([strongSelf respondsToSelector:@selector(delegate)]) {
@@ -95,17 +96,32 @@ NSTimer *bufferingTimer = nil;
             } @catch (NSException *ex) {
                 return;
             }
+
             id playbackController = nil;
             if (delegate && [delegate respondsToSelector:@selector(delegate)]) {
                 playbackController = [delegate delegate];
             }
+
             if (playbackController &&
                 [playbackController respondsToSelector:@selector(parentResponder)]) {
                 id responder = [playbackController parentResponder];
-                if (responder && [%c(YTPlayerTapToRetryResponderEvent) respondsToSelector:@selector(eventWithFirstResponder:)]) {
+                if (responder &&
+                    [%c(YTPlayerTapToRetryResponderEvent) respondsToSelector:@selector(eventWithFirstResponder:)]) {
+
                     id event = [%c(YTPlayerTapToRetryResponderEvent) eventWithFirstResponder:responder];
                     if ([event respondsToSelector:@selector(send)]) {
                         [event send];
+                    }
+
+                    // After retry, micro-seek backwards by 0.01s to "unstick" playback
+                    if ([strongSelf respondsToSelector:@selector(seekBy:completionHandler:)]) {
+                        @try {
+                            [strongSelf seekBy:-0.01 completionHandler:^(BOOL finished){
+                                // no-op
+                            }];
+                        } @catch (NSException *ex) {
+                            // ignore if not supported
+                        }
                     }
                 }
             }
