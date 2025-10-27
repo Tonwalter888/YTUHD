@@ -74,25 +74,42 @@ NSTimer *bufferingTimer = nil;
 
 - (void)setState:(NSInteger)state {
     %orig;
-
+    // States 5/6/8 = buffering/stalling
     if (state == 5 || state == 6 || state == 8) {
         if (bufferingTimer) {
             [bufferingTimer invalidate];
             bufferingTimer = nil;
         }
-
         __weak typeof(self) weakSelf = self;
         bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:6
-                            repeats:NO
-                            block:^(NSTimer *timer) {
-                                bufferingTimer = nil;
-                                __strong typeof(weakSelf) strongSelf = weakSelf;
-                                if (strongSelf) {
-                                    YTSingleVideoController *video = (YTSingleVideoController *)strongSelf.delegate;
-                                    YTLocalPlaybackController *playbackController = (YTLocalPlaybackController *)video.delegate;
-                                    [[%c(YTPlayerTapToRetryResponderEvent) eventWithFirstResponder:[playbackController parentResponder]] send];
-                                }
-                            }];
+                                                          repeats:NO
+                                                            block:^(NSTimer *timer) {
+            bufferingTimer = nil;
+            __strong typeof(weakSelf) strongSelf = weakSelf;
+            if (!strongSelf) return;
+            id delegate = nil;
+            @try {
+                if ([strongSelf respondsToSelector:@selector(delegate)]) {
+                    delegate = [strongSelf delegate];
+                }
+            } @catch (NSException *ex) {
+                return;
+            }
+            id playbackController = nil;
+            if (delegate && [delegate respondsToSelector:@selector(delegate)]) {
+                playbackController = [delegate delegate];
+            }
+            if (playbackController &&
+                [playbackController respondsToSelector:@selector(parentResponder)]) {
+                id responder = [playbackController parentResponder];
+                if (responder && [%c(YTPlayerTapToRetryResponderEvent) respondsToSelector:@selector(eventWithFirstResponder:)]) {
+                    id event = [%c(YTPlayerTapToRetryResponderEvent) eventWithFirstResponder:responder];
+                    if ([event respondsToSelector:@selector(send)]) {
+                        [event send];
+                    }
+                }
+            }
+        }];
     } else {
         if (bufferingTimer) {
             [bufferingTimer invalidate];
