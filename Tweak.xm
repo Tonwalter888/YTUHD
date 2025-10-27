@@ -70,15 +70,13 @@ static void hookFormats(MLABRPolicy *self) {
 
 NSTimer *bufferingTimer = nil;
 
-// Unique key for associating timers with each MLHAMQueuePlayer instance
+// Associated object key for NSTimer
 static const void *kYTBufferingTimerKey = &kYTBufferingTimerKey;
 
-// Getter for timer
 static inline NSTimer *YT_GetTimer(id player) {
     return (NSTimer *)objc_getAssociatedObject(player, kYTBufferingTimerKey);
 }
 
-// Setter for timer
 static inline void YT_SetTimer(id player, NSTimer *timer) {
     objc_setAssociatedObject(player, kYTBufferingTimerKey, timer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
@@ -90,14 +88,13 @@ static inline void YT_SetTimer(id player, NSTimer *timer) {
 
     BOOL isBuffering = (state == 5 || state == 6 || state == 8);
 
-    // Always clear old timer
+    // Cancel old timer
     NSTimer *existing = YT_GetTimer(self);
     if (existing) {
         [existing invalidate];
         YT_SetTimer(self, nil);
     }
 
-    // Only schedule retry if buffering
     if (!isBuffering) return;
 
     __weak typeof(self) weakSelf = self;
@@ -108,35 +105,37 @@ static inline void YT_SetTimer(id player, NSTimer *timer) {
         YT_SetTimer(selfStrong, nil);
         if (!selfStrong) return;
 
-        // Step 1: Try to grab delegate (YTSingleVideoController)
+        // Step 1: Try to get video (delegate of player)
         id video = nil;
         if ([selfStrong respondsToSelector:@selector(delegate)]) {
-            video = [selfStrong delegate];
+            video = ((id (*)(id, SEL))objc_msgSend)(selfStrong, @selector(delegate));
         }
 
-        // Step 2: Try to grab playbackController from video.delegate
+        // Step 2: playbackController = video.delegate
         id playbackController = nil;
         if (video && [video respondsToSelector:@selector(delegate)]) {
-            playbackController = [video delegate];
+            playbackController = ((id (*)(id, SEL))objc_msgSend)(video, @selector(delegate));
         }
 
-        // Step 3: Find a parentResponder candidate
+        // Step 3: Resolve parentResponder dynamically
         id firstResponder = nil;
-        if ([selfStrong respondsToSelector:@selector(parentResponder)]) {
-            firstResponder = [selfStrong parentResponder];
-        } else if (playbackController && [playbackController respondsToSelector:@selector(parentResponder)]) {
-            firstResponder = [playbackController parentResponder];
-        } else if (video && [video respondsToSelector:@selector(parentResponder)]) {
-            firstResponder = [video parentResponder];
+        SEL parentSel = @selector(parentResponder);
+
+        if (playbackController && [playbackController respondsToSelector:parentSel]) {
+            firstResponder = ((id (*)(id, SEL))objc_msgSend)(playbackController, parentSel);
+        } else if (video && [video respondsToSelector:parentSel]) {
+            firstResponder = ((id (*)(id, SEL))objc_msgSend)(video, parentSel);
         }
 
-        // Step 4: Fire retry event
+        // Step 4: Fire retry event if available
         Class RetryEvt = objc_getClass("YTPlayerTapToRetryResponderEvent");
         if (RetryEvt &&
             firstResponder &&
             [RetryEvt respondsToSelector:@selector(eventWithFirstResponder:)]) {
 
-            id evt = ((id (*)(id, SEL, id))objc_msgSend)(RetryEvt, @selector(eventWithFirstResponder:), firstResponder);
+            id evt = ((id (*)(id, SEL, id))objc_msgSend)(RetryEvt,
+                                                         @selector(eventWithFirstResponder:),
+                                                         firstResponder);
 
             if (evt && [evt respondsToSelector:@selector(send)]) {
                 ((void (*)(id, SEL))objc_msgSend)(evt, @selector(send));
