@@ -83,60 +83,52 @@ NSTimer *bufferingTimer = nil;
         }
 
         __weak typeof(self) weakSelf = self;
-        bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:5
+        bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:4
                                                           repeats:NO
                                                             block:^(NSTimer *timer) {
             bufferingTimer = nil;
             __strong typeof(weakSelf) strongSelf = weakSelf;
             if (!strongSelf) return;
 
-            // 🔹 Delegate chain
+            // Delegate chain
             id delegate = nil;
             @try {
                 if ([strongSelf respondsToSelector:@selector(delegate)]) {
                     delegate = [strongSelf delegate];
                 }
             } @catch (NSException *ex) { return; }
-
             id playbackController = nil;
             if (delegate && [delegate respondsToSelector:@selector(delegate)]) {
                 playbackController = [delegate delegate];
             }
-
             if (playbackController &&
                 [playbackController respondsToSelector:@selector(parentResponder)]) {
                 id responder = [playbackController parentResponder];
                 if (responder &&
                     [%c(YTPlayerTapToRetryResponderEvent) respondsToSelector:@selector(eventWithFirstResponder:)]) {
-
                     id event = [%c(YTPlayerTapToRetryResponderEvent) eventWithFirstResponder:responder];
                     if ([event respondsToSelector:@selector(send)]) {
                         [event send];
                     }
-
-                    // 🔹 Runtime micro-seek back
+                    // Runtime micro-seek back
                     SEL currentTimeSel = @selector(currentTime);
                     SEL seekSel = @selector(seekToTime:completionHandler:);
-
                     if ([strongSelf respondsToSelector:currentTimeSel] &&
                         [strongSelf respondsToSelector:seekSel]) {
                         @try {
                             // Call currentTime dynamically
                             CMTime (*msgSendCurrent)(id, SEL) = (CMTime (*)(id, SEL))objc_msgSend;
                             CMTime current = msgSendCurrent(strongSelf, currentTimeSel);
-
                             // Subtract 0.01s
                             CMTime offset = CMTimeMakeWithSeconds(0.01, NSEC_PER_SEC);
                             CMTime seekTime = CMTimeSubtract(current, offset);
                             if (CMTIME_COMPARE_INLINE(seekTime, <, kCMTimeZero)) {
                                 seekTime = kCMTimeZero;
                             }
-
                             // Call seekToTime:completionHandler: dynamically
                             void (*msgSendSeek)(id, SEL, CMTime, id) =
                                 (void (*)(id, SEL, CMTime, id))objc_msgSend;
                             msgSendSeek(strongSelf, seekSel, seekTime, nil);
-
                         } @catch (NSException *ex) {
                             // ignore if fails
                         }
