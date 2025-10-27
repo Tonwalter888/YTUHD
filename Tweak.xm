@@ -98,7 +98,7 @@ static inline void YT_SetTimer(id player, NSTimer *timer) {
     if (!isBuffering) return;
 
     __weak typeof(self) weakSelf = self;
-    NSTimer *t = [NSTimer scheduledTimerWithTimeInterval:5.0
+    NSTimer *t = [NSTimer scheduledTimerWithTimeInterval:4
                                                   repeats:NO
                                                     block:^(__unused NSTimer *timer) {
         __strong typeof(weakSelf) selfStrong = weakSelf;
