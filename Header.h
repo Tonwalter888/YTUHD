@@ -4,6 +4,7 @@
 // #import <YouTubeHeader/HAMDefaultABRPolicy.h>
 // #import <YouTubeHeader/HAMDefaultABRPolicyConfig.h>
 #import <CoreMedia/CoreMedia.h>
+#import <objc/runtime.h>
 #import <YouTubeHeader/MLABRPolicyNew.h>
 #import <YouTubeHeader/MLABRPolicyOld.h>
 #import <YouTubeHeader/MLHAMPlayerItem.h>
