@@ -105,29 +105,51 @@ static inline void YT_SetTimer(id player, NSTimer *timer) {
         YT_SetTimer(selfStrong, nil);
         if (!selfStrong) return;
 
-        // Step 1: Try to get video (delegate of player)
+        // Try get currentTime
+        CMTime currentTime = kCMTimeZero;
+        SEL currentTimeSel = @selector(currentTime);
+        if ([selfStrong respondsToSelector:currentTimeSel]) {
+            currentTime = ((CMTime (*)(id, SEL))objc_msgSend)(selfStrong, currentTimeSel);
+        }
+
+        // Seek logic:
+        // - If at 0:00 → jump forward 0.01s
+        // - Else → rewind back 0.01s
+        CMTime seekTime;
+        Float64 seconds = CMTimeGetSeconds(currentTime);
+        if (seconds < 0.1) {
+            seekTime = CMTimeMakeWithSeconds(0.01, NSEC_PER_SEC);
+        } else {
+            seekTime = CMTimeMakeWithSeconds(seconds - 0.01, NSEC_PER_SEC);
+        }
+
+        SEL seekSel = @selector(seekToTime:completionHandler:);
+        if ([selfStrong respondsToSelector:seekSel]) {
+            ((void (*)(id, SEL, CMTime, id))objc_msgSend)(selfStrong,
+                                                          seekSel,
+                                                          seekTime,
+                                                          nil);
+        }
+
+        // Retry event
         id video = nil;
         if ([selfStrong respondsToSelector:@selector(delegate)]) {
             video = ((id (*)(id, SEL))objc_msgSend)(selfStrong, @selector(delegate));
         }
 
-        // Step 2: playbackController = video.delegate
         id playbackController = nil;
         if (video && [video respondsToSelector:@selector(delegate)]) {
             playbackController = ((id (*)(id, SEL))objc_msgSend)(video, @selector(delegate));
         }
 
-        // Step 3: Resolve parentResponder dynamically
         id firstResponder = nil;
         SEL parentSel = @selector(parentResponder);
-
         if (playbackController && [playbackController respondsToSelector:parentSel]) {
             firstResponder = ((id (*)(id, SEL))objc_msgSend)(playbackController, parentSel);
         } else if (video && [video respondsToSelector:parentSel]) {
             firstResponder = ((id (*)(id, SEL))objc_msgSend)(video, parentSel);
         }
 
-        // Step 4: Fire retry event if available
         Class RetryEvt = objc_getClass("YTPlayerTapToRetryResponderEvent");
         if (RetryEvt &&
             firstResponder &&
