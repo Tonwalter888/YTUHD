@@ -114,7 +114,7 @@ static inline void YT_RewindSmall(id player, Float64 offset) {
     // 5/6/8 → buffering/stalling
     if (state == 5 || state == 6 || state == 8) {
         __weak typeof(self) weakSelf = self;
-        NSTimer *t = [NSTimer scheduledTimerWithTimeInterval:6
+        NSTimer *t = [NSTimer scheduledTimerWithTimeInterval:5
                                                       repeats:NO
                                                         block:^(__unused NSTimer *timer) {
             __strong typeof(weakSelf) selfStrong = weakSelf;
@@ -122,7 +122,7 @@ static inline void YT_RewindSmall(id player, Float64 offset) {
             if (!selfStrong) return;
 
             // rewind before reload
-            YT_RewindSmall(selfStrong, 1.0);
+            YT_RewindSmall(selfStrong, 5.0);
 
             // trigger reload (Tap to retry)
             id video = nil;
@@ -159,7 +159,7 @@ static inline void YT_RewindSmall(id player, Float64 offset) {
     // 2 → playing after reload
     else if (state == 2) {
         // rewind again once playback resumes
-        YT_RewindSmall(self, 1.0);
+        YT_RewindSmall(self, 5.0);
     }
 }
 
