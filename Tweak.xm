@@ -114,7 +114,7 @@ static inline void YT_RewindSmall(id player, Float64 offset) {
     // 5/6/8 → buffering/stalling
     if (state == 5 || state == 6 || state == 8) {
         __weak typeof(self) weakSelf = self;
-        NSTimer *t = [NSTimer scheduledTimerWithTimeInterval:5
+        NSTimer *t = [NSTimer scheduledTimerWithTimeInterval:6
                                                       repeats:NO
                                                         block:^(__unused NSTimer *timer) {
             __strong typeof(weakSelf) selfStrong = weakSelf;
