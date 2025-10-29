@@ -70,114 +70,34 @@ static void hookFormats(MLABRPolicy *self) {
 
 NSTimer *bufferingTimer = nil;
 
-static const void *kYTBufferingTimerKey = &kYTBufferingTimerKey;
-
-static inline NSTimer *YT_GetTimer(id player) {
-    return (NSTimer *)objc_getAssociatedObject(player, kYTBufferingTimerKey);
-}
-static inline void YT_SetTimer(id player, NSTimer *timer) {
-    objc_setAssociatedObject(player, kYTBufferingTimerKey, timer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-// rewind helper
-static inline void YT_RewindSmall(id player, Float64 offset) {
-    if (!player) return;
-
-    CMTime now = kCMTimeZero;
-    if ([player respondsToSelector:@selector(currentTime)]) {
-        now = ((CMTime (*)(id, SEL))objc_msgSend)(player, @selector(currentTime));
-    }
-    Float64 sec = CMTimeGetSeconds(now);
-    if (!isfinite(sec) || sec < 0) sec = 0;
-
-    Float64 target = sec - offset;
-    if (target < 0) target = 0;
-    CMTime seekTime = CMTimeMakeWithSeconds(target, NSEC_PER_SEC);
-
-    if ([player respondsToSelector:@selector(seekToTime:completionHandler:)]) {
-        ((void (*)(id, SEL, CMTime, id))objc_msgSend)(player,
-                                                      @selector(seekToTime:completionHandler:),
-                                                      seekTime,
-                                                      nil);
-    }
-}
-
 %hook MLHAMQueuePlayer
 
 - (void)setState:(NSInteger)state {
     %orig;
-
-    // cleanup old timer
-    NSTimer *old = YT_GetTimer(self);
-    if (old) { [old invalidate]; YT_SetTimer(self, nil); }
-
-    // 5/6/8 → buffering/stalling
     if (state == 5 || state == 6 || state == 8) {
-        __weak typeof(self) weakSelf = self;
-        NSTimer *t = [NSTimer scheduledTimerWithTimeInterval:6
-                                                      repeats:NO
-                                                        block:^(__unused NSTimer *timer) {
-            __strong typeof(weakSelf) selfStrong = weakSelf;
-            YT_SetTimer(selfStrong, nil);
-            if (!selfStrong) return;
-
-            // rewind before reload
-            YT_RewindSmall(selfStrong, 5.0);
-
-            // trigger reload (Tap to retry)
-            id video = nil;
-            if ([selfStrong respondsToSelector:@selector(delegate)]) {
-                video = ((id (*)(id, SEL))objc_msgSend)(selfStrong, @selector(delegate));
-            }
-            id playback = nil;
-            if (video && [video respondsToSelector:@selector(delegate)]) {
-                playback = ((id (*)(id, SEL))objc_msgSend)(video, @selector(delegate));
-            }
-
-            id firstResponder = nil;
-            SEL parentSel = @selector(parentResponder);
-            if (playback && [playback respondsToSelector:parentSel]) {
-                firstResponder = ((id (*)(id, SEL))objc_msgSend)(playback, parentSel);
-            } else if (video && [video respondsToSelector:parentSel]) {
-                firstResponder = ((id (*)(id, SEL))objc_msgSend)(video, parentSel);
-            }
-
-            Class RetryEvt = objc_getClass("YTPlayerTapToRetryResponderEvent");
-            if (RetryEvt && firstResponder &&
-                [RetryEvt respondsToSelector:@selector(eventWithFirstResponder:)]) {
-                id evt = ((id (*)(id, SEL, id))objc_msgSend)(RetryEvt,
-                                                             @selector(eventWithFirstResponder:),
-                                                             firstResponder);
-                if (evt && [evt respondsToSelector:@selector(send)]) {
-                    ((void (*)(id, SEL))objc_msgSend)(evt, @selector(send));
-                }
-            }
-        }];
-        YT_SetTimer(self, t);
-    }
-
-    // 2 → playing after reload
-    else if (state == 2) {
-        // rewind again once playback resumes
-        YT_RewindSmall(self, 5.0);
+        if (bufferingTimer) {
+            [bufferingTimer invalidate];
+            bufferingTimer = nil;
+        }
+        bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:6
+                            target:[NSBlockOperation blockOperationWithBlock:^{
+                                bufferingTimer = nil;
+                                YTSingleVideoController *video = (YTSingleVideoController *)self.delegate;
+                                YTLocalPlaybackController *playbackController = (YTLocalPlaybackController *)video.delegate;
+                                [[%c(YTPlayerTapToRetryResponderEvent) eventWithFirstResponder:[playbackController parentResponder]] send];
+                            }]
+                            selector:@selector(main)
+                            userInfo:nil
+                            repeats:NO];
+    } else {
+        if (bufferingTimer) {
+            [bufferingTimer invalidate];
+            bufferingTimer = nil;
+        }
     }
 }
 
 %end
-
-// %hook MLHAMPlayerItem
-
-// - (void)load {
-//     hookFormatsBase([self valueForKey:@"_hamplayerConfig"]);
-//     %orig;
-// }
-
-// - (void)loadWithInitialSeekRequired:(BOOL)initialSeekRequired initialSeekTime:(double)initialSeekTime {
-//     hookFormatsBase([self valueForKey:@"_hamplayerConfig"]);
-//     %orig;
-// }
-
-// %end
 
 %hook YTIHamplayerHotConfig
 
@@ -230,34 +150,6 @@ static inline void YT_RewindSmall(id player, Float64 offset) {
 }
 
 %end
-
-// %hook HAMDefaultABRPolicy
-
-// - (id)getSelectableFormatDataAndReturnError:(NSError **)error {
-//     @try {
-//         HAMDefaultABRPolicyConfig config = MSHookIvar<HAMDefaultABRPolicyConfig>(self, "_config");
-//         config.softwareAV1Filter.maxArea = MAX_PIXELS;
-//         config.softwareAV1Filter.maxFPS = MAX_FPS;
-//         config.softwareVP9Filter.maxArea = MAX_PIXELS;
-//         config.softwareVP9Filter.maxFPS = MAX_FPS;
-//         MSHookIvar<HAMDefaultABRPolicyConfig>(self, "_config") = config;
-//     } @catch (id ex) {}
-//     return %orig;
-// }
-
-// - (void)setFormats:(NSArray *)formats {
-//     @try {
-//         HAMDefaultABRPolicyConfig config = MSHookIvar<HAMDefaultABRPolicyConfig>(self, "_config");
-//         config.softwareAV1Filter.maxArea = MAX_PIXELS;
-//         config.softwareAV1Filter.maxFPS = MAX_FPS;
-//         config.softwareVP9Filter.maxArea = MAX_PIXELS;
-//         config.softwareVP9Filter.maxFPS = MAX_FPS;
-//         MSHookIvar<HAMDefaultABRPolicyConfig>(self, "_config") = config;
-//     } @catch (id ex) {}
-//     %orig;
-// }
-
-// %end
 
 %hook MLHLSStreamSelector
 
