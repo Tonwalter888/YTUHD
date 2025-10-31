@@ -120,7 +120,7 @@ NSTimer *bufferingTimer = nil;
             bufferingTimer = nil;
         }
         __weak typeof(self) weakSelf = self;
-        bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:3
+        bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:2
                             repeats:NO
                             block:^(NSTimer *timer) {
                                 bufferingTimer = nil;
