@@ -121,6 +121,18 @@ static void addSectionItem(YTSettingsViewController *settingsViewController, NSM
         }];
     [sectionItems addObject:decodeThreads];
 
+    // Use SDR (Disable HDR)
+    YTSettingsSectionItem *useSDR = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"USE_SDR")
+        titleDescription:LOC(@"USE_SDR_DESC")
+        accessibilityIdentifier:nil
+        switchOn:[[NSUserDefaults standardUserDefaults] boolForKey:UseSDRKey]
+        switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+            [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:UseSDRKey];
+            return YES;
+        }
+        settingItemId:0];
+    [sectionItems addObject:useSDR];
+
     // Skip loop filter
     YTSettingsSectionItem *skipLoopFilter = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"SKIP_LOOP_FILTER")
         titleDescription:nil
@@ -156,18 +168,6 @@ static void addSectionItem(YTSettingsViewController *settingsViewController, NSM
         }
         settingItemId:0];
     [sectionItems addObject:rowThreading];
-
-    // Use SDR (Disable HDR)
-    YTSettingsSectionItem *useSDR = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"USE_SDR")
-        titleDescription:LOC(@"USE_SDR_DESC")
-        accessibilityIdentifier:nil
-        switchOn:[[NSUserDefaults standardUserDefaults] boolForKey:UseSDRKey]
-        switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-            [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:UseSDRKey];
-            return YES;
-        }
-        settingItemId:0];
-    [sectionItems addObject:useSDR];
 
 }
 
