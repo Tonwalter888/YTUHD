@@ -14,38 +14,54 @@ extern "C" {
 
 // Remove any <= 1080p VP9 formats if AllVP9 is disabled
 NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *formats) {
-    // Disable HDR completely
-    NSMutableArray *sdrOnly = [NSMutableArray array];
-    for (id f in formats) {
-        @try {
-            // Detect HDR by colorInfo or label
+    @autoreleasepool {
+        NSMutableArray *safeFormats = [NSMutableArray array];
+        for (id f in formats) {
             BOOL isHDR = NO;
-            if ([f respondsToSelector:@selector(colorInfo)]) {
-                id ci = [f colorInfo];
-                if (ci && [ci respondsToSelector:@selector(isHdr)] && [ci isHdr]) {
-                    isHDR = YES;
+            @try {
+                // Check if format object supports colorInfo
+                if ([f respondsToSelector:@selector(colorInfo)]) {
+                    id colorInfo = [f colorInfo];
+                    if (colorInfo) {
+                        // Try all known HDR indicators across YouTube versions
+                        if ([colorInfo respondsToSelector:@selector(isHDRVideo)] &&
+                            ((BOOL)[colorInfo performSelector:@selector(isHDRVideo)])) {
+                            isHDR = YES;
+                        } else if ([colorInfo respondsToSelector:@selector(hasHdr)] &&
+                                   ((BOOL)[colorInfo performSelector:@selector(hasHdr)])) {
+                            isHDR = YES;
+                        } else if ([colorInfo respondsToSelector:@selector(colorTransfer)]) {
+                            NSInteger transferValue = (NSInteger)[colorInfo performSelector:@selector(colorTransfer)];
+                            if (transferValue > 1) isHDR = YES; // typically HDR if > 1
+                        }
+                    }
                 }
+                // Fallback text-based HDR detection (label contains "HDR")
+                if (!isHDR && [f respondsToSelector:@selector(qualityLabel)]) {
+                    NSString *label = [[f qualityLabel] lowercaseString];
+                    if ([label containsString:@"hdr"]) {
+                        isHDR = YES;
+                    }
+                }
+            } @catch (NSException *ex) {
+                // Log safely if debugging; avoid crash
+                NSLog(@"[YTUHD] Skipped unsafe format due to exception: %@", ex.reason);
             }
-            if ([f respondsToSelector:@selector(qualityLabel)]) {
-                NSString *ql = [[f qualityLabel] lowercaseString];
-                if ([ql containsString:@"hdr"]) isHDR = YES;
+            // Keep only SDR
+            if (!isHDR) {
+                [safeFormats addObject:f];
             }
-            if (!isHDR) [sdrOnly addObject:f];
-        } @catch (...) {
-            // fallback — include if uncertain
-            [sdrOnly addObject:f];
         }
+        // Apply VP9/AV1 filtering logic from your tweak
+        if (AllVP9()) return safeFormats;
+        NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(MLFormat *format, NSDictionary *bindings) {
+            NSString *qualityLabel = [format qualityLabel];
+            BOOL isHighRes = [qualityLabel hasPrefix:@"2160p"] || [qualityLabel hasPrefix:@"1440p"];
+            BOOL isVP9orAV1 = [[format MIMEType] videoCodec] == 'vp09' || [[format MIMEType] videoCodec] == 'av01';
+            return (isHighRes && isVP9orAV1) || !isVP9orAV1;
+        }];
+        return [safeFormats filteredArrayUsingPredicate:predicate];
     }
-    formats = sdrOnly;
-    // Then continue your normal VP9/AV1 filtering
-    if (AllVP9()) return formats;
-    NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(MLFormat *format, NSDictionary *bindings) {
-        NSString *qualityLabel = [format qualityLabel];
-        BOOL isHighRes = [qualityLabel hasPrefix:@"2160p"] || [qualityLabel hasPrefix:@"1440p"];
-        BOOL isVP9orAV1 = [[format MIMEType] videoCodec] == 'vp09' || [[format MIMEType] videoCodec] == 'av01';
-        return (isHighRes && isVP9orAV1) || !isVP9orAV1;
-    }];
-    return [formats filteredArrayUsingPredicate:predicate];
 }
 
 static void hookFormatsBase(YTIHamplayerConfig *config) {
