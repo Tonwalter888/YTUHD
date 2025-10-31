@@ -121,7 +121,7 @@ static void addSectionItem(YTSettingsViewController *settingsViewController, NSM
         }];
     [sectionItems addObject:decodeThreads];
 
-    // Use SDR (Disable HDR)
+    // Disable HDR
     YTSettingsSectionItem *useSDR = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"USE_SDR")
         titleDescription:LOC(@"USE_SDR_DESC")
         accessibilityIdentifier:nil
