@@ -16,7 +16,7 @@ extern "C" {
 NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *formats) {
     @autoreleasepool {
         NSMutableArray *safeFormats = [formats mutableCopy];
-        // SDR filter (if enabled)
+        // Disable HDR (If enabled)
         if (UseSDR()) {
             NSMutableArray *sdrOnly = [NSMutableArray array];
             for (id f in safeFormats) {
