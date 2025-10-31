@@ -116,7 +116,7 @@ NSTimer *bufferingTimer = nil;
             bufferingTimer = nil;
         }
         __weak typeof(self) weakSelf = self;
-        bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:4
+        bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:2
                             repeats:NO
                             block:^(NSTimer *timer) {
                                 bufferingTimer = nil;
@@ -133,6 +133,16 @@ NSTimer *bufferingTimer = nil;
             bufferingTimer = nil;
         }
     }
+}
+
+%end
+
+%hook YTIHamplayerConfig
+- (BOOL)allowAdaptiveBitrate { 
+    return NO;
+}
+- (BOOL)enableAdaptiveBitrate { 
+    return NO; 
 }
 
 %end
@@ -157,6 +167,14 @@ NSTimer *bufferingTimer = nil;
 %new(B@:)
 - (BOOL)libvpxLoopFilterOptimization {
     return LoopFilterOptimization();
+}
+
+- (BOOL)enableAdaptiveBitrate { 
+    return NO; 
+}
+
+- (BOOL)useClientAbr { 
+    return NO; 
 }
 
 %end
@@ -185,6 +203,29 @@ NSTimer *bufferingTimer = nil;
 
 - (BOOL)iosPlayerClientSharedConfigHamplayerAlwaysEnqueueDecodedSampleBuffersToAvsbdl {
     return YES;
+}
+
+- (BOOL)iosPlayerClientSharedConfigHamplayerDisableAbr {
+    return YES;
+}
+
+- (BOOL)iosPlayerClientSharedConfigDisableAbrDuringPlayback {
+    return YES;
+}
+
+- (BOOL)iosPlayerClientSharedConfigDisableAbrInGeneral {
+    return YES;
+}
+
+%end
+
+%hook YTHotConfigGroup
+- (BOOL)hasClientAbrConfig { 
+    return NO;
+}
+
+- (BOOL)shouldUseServerDrivenAbr {
+    return NO;
 }
 
 %end
