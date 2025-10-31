@@ -14,6 +14,30 @@ extern "C" {
 
 // Remove any <= 1080p VP9 formats if AllVP9 is disabled
 NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *formats) {
+    // Disable HDR completely
+    NSMutableArray *sdrOnly = [NSMutableArray array];
+    for (id f in formats) {
+        @try {
+            // Detect HDR by colorInfo or label
+            BOOL isHDR = NO;
+            if ([f respondsToSelector:@selector(colorInfo)]) {
+                id ci = [f colorInfo];
+                if (ci && [ci respondsToSelector:@selector(isHdr)] && [ci isHdr]) {
+                    isHDR = YES;
+                }
+            }
+            if ([f respondsToSelector:@selector(qualityLabel)]) {
+                NSString *ql = [[f qualityLabel] lowercaseString];
+                if ([ql containsString:@"hdr"]) isHDR = YES;
+            }
+            if (!isHDR) [sdrOnly addObject:f];
+        } @catch (...) {
+            // fallback — include if uncertain
+            [sdrOnly addObject:f];
+        }
+    }
+    formats = sdrOnly;
+    // Then continue your normal VP9/AV1 filtering
     if (AllVP9()) return formats;
     NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(MLFormat *format, NSDictionary *bindings) {
         NSString *qualityLabel = [format qualityLabel];
