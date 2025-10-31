@@ -15,9 +15,11 @@ extern "C" {
 
 NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *formats) {
     @autoreleasepool {
+        NSMutableArray *safeFormats = [formats mutableCopy];
+        // SDR filter (if enabled)
         if (UseSDR()) {
             NSMutableArray *sdrOnly = [NSMutableArray array];
-            for (id f in formats) {
+            for (id f in safeFormats) {
                 BOOL isHDR = NO;
                 @try {
                     if ([f respondsToSelector:@selector(colorInfo)]) {
@@ -44,7 +46,7 @@ NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *formats) {
                 } @catch (NSException *ex) {}
                 if (!isHDR) [sdrOnly addObject:f];
             }
-            formats = sdrOnly;
+            safeFormats = sdrOnly;
         }
         // Apply VP9/AV1 filtering logic
         if (AllVP9()) return safeFormats;
