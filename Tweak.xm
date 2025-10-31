@@ -7,52 +7,46 @@ extern "C" {
     BOOL UseVP9();
     BOOL AllVP9();
     int DecodeThreads();
+    BOOL UseSDR();
     BOOL SkipLoopFilter();
     BOOL LoopFilterOptimization();
     BOOL RowThreading();
 }
 
-// Remove any <= 1080p VP9 formats if AllVP9 is disabled
 NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *formats) {
     @autoreleasepool {
-        NSMutableArray *safeFormats = [NSMutableArray array];
-        for (id f in formats) {
-            BOOL isHDR = NO;
-            @try {
-                // Check if format object supports colorInfo
-                if ([f respondsToSelector:@selector(colorInfo)]) {
-                    id colorInfo = [f colorInfo];
-                    if (colorInfo) {
-                        // Try all known HDR indicators across YouTube versions
-                        if ([colorInfo respondsToSelector:@selector(isHDRVideo)] &&
-                            ((BOOL)[colorInfo performSelector:@selector(isHDRVideo)])) {
-                            isHDR = YES;
-                        } else if ([colorInfo respondsToSelector:@selector(hasHdr)] &&
-                                   ((BOOL)[colorInfo performSelector:@selector(hasHdr)])) {
-                            isHDR = YES;
-                        } else if ([colorInfo respondsToSelector:@selector(colorTransfer)]) {
-                            NSInteger transferValue = (NSInteger)[colorInfo performSelector:@selector(colorTransfer)];
-                            if (transferValue > 1) isHDR = YES; // typically HDR if > 1
+        if (UseSDR()) {
+            NSMutableArray *sdrOnly = [NSMutableArray array];
+            for (id f in formats) {
+                BOOL isHDR = NO;
+                @try {
+                    if ([f respondsToSelector:@selector(colorInfo)]) {
+                        id colorInfo = [f colorInfo];
+                        if (colorInfo) {
+                            if ([colorInfo respondsToSelector:@selector(isHDRVideo)] &&
+                                ((BOOL)[colorInfo performSelector:@selector(isHDRVideo)])) {
+                                isHDR = YES;
+                            } else if ([colorInfo respondsToSelector:@selector(hasHdr)] &&
+                                       ((BOOL)[colorInfo performSelector:@selector(hasHdr)])) {
+                                isHDR = YES;
+                            } else if ([colorInfo respondsToSelector:@selector(colorTransfer)]) {
+                                NSInteger transferValue = (NSInteger)[colorInfo performSelector:@selector(colorTransfer)];
+                                if (transferValue > 1) isHDR = YES;
+                            }
                         }
                     }
-                }
-                // Fallback text-based HDR detection (label contains "HDR")
-                if (!isHDR && [f respondsToSelector:@selector(qualityLabel)]) {
-                    NSString *label = [[f qualityLabel] lowercaseString];
-                    if ([label containsString:@"hdr"]) {
-                        isHDR = YES;
+                    if (!isHDR && [f respondsToSelector:@selector(qualityLabel)]) {
+                        NSString *label = [[f qualityLabel] lowercaseString];
+                        if ([label containsString:@"hdr"]) {
+                            isHDR = YES;
+                        }
                     }
-                }
-            } @catch (NSException *ex) {
-                // Log safely if debugging; avoid crash
-                NSLog(@"[YTUHD] Skipped unsafe format due to exception: %@", ex.reason);
+                } @catch (NSException *ex) {}
+                if (!isHDR) [sdrOnly addObject:f];
             }
-            // Keep only SDR
-            if (!isHDR) {
-                [safeFormats addObject:f];
-            }
+            formats = sdrOnly;
         }
-        // Apply VP9/AV1 filtering logic from your tweak
+        // Apply VP9/AV1 filtering logic
         if (AllVP9()) return safeFormats;
         NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(MLFormat *format, NSDictionary *bindings) {
             NSString *qualityLabel = [format qualityLabel];
