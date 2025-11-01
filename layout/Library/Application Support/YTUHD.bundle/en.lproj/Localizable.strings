@@ -16,4 +16,4 @@
 "ROW_THREADING" = "Row threading";
 
 "USE_SDR" = "Disable HDR";
-"USE_SDR_DESC" = "Force playback to not use HDR color mode. This will fix HDR videos buffering.";
+"USE_SDR_DESC" = "Force playback to not use HDR color mode. This will fix missing video quality for HDR videos.";
