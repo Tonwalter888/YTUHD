@@ -16,7 +16,7 @@ extern "C" {
 NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *formats) {
     @autoreleasepool {
         NSMutableArray *safeFormats = [formats mutableCopy];
-        // Disable HDR (If enabled)
+        // Remove HDR color if Disable HDR is enabled
         if (UseSDR()) {
             NSMutableArray *sdrOnly = [NSMutableArray array];
             for (id f in safeFormats) {
@@ -44,19 +44,32 @@ NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *formats) {
                         }
                     }
                 } @catch (NSException *ex) {}
-                if (!isHDR) [sdrOnly addObject:f];
+                if (!isHDR) {
+                    [sdrOnly addObject:f];
+                }
             }
             safeFormats = sdrOnly;
         }
-        // Apply VP9/AV1 filtering logic
-        if (AllVP9()) return safeFormats;
-        NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(MLFormat *format, NSDictionary *bindings) {
-            NSString *qualityLabel = [format qualityLabel];
-            BOOL isHighRes = [qualityLabel hasPrefix:@"2160p"] || [qualityLabel hasPrefix:@"1440p"];
-            BOOL isVP9orAV1 = [[format MIMEType] videoCodec] == 'vp09' || [[format MIMEType] videoCodec] == 'av01';
-            return (isHighRes && isVP9orAV1) || !isVP9orAV1;
-        }];
-        return [safeFormats filteredArrayUsingPredicate:predicate];
+        if (AllVP9()) {
+            // If AllVP9 enabled → Force VP9 only
+            NSMutableArray *vp9Only = [NSMutableArray array];
+            for (MLFormat *format in safeFormats) {
+                NSString *mime = [format MIMEType];
+                if ([mime containsString:@"vp9"] || [mime containsString:@"vp09"]) {
+                    [vp9Only addObject:format];
+                }
+            }
+            return vp9Only;
+        } else {
+            // If AllVP9 disabled → Apply OG logic
+            NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(MLFormat *format, NSDictionary *bindings) {
+                NSString *qualityLabel = [format qualityLabel];
+                BOOL isHighRes = [qualityLabel hasPrefix:@"2160p"] || [qualityLabel hasPrefix:@"1440p"];
+                BOOL isVP9orAV1 = [[format MIMEType] videoCodec] == 'vp09' || [[format MIMEType] videoCodec] == 'av01';
+                return (isHighRes && isVP9orAV1) || !isVP9orAV1;
+            }];
+            return [safeFormats filteredArrayUsingPredicate:predicate];
+        }
     }
 }
 
