@@ -2,7 +2,7 @@
 
 extern BOOL UseVP9();
 
-#ifdef SIDELOADED
+#ifdef ENSUREUHD
 
 typedef struct OpaqueVTVideoDecoder VTVideoDecoderRef;
 extern OSStatus VTSelectAndCreateVideoDecoderInstance(CMVideoCodecType codecType, CFAllocatorRef allocator, CFDictionaryRef videoDecoderSpecification, VTVideoDecoderRef *decoderInstanceOut);
@@ -10,7 +10,7 @@ extern OSStatus VTSelectAndCreateVideoDecoderInstance(CMVideoCodecType codecType
 #endif
 
 %ctor {
-#ifdef SIDELOADED
+#ifdef ENSUREUHD
     CFMutableDictionaryRef payload = CFDictionaryCreateMutable(kCFAllocatorDefault, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
     if (payload) {
         CFDictionarySetValue(payload, CFSTR("RequireHardwareAcceleratedVideoDecoder"), kCFBooleanTrue);
