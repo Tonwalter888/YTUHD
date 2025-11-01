@@ -104,6 +104,43 @@ static void hookFormats(MLABRPolicy *self) {
 
 %end
 
+NSTimer *bufferingTimer = nil;
+
+%hook MLHAMQueuePlayer
+
+- (void)setState:(NSInteger)state {
+    %orig;
+
+    // Only reload video if AllVP9 is enabled
+    if (!AllVP9()) return;
+
+    if (state == 5 || state == 6 || state == 8) {
+        if (bufferingTimer) {
+            [bufferingTimer invalidate];
+            bufferingTimer = nil;
+        }
+        __weak typeof(self) weakSelf = self;
+        bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:2
+                                                         repeats:NO
+                                                           block:^(NSTimer *timer) {
+            bufferingTimer = nil;
+            __strong typeof(weakSelf) strongSelf = weakSelf;
+            if (strongSelf) {
+                YTSingleVideoController *video = (YTSingleVideoController *)strongSelf.delegate;
+                YTLocalPlaybackController *playbackController = (YTLocalPlaybackController *)video.delegate;
+                [[%c(YTPlayerTapToRetryResponderEvent) eventWithFirstResponder:[playbackController parentResponder]] send];
+            }
+        }];
+    } else {
+        if (bufferingTimer) {
+            [bufferingTimer invalidate];
+            bufferingTimer = nil;
+        }
+    }
+}
+
+%end
+
 %hook YTIHamplayerConfig
 - (BOOL)allowAdaptiveBitrate { 
     return NO;
