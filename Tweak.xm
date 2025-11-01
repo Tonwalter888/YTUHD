@@ -49,7 +49,7 @@ NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *formats) {
             safeFormats = sdrOnly;
         }
         // Apply VP9/AV1 filtering logic
-        if (AllVP9()) return safeFormats;
+        if (!AllVP9()) return safeFormats;
         NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(MLFormat *format, NSDictionary *bindings) {
             NSString *qualityLabel = [format qualityLabel];
             BOOL isHighRes = [qualityLabel hasPrefix:@"2160p"] || [qualityLabel hasPrefix:@"1440p"];
@@ -100,43 +100,6 @@ static void hookFormats(MLABRPolicy *self) {
 - (void)setFormats:(NSArray *)formats {
     hookFormats(self);
     %orig(filteredFormats(formats));
-}
-
-%end
-
-NSTimer *bufferingTimer = nil;
-
-%hook MLHAMQueuePlayer
-
-- (void)setState:(NSInteger)state {
-    %orig;
-
-    // Only reload video if AllVP9 is enabled
-    if (!AllVP9()) return;
-
-    if (state == 5 || state == 6 || state == 8) {
-        if (bufferingTimer) {
-            [bufferingTimer invalidate];
-            bufferingTimer = nil;
-        }
-        __weak typeof(self) weakSelf = self;
-        bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:2
-                                                         repeats:NO
-                                                           block:^(NSTimer *timer) {
-            bufferingTimer = nil;
-            __strong typeof(weakSelf) strongSelf = weakSelf;
-            if (strongSelf) {
-                YTSingleVideoController *video = (YTSingleVideoController *)strongSelf.delegate;
-                YTLocalPlaybackController *playbackController = (YTLocalPlaybackController *)video.delegate;
-                [[%c(YTPlayerTapToRetryResponderEvent) eventWithFirstResponder:[playbackController parentResponder]] send];
-            }
-        }];
-    } else {
-        if (bufferingTimer) {
-            [bufferingTimer invalidate];
-            bufferingTimer = nil;
-        }
-    }
 }
 
 %end
