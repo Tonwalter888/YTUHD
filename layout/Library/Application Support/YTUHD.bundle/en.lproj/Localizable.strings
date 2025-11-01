@@ -3,7 +3,7 @@
 "HW_VP9_SUPPORT" = "Hardware VP9 Support";
 
 "ALL_VP9" = "VP9 for all";
-"ALL_VP9_DESC" = "Use VP9 codec for all video resolutions. This is recommended to be enabled for hardware VP9 supported devices (A12 and higher) AND when YouTube app has VP9 entitlement. This may cause some playback issues.";
+"ALL_VP9_DESC" = "Use VP9 codec for all video resolutions. This is recommended to be enabled for hardware VP9 supported devices (A12 and higher) AND when YouTube app has VP9 entitlement. Enabling this may cause some playback issues.";
 
 "DECODE_THREADS" = "Decode threads";
 "DECODE_THREADS_DESC" = "Number of threads used for VP9 video decoding. Higher values may improve video playback performance but may also increase battery consumption.";
