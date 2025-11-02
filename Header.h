@@ -22,7 +22,7 @@
 #define UseVP9Key @"EnableVP9"
 #define AllVP9Key @"AllVP9"
 #define DecodeThreadsKey @"VP9DecodeThreads"
-#define UseSDRKey @"UseSDR"
+#define OldDevicesKey @"OldDevices"
 #define SkipLoopFilterKey @"VP9SkipLoopFilter"
 #define LoopFilterOptimizationKey @"VP9LoopFilterOptimization"
 #define RowThreadingKey @"VP9RowThreading"

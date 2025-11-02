@@ -21,8 +21,8 @@ int DecodeThreads() {
     return [[NSUserDefaults standardUserDefaults] integerForKey:DecodeThreadsKey];
 }
 
-BOOL UseSDR() {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:UseSDRKey];
+BOOL OldDevices() {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:OldDevicesKey];
 }
 
 BOOL SkipLoopFilter() {
@@ -78,6 +78,18 @@ static void addSectionItem(YTSettingsViewController *settingsViewController, NSM
         settingItemId:0];
     [sectionItems addObject:vp9];
 
+    // All VP9
+    YTSettingsSectionItem *allVP9 = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"ALL_VP9")
+        titleDescription:LOC(@"ALL_VP9_DESC")
+        accessibilityIdentifier:nil
+        switchOn:AllVP9()
+        switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+            [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:AllVP9Key];
+            return YES;
+        }
+        settingItemId:0];
+    [sectionItems addObject:allVP9];
+
     // Decode threads
     NSString *decodeThreadsTitle = LOC(@"DECODE_THREADS");
     YTSettingsSectionItem *decodeThreads = [YTSettingsSectionItemClass itemWithTitle:decodeThreadsTitle
@@ -109,17 +121,17 @@ static void addSectionItem(YTSettingsViewController *settingsViewController, NSM
         }];
     [sectionItems addObject:decodeThreads];
 
-    // Disable HDR
-    YTSettingsSectionItem *useSDR = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"USE_SDR")
-        titleDescription:LOC(@"USE_SDR_DESC")
+    // Optimize for old devices
+    YTSettingsSectionItem *oldDevices = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"OLD_DEVICES")
+        titleDescription:LOC(@"OLD_DEVICES_DESC")
         accessibilityIdentifier:nil
-        switchOn:[[NSUserDefaults standardUserDefaults] boolForKey:UseSDRKey]
+        switchOn:[[NSUserDefaults standardUserDefaults] boolForKey:OldDevicesKey]
         switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-            [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:UseSDRKey];
+            [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:OldDevicesKey];
             return YES;
         }
         settingItemId:0];
-    [sectionItems addObject:useSDR];
+    [sectionItems addObject:oldDevices];
 
     // Skip loop filter
     YTSettingsSectionItem *skipLoopFilter = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"SKIP_LOOP_FILTER")

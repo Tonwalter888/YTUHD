@@ -7,57 +7,22 @@ extern "C" {
     BOOL UseVP9();
     BOOL AllVP9();
     int DecodeThreads();
-    BOOL UseSDR();
+    BOOL OldDevices();
     BOOL SkipLoopFilter();
     BOOL LoopFilterOptimization();
     BOOL RowThreading();
 }
 
+// Remove any <= 1080p VP9 formats if AllVP9 is disabled
 NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *formats) {
-    @autoreleasepool {
-        NSMutableArray *safeFormats = [formats mutableCopy];
-        // Disable HDR (If enabled)
-        if (UseSDR()) {
-            NSMutableArray *sdrOnly = [NSMutableArray array];
-            for (id f in safeFormats) {
-                BOOL isHDR = NO;
-                @try {
-                    if ([f respondsToSelector:@selector(colorInfo)]) {
-                        id colorInfo = [f colorInfo];
-                        if (colorInfo) {
-                            if ([colorInfo respondsToSelector:@selector(isHDRVideo)] &&
-                                ((BOOL)[colorInfo performSelector:@selector(isHDRVideo)])) {
-                                isHDR = YES;
-                            } else if ([colorInfo respondsToSelector:@selector(hasHdr)] &&
-                                       ((BOOL)[colorInfo performSelector:@selector(hasHdr)])) {
-                                isHDR = YES;
-                            } else if ([colorInfo respondsToSelector:@selector(colorTransfer)]) {
-                                NSInteger transferValue = (NSInteger)[colorInfo performSelector:@selector(colorTransfer)];
-                                if (transferValue > 1) isHDR = YES;
-                            }
-                        }
-                    }
-                    if (!isHDR && [f respondsToSelector:@selector(qualityLabel)]) {
-                        NSString *label = [[f qualityLabel] lowercaseString];
-                        if ([label containsString:@"hdr"]) {
-                            isHDR = YES;
-                        }
-                    }
-                } @catch (NSException *ex) {}
-                if (!isHDR) [sdrOnly addObject:f];
-            }
-            safeFormats = sdrOnly;
-        }
-        // Apply VP9/AV1 filtering logic
-        if (!AllVP9()) return safeFormats;
-        NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(MLFormat *format, NSDictionary *bindings) {
-            NSString *qualityLabel = [format qualityLabel];
-            BOOL isHighRes = [qualityLabel hasPrefix:@"2160p"] || [qualityLabel hasPrefix:@"1440p"];
-            BOOL isVP9orAV1 = [[format MIMEType] videoCodec] == 'vp09' || [[format MIMEType] videoCodec] == 'av01';
-            return (isHighRes && isVP9orAV1) || !isVP9orAV1;
-        }];
-        return [safeFormats filteredArrayUsingPredicate:predicate];
-    }
+    if (!OldDevices()) return formats;
+    NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(MLFormat *format, NSDictionary *bindings) {
+        NSString *qualityLabel = [format qualityLabel];
+        BOOL isHighRes = [qualityLabel hasPrefix:@"2160p"] || [qualityLabel hasPrefix:@"1440p"];
+        BOOL isVP9orAV1 = [[format MIMEType] videoCodec] == 'vp09' || [[format MIMEType] videoCodec] == 'av01';
+        return (isHighRes && isVP9orAV1) || !isVP9orAV1;
+    }];
+    return [formats filteredArrayUsingPredicate:predicate];
 }
 
 static void hookFormatsBase(YTIHamplayerConfig *config) {
