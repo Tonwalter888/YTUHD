@@ -15,8 +15,8 @@ extern "C" {
 NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *formats) {
     if (!AllVP9()) return formats;
     NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(MLFormat *format, NSDictionary *bindings) {
-        NSString *qualityLabel = [format qualityLabel];
-        BOOL isVP9 = [[[format MIMEType] description] containsString:@"vp09"];
+        NSString *mimeTypeStr = [[format MIMEType] description];
+        BOOL isVP9 = (mimeTypeStr && [mimeTypeStr containsString:@"vp09"]);
         return isVP9;
     }];
     return [formats filteredArrayUsingPredicate:predicate];
