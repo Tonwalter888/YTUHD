@@ -5,9 +5,3 @@
 "DECODE_THREADS" = "خيوط فك التشفير";
 "DECODE_THREADS_DESC" = "عدد الخيوط المستخدمة في فك تشفير فيديو VP9. قد تؤدي القيم الأعلى إلى تحسين أداء تشغيل الفيديو ولكنها قد تزيد أيضًا من استهلاك البطارية.";
 "DECODE_THREADS_DEFAULT_VALUE" = "القيمة الافتراضية";
-
-"SKIP_LOOP_FILTER" = "Skip loop filter";
-
-"LOOP_FILTER_OPTIMIZATION" = "Loop filter optimization";
-
-"ROW_THREADING" = "Row threading";

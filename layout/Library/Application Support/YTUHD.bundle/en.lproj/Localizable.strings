@@ -6,9 +6,3 @@
 "DECODE_THREADS_DESC" = "Number of threads used for VP9 video decoding. Higher values may improve video playback performance but may also increase battery consumption.";
 "DECODE_THREADS_DEFAULT_VALUE" = "Default value";
 
-"SKIP_LOOP_FILTER" = "Skip loop filter";
-
-"LOOP_FILTER_OPTIMIZATION" = "Loop filter optimization";
-
-"ROW_THREADING" = "Row threading";
-

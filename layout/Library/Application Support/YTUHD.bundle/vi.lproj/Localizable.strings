@@ -5,9 +5,3 @@
 "DECODE_THREADS" = "Luồng giải mã";
 "DECODE_THREADS_DESC" = "Số lượng luồng được sử dụng để giải mã video VP9. Giá trị cao hơn có thể cải thiện hiệu suất phát video nhưng cũng có thể tăng mức tiêu thụ pin.";
 "DECODE_THREADS_DEFAULT_VALUE" = "Giá trị mặc định";
-
-"SKIP_LOOP_FILTER" = "Skip loop filter";
-
-"LOOP_FILTER_OPTIMIZATION" = "Loop filter optimization";
-
-"ROW_THREADING" = "Row threading";

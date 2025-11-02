@@ -5,9 +5,3 @@
 "DECODE_THREADS" = "Threads decode";
 "DECODE_THREADS_DESC" = "Jumlah threads yang digunakan untuk decoding video VP9. Nilai yang lebih tinggi dapat meningkatkan kinerja pemutaran video tetapi juga dapat meningkatkan konsumsi baterai.";
 "DECODE_THREADS_DEFAULT_VALUE" = "Nilai default";
-
-"SKIP_LOOP_FILTER" = "Skip loop filter";
-
-"LOOP_FILTER_OPTIMIZATION" = "Loop filter optimization";
-
-"ROW_THREADING" = "Row threading";

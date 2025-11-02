@@ -6,9 +6,6 @@
 extern "C" {
     BOOL UseVP9();
     int DecodeThreads();
-    BOOL SkipLoopFilter();
-    BOOL LoopFilterOptimization();
-    BOOL RowThreading();
 }
 
 NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *formats) {
@@ -74,21 +71,6 @@ static void hookFormats(MLABRPolicy *self) {
 %new(i@:)
 - (int)libvpxDecodeThreads {
     return DecodeThreads();
-}
-
-%new(B@:)
-- (BOOL)libvpxRowThreading {
-    return RowThreading();
-}
-
-%new(B@:)
-- (BOOL)libvpxSkipLoopFilter {
-    return SkipLoopFilter();
-}
-
-%new(B@:)
-- (BOOL)libvpxLoopFilterOptimization {
-    return LoopFilterOptimization();
 }
 
 - (BOOL)enableAdaptiveBitrate { 
