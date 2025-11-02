@@ -6,9 +6,22 @@
 extern "C" {
     BOOL UseVP9();
     int DecodeThreads();
+    BOOL Nothing();
     BOOL SkipLoopFilter();
     BOOL LoopFilterOptimization();
     BOOL RowThreading();
+}
+
+// Remove any <= 1080p VP9 formats if OldDevices is enabled
+NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *formats) {
+    if (!Nothing()) return formats;
+    NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(MLFormat *format, NSDictionary *bindings) {
+        NSString *qualityLabel = [format qualityLabel];
+        BOOL isHighRes = [qualityLabel hasPrefix:@"2160p"] || [qualityLabel hasPrefix:@"1440p"];
+        BOOL isVP9orAV1 = [[format MIMEType] videoCodec] == 'vp09' || [[format MIMEType] videoCodec] == 'av01';
+        return (isHighRes && isVP9orAV1) || !isVP9orAV1;
+    }];
+    return [formats filteredArrayUsingPredicate:predicate];
 }
 
 static void hookFormatsBase(YTIHamplayerConfig *config) {
@@ -23,6 +36,37 @@ static void hookFormatsBase(YTIHamplayerConfig *config) {
     filter.vp9.maxArea = MAX_PIXELS;
     filter.vp9.maxFps = MAX_FPS;
 }
+
+static void hookFormats(MLABRPolicy *self) {
+    hookFormatsBase([self valueForKey:@"_hamplayerConfig"]);
+}
+
+%hook MLABRPolicy
+
+- (void)setFormats:(NSArray *)formats {
+    hookFormats(self);
+    %orig(filteredFormats(formats));
+}
+
+%end
+
+%hook MLABRPolicyOld
+
+- (void)setFormats:(NSArray *)formats {
+    hookFormats(self);
+    %orig(filteredFormats(formats));
+}
+
+%end
+
+%hook MLABRPolicyNew
+
+- (void)setFormats:(NSArray *)formats {
+    hookFormats(self);
+    %orig(filteredFormats(formats));
+}
+
+%end
 
 %hook YTIHamplayerConfig
 - (BOOL)allowAdaptiveBitrate { 
