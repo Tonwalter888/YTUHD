@@ -5,6 +5,7 @@
 
 extern "C" {
     BOOL UseVP9();
+    BOOL AllVP9();
     int DecodeThreads();
     BOOL SkipLoopFilter();
     BOOL LoopFilterOptimization();
@@ -12,7 +13,48 @@ extern "C" {
 }
 
 NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *formats) {
-    return formats; // Do nothing, return all formats (no filtering)
+    @autoreleasepool {
+        // Ensure formats are valid
+        if (!formats || formats.count == 0)
+            return formats;
+        // Force VP9 codec if AllVP9 is enabled
+        if (AllVP9()) {
+            NSMutableArray *vp9Formats = [NSMutableArray array];
+            NSMutableArray *fallbackFormats = [NSMutableArray array];
+            for (MLFormat *f in formats) {
+                @try {
+                    // Check if format reports MIME type properly
+                    if ([f respondsToSelector:@selector(MIMEType)]) {
+                        NSString *mimeType = [f MIMEType];
+                        if (mimeType && [mimeType containsString:@"vp09"]) {
+                            [vp9Formats addObject:f];
+                            continue;
+                        }
+                    }
+                    // Some builds use videoCodec instead of MIMEType
+                    if ([f respondsToSelector:@selector(videoCodec)]) {
+                        NSString *codec = [f videoCodec];
+                        if (codec && [codec containsString:@"vp09"]) {
+                            [vp9Formats addObject:f];
+                            continue;
+                        }
+                    }
+
+                    [fallbackFormats addObject:f];
+                }
+                @catch (NSException *ex) {
+                    // Never crash YouTube, just skip invalid formats
+                }
+            }
+            // If VP9 formats exist, return only those
+            if (vp9Formats.count > 0)
+                return vp9Formats;
+            // Otherwise return all formats
+            return formats;
+        }
+        // If AllVP9 is off, keep everything
+        return formats;
+    }
 }
 
 static void hookFormatsBase(YTIHamplayerConfig *config) {
