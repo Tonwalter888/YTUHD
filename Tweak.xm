@@ -13,9 +13,9 @@ extern "C" {
     BOOL RowThreading();
 }
 
-// Remove any <= 1080p VP9 formats if AllVP9 is disabled
+// Remove any <= 1080p VP9 formats if OldDevices is enabled
 NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *formats) {
-    if (AllVP9() && !OldDevices()) return formats;
+    if (!OldDevices()) return formats;
     NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(MLFormat *format, NSDictionary *bindings) {
         NSString *qualityLabel = [format qualityLabel];
         BOOL isHighRes = [qualityLabel hasPrefix:@"2160p"] || [qualityLabel hasPrefix:@"1440p"];
