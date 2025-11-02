@@ -13,36 +13,13 @@ extern "C" {
 }
 
 NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *formats) {
-    @autoreleasepool {
-        if (!formats || formats.count == 0)
-            return formats;
-        // If AllVP9 is enabled, force VP9 formats only
-        if (AllVP9()) {
-            NSMutableArray *vp9Formats = [NSMutableArray array];
-            NSMutableArray *fallbackFormats = [NSMutableArray array];
-            for (MLFormat *f in formats) {
-                @try {
-                    if ([f respondsToSelector:@selector(MIMEType)]) {
-                        id mimeTypeObj = [f MIMEType];
-                        NSString *mimeString = [mimeTypeObj description];
-                        if (mimeString && [mimeString containsString:@"vp09"]) {
-                            [vp9Formats addObject:f];
-                            continue;
-                        }
-                    }
-                    [fallbackFormats addObject:f];
-                } @catch (NSException *ex) {
-                }
-            }
-            // Use VP9 if any exist, otherwise fallback to all
-            if (vp9Formats.count > 0)
-                return vp9Formats;
-            else
-                return formats;
-        }
-        // Otherwise (AllVP9 off), just return everything
-        return formats;
-    }
+    if (!AllVP9()) return formats;
+    NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(MLFormat *format, NSDictionary *bindings) {
+        NSString *qualityLabel = [format qualityLabel];
+        BOOL isVP9 = [[[format MIMEType] description] containsString:@"vp09"];
+        return isVP9;
+    }];
+    return [formats filteredArrayUsingPredicate:predicate];
 }
 
 static void hookFormatsBase(YTIHamplayerConfig *config) {
