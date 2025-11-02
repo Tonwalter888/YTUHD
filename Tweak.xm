@@ -5,7 +5,6 @@
 
 extern "C" {
     BOOL UseVP9();
-    BOOL AllVP9();
     int DecodeThreads();
     BOOL SkipLoopFilter();
     BOOL LoopFilterOptimization();
@@ -13,13 +12,7 @@ extern "C" {
 }
 
 NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *formats) {
-    if (!AllVP9()) return formats;
-    NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(MLFormat *format, NSDictionary *bindings) {
-        NSString *mimeTypeStr = [[format MIMEType] description];
-        BOOL isVP9 = (mimeTypeStr && [mimeTypeStr containsString:@"vp09"]);
-        return isVP9;
-    }];
-    return [formats filteredArrayUsingPredicate:predicate];
+    return formats;
 }
 
 static void hookFormatsBase(YTIHamplayerConfig *config) {
