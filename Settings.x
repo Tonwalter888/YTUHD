@@ -9,10 +9,6 @@
 
 #define LOC(x) [tweakBundle localizedStringForKey:x value:nil table:nil]
 
-BOOL Nothing() {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:NothingKey];
-}
-
 BOOL UseVP9() {
     return [[NSUserDefaults standardUserDefaults] boolForKey:UseVP9Key];
 }

@@ -20,7 +20,6 @@
 #define MAX_PIXELS 8294400 // 3840 x 2160 (4k)
 
 #define UseVP9Key @"EnableVP9"
-#define NothingKey @"Nothing"
 #define DecodeThreadsKey @"VP9DecodeThreads"
 #define SkipLoopFilterKey @"VP9SkipLoopFilter"
 #define LoopFilterOptimizationKey @"VP9LoopFilterOptimization"
