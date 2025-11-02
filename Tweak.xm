@@ -14,45 +14,33 @@ extern "C" {
 
 NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *formats) {
     @autoreleasepool {
-        // Ensure formats are valid
         if (!formats || formats.count == 0)
             return formats;
-        // Force VP9 codec if AllVP9 is enabled
+        // If AllVP9 is enabled, force VP9 formats only
         if (AllVP9()) {
             NSMutableArray *vp9Formats = [NSMutableArray array];
             NSMutableArray *fallbackFormats = [NSMutableArray array];
             for (MLFormat *f in formats) {
                 @try {
-                    // Check if format reports MIME type properly
                     if ([f respondsToSelector:@selector(MIMEType)]) {
-                        NSString *mimeType = [f MIMEType];
-                        if (mimeType && [mimeType containsString:@"vp09"]) {
+                        id mimeTypeObj = [f MIMEType];
+                        NSString *mimeString = [mimeTypeObj description];
+                        if (mimeString && [mimeString containsString:@"vp09"]) {
                             [vp9Formats addObject:f];
                             continue;
                         }
                     }
-                    // Some builds use videoCodec instead of MIMEType
-                    if ([f respondsToSelector:@selector(videoCodec)]) {
-                        NSString *codec = [f videoCodec];
-                        if (codec && [codec containsString:@"vp09"]) {
-                            [vp9Formats addObject:f];
-                            continue;
-                        }
-                    }
-
                     [fallbackFormats addObject:f];
-                }
-                @catch (NSException *ex) {
-                    // Never crash YouTube, just skip invalid formats
+                } @catch (NSException *ex) {
                 }
             }
-            // If VP9 formats exist, return only those
+            // Use VP9 if any exist, otherwise fallback to all
             if (vp9Formats.count > 0)
                 return vp9Formats;
-            // Otherwise return all formats
-            return formats;
+            else
+                return formats;
         }
-        // If AllVP9 is off, keep everything
+        // Otherwise (AllVP9 off), just return everything
         return formats;
     }
 }
