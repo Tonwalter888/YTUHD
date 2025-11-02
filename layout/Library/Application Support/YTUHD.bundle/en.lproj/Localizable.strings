@@ -16,4 +16,4 @@
 "ROW_THREADING" = "Row threading";
 
 "OLD_DEVICES" = "Optimize for old devices";
-"OLD_DEVICES_DESC" = "By removing any video quality that are <1080p";
+"OLD_DEVICES_DESC" = "By removing any video quality that are <=1080p in some videos.";
