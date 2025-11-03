@@ -70,30 +70,11 @@ static void hookFormats(MLABRPolicy *self) {
 
 %end
 
-%hook YTIHamplayerConfig
-
-- (BOOL)allowAdaptiveBitrate { 
-    return NO;
-}
-- (BOOL)enableAdaptiveBitrate { 
-    return NO; 
-}
-
-%end
-
 %hook YTIHamplayerHotConfig
 
 %new(i@:)
 - (int)libvpxDecodeThreads {
     return DecodeThreads();
-}
-
-- (BOOL)enableAdaptiveBitrate { 
-    return NO; 
-}
-
-- (BOOL)useClientAbr { 
-    return NO; 
 }
 
 %end
@@ -128,34 +109,7 @@ static void hookFormats(MLABRPolicy *self) {
     return YES;
 }
 
-- (BOOL)iosPlayerClientSharedConfigHamplayerDisableAbr {
-    return YES;
-}
-
-- (BOOL)iosPlayerClientSharedConfigDisableAbrDuringPlayback {
-    return YES;
-}
-
-- (BOOL)iosPlayerClientSharedConfigDisableAbrInGeneral {
-    return YES;
-}
-
 %end
-
-%hook YTHotConfigGroup
-
-- (BOOL)hasClientAbrConfig { 
-    return NO;
-}
-
-- (BOOL)shouldUseServerDrivenAbr {
-    return NO;
-}
-
-%end
-
-@interface HAMDefaultABRPolicy : NSObject
-@end
 
 %hook HAMDefaultABRPolicy
 
