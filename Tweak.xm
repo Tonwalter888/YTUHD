@@ -125,14 +125,6 @@ static void hookFormats(MLABRPolicy *self) {
     return YES;
 }
 
-- (BOOL)iosPlayerClientSharedConfigHamplayerPrepareVideoDecoderForAvsbdl {
-    return YES;
-}
-
-- (BOOL)iosPlayerClientSharedConfigHamplayerAlwaysEnqueueDecodedSampleBuffersToAvsbdl {
-    return YES;
-}
-
 %end
 
 %hook YTHotConfigGroup
