@@ -89,6 +89,10 @@ static void hookFormats(MLABRPolicy *self) {
     return YES;
 }
 
+- (BOOL)iosPlayerClientSharedConfigDisableLibvpxDecoder {
+    return NO;
+}
+
 %end
 
 %hook YTHotConfig
@@ -118,6 +122,14 @@ static void hookFormats(MLABRPolicy *self) {
 }
 
 - (BOOL)iosPlayerClientSharedConfigDisableAbrInGeneral {
+    return YES;
+}
+
+- (BOOL)iosPlayerClientSharedConfigHamplayerPrepareVideoDecoderForAvsbdl {
+    return YES;
+}
+
+- (BOOL)iosPlayerClientSharedConfigHamplayerAlwaysEnqueueDecodedSampleBuffersToAvsbdl {
     return YES;
 }
 
