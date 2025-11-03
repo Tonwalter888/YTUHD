@@ -139,10 +139,6 @@ static void hookFormats(MLABRPolicy *self) {
     return YES;
 }
 
-- (BOOL)iosPlayerClientSharedConfigPostponeCabrPreferredFormatFiltering {
-    return YES;
-}
-
 %end
 
 %hook YTHotConfigGroup
