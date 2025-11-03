@@ -56,6 +56,20 @@ static void hookFormats(MLABRPolicy *self) {
 
 %end
 
+%hook MLHAMPlayerItem
+
+- (void)load {
+    hookFormatsBase([self valueForKey:@"_hamplayerConfig"]);
+    %orig;
+}
+
+- (void)loadWithInitialSeekRequired:(BOOL)initialSeekRequired initialSeekTime:(double)initialSeekTime {
+    hookFormatsBase([self valueForKey:@"_hamplayerConfig"]);
+    %orig;
+}
+
+%end
+
 %hook YTIHamplayerConfig
 - (BOOL)allowAdaptiveBitrate { 
     return NO;
@@ -122,6 +136,10 @@ static void hookFormats(MLABRPolicy *self) {
 }
 
 - (BOOL)iosPlayerClientSharedConfigDisableAbrInGeneral {
+    return YES;
+}
+
+- (BOOL)iosPlayerClientSharedConfigPostponeCabrPreferredFormatFiltering {
     return YES;
 }
 
