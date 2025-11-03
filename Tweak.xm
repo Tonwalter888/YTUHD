@@ -111,6 +111,9 @@ static void hookFormats(MLABRPolicy *self) {
 
 %end
 
+@interface HAMDefaultABRPolicy : NSObject
+@end
+
 %hook HAMDefaultABRPolicy
 
 - (id)getSelectableFormatDataAndReturnError:(NSError **)error {
