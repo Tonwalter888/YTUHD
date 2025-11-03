@@ -71,6 +71,7 @@ static void hookFormats(MLABRPolicy *self) {
 %end
 
 %hook YTIHamplayerConfig
+
 - (BOOL)allowAdaptiveBitrate { 
     return NO;
 }
@@ -142,6 +143,7 @@ static void hookFormats(MLABRPolicy *self) {
 %end
 
 %hook YTHotConfigGroup
+
 - (BOOL)hasClientAbrConfig { 
     return NO;
 }
