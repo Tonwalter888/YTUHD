@@ -138,6 +138,20 @@ static void hookFormats(MLABRPolicy *self) {
 
 %end
 
+%hook HAMDefaultABRPolicy
+
+- (id)getSelectableFormatDataAndReturnError:(NSError **)error {
+    [self setValue:@(NO) forKey:@"_postponePreferredFormatFiltering"];
+    return filteredFormats(%orig);
+}
+
+- (void)setFormats:(NSArray *)formats {
+    [self setValue:@(YES) forKey:@"_postponePreferredFormatFiltering"];
+    %orig(filteredFormats(formats));
+}
+
+%end
+
 %hook MLHLSStreamSelector
 
 - (void)didLoadHLSMasterPlaylist:(id)arg1 {
