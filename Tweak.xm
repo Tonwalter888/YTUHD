@@ -68,7 +68,7 @@ NSTimer *bufferingTimer = nil;
             bufferingTimer = nil;
         }
         __weak typeof(self) weakSelf = self;
-        NSTimeInterval waitTime = 2.0;
+        NSTimeInterval waitTime = 2;
         YTSingleVideoController *videoController = (YTSingleVideoController *)self.delegate;
         MLFormat *format = nil;
         if ([videoController respondsToSelector:@selector(currentVideoFormat)]) {
@@ -77,7 +77,7 @@ NSTimer *bufferingTimer = nil;
         if ([format isKindOfClass:%c(MLFormat)]) {
             NSString *qualityLabel = [format qualityLabel];
             if ([qualityLabel hasPrefix:@"1440p"] || [qualityLabel hasPrefix:@"2160p"]) {
-                waitTime = 10.0;
+                waitTime = 10;
             }
         }
         bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:waitTime
