@@ -56,6 +56,51 @@ static void hookFormats(MLABRPolicy *self) {
 
 %end
 
+NSTimer *bufferingTimer = nil;
+
+%hook MLHAMQueuePlayer
+
+- (void)setState:(NSInteger)state {
+    %orig;
+    if (state == 5 || state == 6 || state == 8) {
+        if (bufferingTimer) {
+            [bufferingTimer invalidate];
+            bufferingTimer = nil;
+        }
+        __weak typeof(self) weakSelf = self;
+        NSTimeInterval waitTime = 2.0;
+        YTSingleVideoController *videoController = (YTSingleVideoController *)self.delegate;
+        MLFormat *format = nil;
+        if ([videoController respondsToSelector:@selector(currentVideoFormat)]) {
+            format = [videoController performSelector:@selector(currentVideoFormat)];
+        }
+        if ([format isKindOfClass:%c(MLFormat)]) {
+            NSString *qualityLabel = [format qualityLabel];
+            if ([qualityLabel hasPrefix:@"1440p"] || [qualityLabel hasPrefix:@"2160p"]) {
+                waitTime = 10.0;
+            }
+        }
+        bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:waitTime
+                            repeats:NO
+                            block:^(NSTimer *timer) {
+                                bufferingTimer = nil;
+                                __strong typeof(weakSelf) strongSelf = weakSelf;
+                                if (strongSelf) {
+                                    YTSingleVideoController *video = (YTSingleVideoController *)strongSelf.delegate;
+                                    YTLocalPlaybackController *playbackController = (YTLocalPlaybackController *)video.delegate;
+                                    [[%c(YTPlayerTapToRetryResponderEvent) eventWithFirstResponder:[playbackController parentResponder]] send];
+                                }
+                            }];
+    } else {
+        if (bufferingTimer) {
+            [bufferingTimer invalidate];
+            bufferingTimer = nil;
+        }
+    }
+}
+
+%end
+
 %hook MLHAMPlayerItem
 
 - (void)load {
