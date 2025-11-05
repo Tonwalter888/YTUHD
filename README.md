@@ -5,4 +5,4 @@ This requried at least iOS 14 and recommend at least A12 chip for the best 2K an
 
 - The reason I created this repo because the latest version of YTUHD required libundirect and there are some problems with Cydiasubstrate.framework that doesn't work with YTUHD.
 - I edited the auto reload logic and update some A/B settings from PoomSmart so now 2K and 4K videos should playing fine.
-- Maybe this repo might help you! If you find any bug,you can open a new issue or make a PR to here.
+- Maybe this repo might help you! If you find any bugs,you can open a new issue or make a PR to here.
