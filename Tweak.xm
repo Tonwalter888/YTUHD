@@ -29,31 +29,47 @@ static void hookFormats(MLABRPolicy *self) {
     hookFormatsBase([self valueForKey:@"_hamplayerConfig"]);
 }
 
-%hook MLABRPolicy
+static BOOL gYTUHD_HasHighRes = NO;
+static BOOL ytuhd_formatsContainHighRes(NSArray<MLFormat *> *formats) {
+    for (id f in formats) {
+        if ([f respondsToSelector:@selector(qualityLabel)]) {
+            NSString *ql = [(MLFormat *)f qualityLabel];
+            if ([ql hasPrefix:@"2160p"] || [ql hasPrefix:@"1440p"]) {
+                return YES;
+            }
+        }
+        // (Optional) fallback by dimensions if exposed:
+        if ([f respondsToSelector:@selector(width)] && [f respondsToSelector:@selector(height)]) {
+            NSInteger w = (NSInteger)[(MLFormat *)f performSelector:@selector(width)];
+            NSInteger h = (NSInteger)[(MLFormat *)f performSelector:@selector(height)];
+            if (h >= 1440 || w >= 2560) return YES;
+        }
+    }
+    return NO;
+}
 
+%hook MLABRPolicy
 - (void)setFormats:(NSArray *)formats {
+    gYTUHD_HasHighRes = ytuhd_formatsContainHighRes(formats);
     hookFormats(self);
     %orig(filteredFormats(formats));
 }
-
 %end
 
 %hook MLABRPolicyOld
-
 - (void)setFormats:(NSArray *)formats {
+    gYTUHD_HasHighRes = ytuhd_formatsContainHighRes(formats);
     hookFormats(self);
     %orig(filteredFormats(formats));
 }
-
 %end
 
 %hook MLABRPolicyNew
-
 - (void)setFormats:(NSArray *)formats {
+    gYTUHD_HasHighRes = ytuhd_formatsContainHighRes(formats);
     hookFormats(self);
     %orig(filteredFormats(formats));
 }
-
 %end
 
 NSTimer *bufferingTimer = nil;
@@ -68,18 +84,7 @@ NSTimer *bufferingTimer = nil;
             bufferingTimer = nil;
         }
         __weak typeof(self) weakSelf = self;
-        NSTimeInterval waitTime = 2;
-        YTSingleVideoController *videoController = (YTSingleVideoController *)self.delegate;
-        MLFormat *format = nil;
-        if ([videoController respondsToSelector:@selector(currentVideoFormat)]) {
-            format = [videoController performSelector:@selector(currentVideoFormat)];
-        }
-        if ([format isKindOfClass:%c(MLFormat)]) {
-            NSString *qualityLabel = [format qualityLabel];
-            if ([qualityLabel hasPrefix:@"1440p"] || [qualityLabel hasPrefix:@"2160p"]) {
-                waitTime = 10;
-            }
-        }
+        NSTimeInterval waitTime = gYTUHD_HasHighRes ? 10.0 : 2.0;
         bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:waitTime
                             repeats:NO
                             block:^(NSTimer *timer) {
