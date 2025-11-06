@@ -49,27 +49,33 @@ static BOOL ytuhd_formatsContainHighRes(NSArray<MLFormat *> *formats) {
 }
 
 %hook MLABRPolicy
+
 - (void)setFormats:(NSArray *)formats {
     gYTUHD_HasHighRes = ytuhd_formatsContainHighRes(formats);
     hookFormats(self);
     %orig(filteredFormats(formats));
 }
+
 %end
 
 %hook MLABRPolicyOld
+
 - (void)setFormats:(NSArray *)formats {
     gYTUHD_HasHighRes = ytuhd_formatsContainHighRes(formats);
     hookFormats(self);
     %orig(filteredFormats(formats));
 }
+
 %end
 
 %hook MLABRPolicyNew
+
 - (void)setFormats:(NSArray *)formats {
     gYTUHD_HasHighRes = ytuhd_formatsContainHighRes(formats);
     hookFormats(self);
     %orig(filteredFormats(formats));
 }
+
 %end
 
 NSTimer *bufferingTimer = nil;
@@ -84,7 +90,7 @@ NSTimer *bufferingTimer = nil;
             bufferingTimer = nil;
         }
         __weak typeof(self) weakSelf = self;
-        NSTimeInterval waitTime = gYTUHD_HasHighRes ? 10.0 : 2.0;
+        NSTimeInterval waitTime = gYTUHD_HasHighRes ? 10 : 2;
         bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:waitTime
                             repeats:NO
                             block:^(NSTimer *timer) {
