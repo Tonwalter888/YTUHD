@@ -167,9 +167,6 @@ NSTimer *bufferingTimer = nil;
 
 %end
 
-@interface HAMDefaultABRPolicy : NSObject
-@end
-
 %hook HAMDefaultABRPolicy
 
 - (id)getSelectableFormatDataAndReturnError:(NSError **)error {
