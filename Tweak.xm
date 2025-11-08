@@ -30,9 +30,23 @@ static void hookFormats(MLABRPolicy *self) {
     hookFormatsBase([self valueForKey:@"_hamplayerConfig"]);
 }
 
+static BOOL gYTUHD_HasHighRes = NO;
+static BOOL ytuhd_formatsContainHighRes(NSArray<MLFormat *> *formats) {
+    for (id f in formats) {
+        if ([f respondsToSelector:@selector(qualityLabel)]) {
+            NSString *ql = [(MLFormat *)f qualityLabel];
+            if ([ql containsString:@"HDR"]) {
+                return YES;
+            }
+        }
+    }
+    return NO;
+}
+
 %hook MLABRPolicy
 
 - (void)setFormats:(NSArray *)formats {
+    gYTUHD_HasHighRes = ytuhd_formatsContainHighRes(formats);
     hookFormats(self);
     %orig(filteredFormats(formats));
 }
@@ -42,6 +56,7 @@ static void hookFormats(MLABRPolicy *self) {
 %hook MLABRPolicyOld
 
 - (void)setFormats:(NSArray *)formats {
+    gYTUHD_HasHighRes = ytuhd_formatsContainHighRes(formats);
     hookFormats(self);
     %orig(filteredFormats(formats));
 }
@@ -51,8 +66,44 @@ static void hookFormats(MLABRPolicy *self) {
 %hook MLABRPolicyNew
 
 - (void)setFormats:(NSArray *)formats {
+    gYTUHD_HasHighRes = ytuhd_formatsContainHighRes(formats);
     hookFormats(self);
     %orig(filteredFormats(formats));
+}
+
+%end
+
+NSTimer *bufferingTimer = nil;
+
+%hook MLHAMQueuePlayer
+
+- (void)setState:(NSInteger)state {
+    %orig;
+    if (AllVP9()) return;
+    if (state == 5 || state == 6 || state == 8) {
+        if (bufferingTimer) {
+            [bufferingTimer invalidate];
+            bufferingTimer = nil;
+        }
+        __weak typeof(self) weakSelf = self;
+        NSTimeInterval waitTime = gYTUHD_HasHighRes ? 9 : 2;
+        bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:waitTime
+                            repeats:NO
+                            block:^(NSTimer *timer) {
+                                bufferingTimer = nil;
+                                __strong typeof(weakSelf) strongSelf = weakSelf;
+                                if (strongSelf) {
+                                    YTSingleVideoController *video = (YTSingleVideoController *)strongSelf.delegate;
+                                    YTLocalPlaybackController *playbackController = (YTLocalPlaybackController *)video.delegate;
+                                    [[%c(YTPlayerTapToRetryResponderEvent) eventWithFirstResponder:[playbackController parentResponder]] send];
+                                }
+                            }];
+    } else {
+        if (bufferingTimer) {
+            [bufferingTimer invalidate];
+            bufferingTimer = nil;
+        }
+    }
 }
 
 %end
