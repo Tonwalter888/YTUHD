@@ -90,7 +90,7 @@ NSTimer *bufferingTimer = nil;
             bufferingTimer = nil;
         }
         __weak typeof(self) weakSelf = self;
-        NSTimeInterval waitTime = gYTUHD_HasHighRes ? 10 : 2;
+        NSTimeInterval waitTime = gYTUHD_HasHighRes ? 9 : 2;
         bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:waitTime
                             repeats:NO
                             block:^(NSTimer *timer) {
