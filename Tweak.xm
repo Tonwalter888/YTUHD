@@ -5,6 +5,7 @@
 
 extern "C" {
     BOOL UseVP9();
+    BOOL AllVP9();
     int DecodeThreads();
 }
 
@@ -29,29 +30,9 @@ static void hookFormats(MLABRPolicy *self) {
     hookFormatsBase([self valueForKey:@"_hamplayerConfig"]);
 }
 
-static BOOL gYTUHD_HasHighRes = NO;
-static BOOL ytuhd_formatsContainHighRes(NSArray<MLFormat *> *formats) {
-    for (id f in formats) {
-        if ([f respondsToSelector:@selector(qualityLabel)]) {
-            NSString *ql = [(MLFormat *)f qualityLabel];
-            if ([ql hasPrefix:@"2160p"] || [ql hasPrefix:@"1440p"]) {
-                return YES;
-            }
-        }
-        // (Optional) fallback by dimensions if exposed:
-        if ([f respondsToSelector:@selector(width)] && [f respondsToSelector:@selector(height)]) {
-            NSInteger w = (NSInteger)[(MLFormat *)f performSelector:@selector(width)];
-            NSInteger h = (NSInteger)[(MLFormat *)f performSelector:@selector(height)];
-            if (h >= 1440 || w >= 2560) return YES;
-        }
-    }
-    return NO;
-}
-
 %hook MLABRPolicy
 
 - (void)setFormats:(NSArray *)formats {
-    gYTUHD_HasHighRes = ytuhd_formatsContainHighRes(formats);
     hookFormats(self);
     %orig(filteredFormats(formats));
 }
@@ -61,7 +42,6 @@ static BOOL ytuhd_formatsContainHighRes(NSArray<MLFormat *> *formats) {
 %hook MLABRPolicyOld
 
 - (void)setFormats:(NSArray *)formats {
-    gYTUHD_HasHighRes = ytuhd_formatsContainHighRes(formats);
     hookFormats(self);
     %orig(filteredFormats(formats));
 }
@@ -71,43 +51,8 @@ static BOOL ytuhd_formatsContainHighRes(NSArray<MLFormat *> *formats) {
 %hook MLABRPolicyNew
 
 - (void)setFormats:(NSArray *)formats {
-    gYTUHD_HasHighRes = ytuhd_formatsContainHighRes(formats);
     hookFormats(self);
     %orig(filteredFormats(formats));
-}
-
-%end
-
-NSTimer *bufferingTimer = nil;
-
-%hook MLHAMQueuePlayer
-
-- (void)setState:(NSInteger)state {
-    %orig;
-    if (state == 5 || state == 6 || state == 8) {
-        if (bufferingTimer) {
-            [bufferingTimer invalidate];
-            bufferingTimer = nil;
-        }
-        __weak typeof(self) weakSelf = self;
-        NSTimeInterval waitTime = gYTUHD_HasHighRes ? 9 : 2;
-        bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:waitTime
-                            repeats:NO
-                            block:^(NSTimer *timer) {
-                                bufferingTimer = nil;
-                                __strong typeof(weakSelf) strongSelf = weakSelf;
-                                if (strongSelf) {
-                                    YTSingleVideoController *video = (YTSingleVideoController *)strongSelf.delegate;
-                                    YTLocalPlaybackController *playbackController = (YTLocalPlaybackController *)video.delegate;
-                                    [[%c(YTPlayerTapToRetryResponderEvent) eventWithFirstResponder:[playbackController parentResponder]] send];
-                                }
-                            }];
-    } else {
-        if (bufferingTimer) {
-            [bufferingTimer invalidate];
-            bufferingTimer = nil;
-        }
-    }
 }
 
 %end
@@ -138,7 +83,7 @@ NSTimer *bufferingTimer = nil;
 %hook YTColdConfig
 
 - (BOOL)iosPlayerClientSharedConfigPopulateSwAv1MediaCapabilities {
-    return YES;
+    return !AllVP9();
 }
 
 - (BOOL)iosPlayerClientSharedConfigDisableLibvpxDecoder {
