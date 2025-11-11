@@ -35,7 +35,26 @@ NSBundle *YTUHDBundle() {
 
 - (void)updateVideoQualitySectionWithEntry:(id)entry {
     YTHotConfig *hotConfig = [self valueForKey:@"_hotConfig"];
-    YTIMediaQualitySettingsHotConfig *mediaQualitySettingsHotConfig = [hotConfig hotConfigGroup].mediaHotConfig.mediaQualitySettingsHotConfig;
+    if (!hotConfig) {
+        %orig;
+        return;
+    }
+    id group = [hotConfig hotConfigGroup];
+    if (!group || ![group respondsToSelector:@selector(mediaHotConfig)]) {
+        %orig;
+        return;
+    }
+    id mediaHotConfig = [group mediaHotConfig];
+    if (!mediaHotConfig || ![mediaHotConfig respondsToSelector:@selector(mediaQualitySettingsHotConfig)]) {
+        %orig;
+        return;
+    }
+    YTIMediaQualitySettingsHotConfig *mediaQualitySettingsHotConfig =
+        [mediaHotConfig mediaQualitySettingsHotConfig];
+    if (!mediaQualitySettingsHotConfig) {
+        mediaQualitySettingsHotConfig = [%c(YTIMediaQualitySettingsHotConfig) new];
+        [mediaHotConfig setMediaQualitySettingsHotConfig:mediaQualitySettingsHotConfig];
+    }
     BOOL defaultValue = mediaQualitySettingsHotConfig.enablePersistentVideoQualitySettings;
     mediaQualitySettingsHotConfig.enablePersistentVideoQualitySettings = YES;
     %orig;
@@ -52,7 +71,7 @@ static void addSectionItem(YTSettingsViewController *settingsViewController, NSM
 
     // Use VP9
     YTSettingsSectionItem *vp9 = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"USE_VP9")
-        titleDescription:[NSString stringWithFormat:@"%@\n\n%@: %d", LOC(@"USE_VP9_DESC"), LOC(@"HW_VP9_SUPPORT"), hasVP9]
+        titleDescription:LOC(@"USE_VP9_DESC")
         accessibilityIdentifier:nil
         switchOn:UseVP9()
         switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
