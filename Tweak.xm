@@ -57,18 +57,12 @@ static void hookFormats(MLABRPolicy *self) {
 
 %end
 
-static NSInteger lastKnownState = -1;
-static NSDate *lastStateChangeTime = nil;
 NSTimer *bufferingTimer = nil;
 
 %hook MLHAMQueuePlayer
 
 - (void)setState:(NSInteger)state {
     %orig;
-    if (lastKnownState != state) {
-        lastKnownState = state;
-        lastStateChangeTime = [NSDate date];
-    }
     if (state == 5 || state == 6 || state == 8) {
         if (bufferingTimer) {
             [bufferingTimer invalidate];
@@ -76,18 +70,16 @@ NSTimer *bufferingTimer = nil;
         }
         __weak typeof(self) weakSelf = self;
         bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:2
-                                                          repeats:NO
-                                                            block:^(NSTimer *timer) {
-            __strong typeof(weakSelf) strongSelf = weakSelf;
-            bufferingTimer = nil;
-            if (!strongSelf) return;
-            if (lastKnownState == 6 && [[NSDate date] timeIntervalSinceDate:lastStateChangeTime] >= 2) {
-                YTSingleVideoController *video = (YTSingleVideoController *)strongSelf.delegate;
-                YTLocalPlaybackController *playbackController = (YTLocalPlaybackController *)video.delegate;
-                [[%c(YTPlayerTapToRetryResponderEvent)
-                    eventWithFirstResponder:[playbackController parentResponder]] send];
-            }
-        }];
+                            repeats:NO
+                            block:^(NSTimer *timer) {
+                                bufferingTimer = nil;
+                                __strong typeof(weakSelf) strongSelf = weakSelf;
+                                if (strongSelf) {
+                                    YTSingleVideoController *video = (YTSingleVideoController *)strongSelf.delegate;
+                                    YTLocalPlaybackController *playbackController = (YTLocalPlaybackController *)video.delegate;
+                                    [[%c(YTPlayerTapToRetryResponderEvent) eventWithFirstResponder:[playbackController parentResponder]] send];
+                                }
+                            }];
     } else {
         if (bufferingTimer) {
             [bufferingTimer invalidate];
