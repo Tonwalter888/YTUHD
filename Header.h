@@ -13,7 +13,7 @@
 
 #define IOS_BUILD "19H394"
 #define MAX_FPS 60
-#define MAX_PIXELS 8294400 // 3840 x 2160 (4k)
+#define MAX_PIXELS 8294400 // 3840 x 2160 (4K)
 
 #define UseVP9Key @"EnableVP9"
 #define AllVP9Key @"AllVP9"
