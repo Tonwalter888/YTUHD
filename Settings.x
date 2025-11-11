@@ -66,7 +66,6 @@ NSBundle *YTUHDBundle() {
 static void addSectionItem(YTSettingsViewController *settingsViewController, NSMutableArray <YTSettingsSectionItem *> *sectionItems, NSInteger category) {
     if (category != 14) return;
     NSBundle *tweakBundle = YTUHDBundle();
-    BOOL hasVP9 = VTIsHardwareDecodeSupported(kCMVideoCodecType_VP9);
     Class YTSettingsSectionItemClass = %c(YTSettingsSectionItem);
 
     // Use VP9
