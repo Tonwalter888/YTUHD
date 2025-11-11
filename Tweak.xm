@@ -81,7 +81,7 @@ NSTimer *bufferingTimer = nil;
             __strong typeof(weakSelf) strongSelf = weakSelf;
             bufferingTimer = nil;
             if (!strongSelf) return;
-            if (lastKnownState == 6 && [[NSDate date] timeIntervalSinceDate:lastStateChangeTime] >= waitTime) {
+            if (lastKnownState == 6 && [[NSDate date] timeIntervalSinceDate:lastStateChangeTime] >= 2) {
                 YTSingleVideoController *video = (YTSingleVideoController *)strongSelf.delegate;
                 YTLocalPlaybackController *playbackController = (YTLocalPlaybackController *)video.delegate;
                 [[%c(YTPlayerTapToRetryResponderEvent)
