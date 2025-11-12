@@ -57,39 +57,6 @@ static void hookFormats(MLABRPolicy *self) {
 
 %end
 
-NSTimer *bufferingTimer = nil;
-
-%hook MLHAMQueuePlayer
-
-- (void)setState:(NSInteger)state {
-    %orig;
-    if (state == 5 || state == 6 || state == 8) {
-        if (bufferingTimer) {
-            [bufferingTimer invalidate];
-            bufferingTimer = nil;
-        }
-        __weak typeof(self) weakSelf = self;
-        bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:5
-                            repeats:NO
-                            block:^(NSTimer *timer) {
-                                bufferingTimer = nil;
-                                __strong typeof(weakSelf) strongSelf = weakSelf;
-                                if (strongSelf) {
-                                    YTSingleVideoController *video = (YTSingleVideoController *)strongSelf.delegate;
-                                    YTLocalPlaybackController *playbackController = (YTLocalPlaybackController *)video.delegate;
-                                    [[%c(YTPlayerTapToRetryResponderEvent) eventWithFirstResponder:[playbackController parentResponder]] send];
-                                }
-                            }];
-    } else {
-        if (bufferingTimer) {
-            [bufferingTimer invalidate];
-            bufferingTimer = nil;
-        }
-    }
-}
-
-%end
-
 %hook MLHAMPlayerItem
 
 - (void)load {
