@@ -150,4 +150,23 @@ static void addSectionItem(YTSettingsViewController *settingsViewController, NSM
     %orig(mutableItems, category, title, icon, titleDescription, headerHidden);
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    %orig;
+    // Delay rebuild to ensure all configs are loaded
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if ([self respondsToSelector:@selector(reloadData)]) {
+            // Force rebuild of video quality section (category 14)
+            @try {
+                if ([self respondsToSelector:@selector(reloadCategory:)]) {
+                    [self performSelector:@selector(reloadCategory:) withObject:@(14)];
+                } else {
+                    [self reloadData];
+                }
+            } @catch (NSException *e) {
+                NSLog(@"[YTUHD] Failed to reload video quality section: %@", e);
+            }
+        }
+    });
+}
+
 %end
