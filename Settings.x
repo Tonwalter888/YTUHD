@@ -35,26 +35,7 @@ NSBundle *YTUHDBundle() {
 
 - (void)updateVideoQualitySectionWithEntry:(id)entry {
     YTHotConfig *hotConfig = [self valueForKey:@"_hotConfig"];
-    if (!hotConfig) {
-        %orig;
-        return;
-    }
-    id group = [hotConfig hotConfigGroup];
-    if (!group || ![group respondsToSelector:@selector(mediaHotConfig)]) {
-        %orig;
-        return;
-    }
-    id mediaHotConfig = [group mediaHotConfig];
-    if (!mediaHotConfig || ![mediaHotConfig respondsToSelector:@selector(mediaQualitySettingsHotConfig)]) {
-        %orig;
-        return;
-    }
-    YTIMediaQualitySettingsHotConfig *mediaQualitySettingsHotConfig =
-        [mediaHotConfig mediaQualitySettingsHotConfig];
-    if (!mediaQualitySettingsHotConfig) {
-        mediaQualitySettingsHotConfig = [%c(YTIMediaQualitySettingsHotConfig) new];
-        [mediaHotConfig setMediaQualitySettingsHotConfig:mediaQualitySettingsHotConfig];
-    }
+    YTIMediaQualitySettingsHotConfig *mediaQualitySettingsHotConfig = [hotConfig hotConfigGroup].mediaHotConfig.mediaQualitySettingsHotConfig;
     BOOL defaultValue = mediaQualitySettingsHotConfig.enablePersistentVideoQualitySettings;
     mediaQualitySettingsHotConfig.enablePersistentVideoQualitySettings = YES;
     %orig;
@@ -135,7 +116,7 @@ static void addSectionItem(YTSettingsViewController *settingsViewController, NSM
 {
     NSMutableArray *mutableItems = [NSMutableArray arrayWithArray:sectionItems];
     addSectionItem(self, mutableItems, category);
-    %orig(mutableItems, category, title, titleDescription, headerHidden);
+    %orig;
 }
 
 - (void)setSectionItems:(NSMutableArray <YTSettingsSectionItem *> *)sectionItems
@@ -147,26 +128,7 @@ static void addSectionItem(YTSettingsViewController *settingsViewController, NSM
 {
     NSMutableArray *mutableItems = [NSMutableArray arrayWithArray:sectionItems];
     addSectionItem(self, mutableItems, category);
-    %orig(mutableItems, category, title, icon, titleDescription, headerHidden);
-}
-
-- (void)viewWillAppear:(BOOL)animated {
     %orig;
-    // Delay rebuild to ensure all configs are loaded
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if ([self respondsToSelector:@selector(reloadData)]) {
-            // Force rebuild of video quality section (category 14)
-            @try {
-                if ([self respondsToSelector:@selector(reloadCategory:)]) {
-                    [self performSelector:@selector(reloadCategory:) withObject:@(14)];
-                } else {
-                    [self reloadData];
-                }
-            } @catch (NSException *e) {
-                NSLog(@"[YTUHD] Failed to reload video quality section: %@", e);
-            }
-        }
-    });
 }
 
 %end
