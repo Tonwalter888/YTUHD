@@ -114,8 +114,9 @@ static void addSectionItem(YTSettingsViewController *settingsViewController, NSM
           titleDescription:(NSString *)titleDescription
              headerHidden:(BOOL)headerHidden
 {
-    %orig;
+    NSMutableArray *mutableItems = [NSMutableArray arrayWithArray:sectionItems];
     addSectionItem(self, mutableItems, category);
+    %orig(mutableItems, category, title, titleDescription, headerHidden);
 }
 
 - (void)setSectionItems:(NSMutableArray <YTSettingsSectionItem *> *)sectionItems
@@ -125,8 +126,9 @@ static void addSectionItem(YTSettingsViewController *settingsViewController, NSM
           titleDescription:(NSString *)titleDescription
              headerHidden:(BOOL)headerHidden
 {
-    %orig;
+    NSMutableArray *mutableItems = [NSMutableArray arrayWithArray:sectionItems];
     addSectionItem(self, mutableItems, category);
+    %orig(mutableItems, category, title, icon, titleDescription, headerHidden);
 }
 
 %end
