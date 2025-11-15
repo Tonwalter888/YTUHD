@@ -7,3 +7,9 @@
 "DECODE_THREADS" = "Threads de decodificação";
 "DECODE_THREADS_DESC" = "Número de threads usados para decodificação de vídeo VP9. Valores mais altos podem melhorar o desempenho da reprodução de vídeo, mas também podem aumentar o consumo de bateria.";
 "DECODE_THREADS_DEFAULT_VALUE" = "Valor padrão";
+
+"SKIP_LOOP_FILTER" = "Skip loop filter";
+
+"LOOP_FILTER_OPTIMIZATION" = "Loop filter optimization";
+
+"ROW_THREADING" = "Row threading";

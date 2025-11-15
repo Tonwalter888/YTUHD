@@ -7,3 +7,9 @@
 "DECODE_THREADS" = "Fire de decodare";
 "DECODE_THREADS_DESC" = "Numărul de fire utilizate pentru decodarea video VP9. Valorile mai mari pot îmbunătăți performanța redării video, dar pot crește și consumul bateriei.";
 "DECODE_THREADS_DEFAULT_VALUE" = "Valoare implicită";
+
+"SKIP_LOOP_FILTER" = "Skip loop filter";
+
+"LOOP_FILTER_OPTIMIZATION" = "Loop filter optimization";
+
+"ROW_THREADING" = "Row threading";

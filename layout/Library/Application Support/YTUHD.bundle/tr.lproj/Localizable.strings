@@ -7,3 +7,9 @@
 "DECODE_THREADS" = "Kod Çözme İş Parçacıkları";
 "DECODE_THREADS_DESC" = "VP9 video kod çözme için kullanılan iş parçacığı sayısı. Daha yüksek değerler video oynatma performansını artırabilir ancak pil tüketimini de artırabilir.";
 "DECODE_THREADS_DEFAULT_VALUE" = "Varsayılan değer";
+
+"SKIP_LOOP_FILTER" = "Skip loop filter";
+
+"LOOP_FILTER_OPTIMIZATION" = "Loop filter optimization";
+
+"ROW_THREADING" = "Row threading";

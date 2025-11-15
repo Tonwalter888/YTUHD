@@ -7,3 +7,9 @@
 "DECODE_THREADS" = "Decodeer threads";
 "DECODE_THREADS_DESC" = "Aantal threads gebruikt voor VP9 videodecodering. Hogere waarden kunnen de videoweergaveprestaties verbeteren, maar kunnen ook het batterijverbruik verhogen.";
 "DECODE_THREADS_DEFAULT_VALUE" = "Standaardwaarde";
+
+"SKIP_LOOP_FILTER" = "Skip loop filter";
+
+"LOOP_FILTER_OPTIMIZATION" = "Loop filter optimization";
+
+"ROW_THREADING" = "Row threading";

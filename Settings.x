@@ -29,6 +29,18 @@ int DecodeThreads() {
     return [[NSUserDefaults standardUserDefaults] integerForKey:DecodeThreadsKey];
 }
 
+BOOL SkipLoopFilter() {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:SkipLoopFilterKey];
+}
+
+BOOL LoopFilterOptimization() {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:LoopFilterOptimizationKey];
+}
+
+BOOL RowThreading() {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:RowThreadingKey];
+}
+
 NSBundle *YTUHDBundle() {
     static NSBundle *bundle = nil;
     static dispatch_once_t onceToken;
@@ -138,6 +150,42 @@ NSBundle *YTUHDBundle() {
             return YES;
         }];
     [sectionItems addObject:decodeThreads];
+
+    // Skip loop filter
+    YTSettingsSectionItem *skipLoopFilter = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"SKIP_LOOP_FILTER")
+        titleDescription:nil
+        accessibilityIdentifier:nil
+        switchOn:SkipLoopFilter()
+        switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+            [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:SkipLoopFilterKey];
+            return YES;
+        }
+        settingItemId:0];
+    [sectionItems addObject:skipLoopFilter];
+
+    // Loop filter optimization
+    YTSettingsSectionItem *loopFilterOptimization = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"LOOP_FILTER_OPTIMIZATION")
+        titleDescription:nil
+        accessibilityIdentifier:nil
+        switchOn:LoopFilterOptimization()
+        switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+            [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:LoopFilterOptimizationKey];
+            return YES;
+        }
+        settingItemId:0];
+    [sectionItems addObject:loopFilterOptimization];
+
+    // Row threading
+    YTSettingsSectionItem *rowThreading = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"ROW_THREADING")
+        titleDescription:nil
+        accessibilityIdentifier:nil
+        switchOn:RowThreading()
+        switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+            [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:RowThreadingKey];
+            return YES;
+        }
+        settingItemId:0];
+    [sectionItems addObject:rowThreading];
 
     if ([settingsViewController respondsToSelector:@selector(setSectionItems:forCategory:title:icon:titleDescription:headerHidden:)]) {
         YTIIcon *icon = [%c(YTIIcon) new];

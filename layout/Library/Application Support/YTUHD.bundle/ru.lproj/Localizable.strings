@@ -7,3 +7,9 @@
 "DECODE_THREADS" = "Потоки декодирования";
 "DECODE_THREADS_DESC" = "Количество потоков, используемых для декодирования видео VP9. Более высокие значения могут улучшить производительность воспроизведения видео, но также могут увеличить расход батареи.";
 "DECODE_THREADS_DEFAULT_VALUE" = "Значение по умолчанию";
+
+"SKIP_LOOP_FILTER" = "Skip loop filter";
+
+"LOOP_FILTER_OPTIMIZATION" = "Loop filter optimization";
+
+"ROW_THREADING" = "Row threading";
