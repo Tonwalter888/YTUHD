@@ -108,27 +108,38 @@ static void addSectionItem(YTSettingsViewController *settingsViewController, NSM
 
 %hook YTSettingsViewController
 
-- (void)setSectionItems:(NSMutableArray <YTSettingsSectionItem *> *)sectionItems
+- (void)setSectionItems:(NSArray<YTSettingsSectionItem *> *)sectionItems
              forCategory:(NSInteger)category
                     title:(NSString *)title
           titleDescription:(NSString *)titleDescription
              headerHidden:(BOOL)headerHidden
 {
-    NSMutableArray *mutableItems = [NSMutableArray arrayWithArray:sectionItems];
-    addSectionItem(self, mutableItems, category);
-    %orig(mutableItems, category, title, titleDescription, headerHidden);
+    NSMutableArray *injectionArray;
+    if ([sectionItems isKindOfClass:[NSMutableArray class]]) {
+        injectionArray = (NSMutableArray *)sectionItems;
+    } else {
+        injectionArray = [sectionItems mutableCopy];
+    }
+    addSectionItem(self, injectionArray, category);
+    %orig(injectionArray, category, title, titleDescription, headerHidden);
 }
 
-- (void)setSectionItems:(NSMutableArray <YTSettingsSectionItem *> *)sectionItems
+- (void)setSectionItems:(NSArray<YTSettingsSectionItem *> *)sectionItems
              forCategory:(NSInteger)category
                     title:(NSString *)title
                      icon:(YTIIcon *)icon
           titleDescription:(NSString *)titleDescription
              headerHidden:(BOOL)headerHidden
 {
-    NSMutableArray *mutableItems = [NSMutableArray arrayWithArray:sectionItems];
-    addSectionItem(self, mutableItems, category);
-    %orig(mutableItems, category, title, icon, titleDescription, headerHidden);
+    NSMutableArray *injectionArray;
+    if ([sectionItems isKindOfClass:[NSMutableArray class]]) {
+        injectionArray = (NSMutableArray *)sectionItems;
+    } else {
+        injectionArray = [sectionItems mutableCopy];
+    }
+    addSectionItem(self, injectionArray, category);
+    %orig(injectionArray, category, title, icon, titleDescription, headerHidden);
 }
 
 %end
+
