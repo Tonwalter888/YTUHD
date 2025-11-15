@@ -1,4 +1,3 @@
-#import <Foundation/Foundation.h>
 #import <substrate.h>
 #import <sys/sysctl.h>
 #import <version.h>
