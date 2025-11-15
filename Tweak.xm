@@ -1,3 +1,5 @@
+#import <Foundation/NSProcessInfo.h>
+#import <Foundation/NSString.h>
 #import <substrate.h>
 #import <sys/sysctl.h>
 #import <version.h>
