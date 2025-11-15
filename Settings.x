@@ -1,12 +1,21 @@
 #import <PSHeader/Misc.h>
 #import <YouTubeHeader/YTHotConfig.h>
+#import <YouTubeHeader/YTSettingsGroupData.h>
 #import <YouTubeHeader/YTSettingsPickerViewController.h>
 #import <YouTubeHeader/YTSettingsSectionItem.h>
 #import <YouTubeHeader/YTSettingsSectionItemManager.h>
 #import <YouTubeHeader/YTSettingsViewController.h>
 #import "Header.h"
 
-#define LOC(key) [tweakBundle localizedStringForKey:key value:nil table:nil]
+#define TweakName @"YTUHD"
+
+#define LOC(x) [tweakBundle localizedStringForKey:x value:nil table:nil]
+
+static const NSInteger TweakSection = 'ythd';
+
+@interface YTSettingsSectionItemManager (YTUHD)
+- (void)updateYTUHDSectionWithEntry:(id)entry;
+@end
 
 BOOL UseVP9() {
     return [[NSUserDefaults standardUserDefaults] boolForKey:UseVP9Key];
@@ -24,117 +33,126 @@ NSBundle *YTUHDBundle() {
     static NSBundle *bundle = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"YTUHD" ofType:@"bundle"];
-        bundle = [NSBundle bundleWithPath:path ?: PS_ROOT_PATH_NS(@"/Library/Application Support/YTUHD.bundle")];
+        NSString *tweakBundlePath = [[NSBundle mainBundle] pathForResource:@"YTUHD" ofType:@"bundle"];
+        bundle = [NSBundle bundleWithPath:tweakBundlePath ?: PS_ROOT_PATH_NS(@"/Library/Application Support/YTUHD.bundle")];
     });
     return bundle;
 }
 
-// Create a new section called "YTUHD"
-static NSArray<YTSettingsSectionItem *> *createYTUHDSection(YTSettingsViewController *vc)
-{
+%hook YTSettingsGroupData
+
+- (NSArray <NSNumber *> *)orderedCategories {
+    if (self.type != 1 || class_getClassMethod(objc_getClass("YTSettingsGroupData"), @selector(tweaks)))
+        return %orig;
+    NSMutableArray *mutableCategories = %orig.mutableCopy;
+    [mutableCategories insertObject:@(TweakSection) atIndex:0];
+    return mutableCategories.copy;
+}
+
+%end
+
+%hook YTAppSettingsPresentationData
+
++ (NSArray <NSNumber *> *)settingsCategoryOrder {
+    NSArray <NSNumber *> *order = %orig;
+    NSUInteger insertIndex = [order indexOfObject:@(1)];
+    if (insertIndex != NSNotFound) {
+        NSMutableArray <NSNumber *> *mutableOrder = [order mutableCopy];
+        [mutableOrder insertObject:@(TweakSection) atIndex:insertIndex + 1];
+        order = mutableOrder.copy;
+    }
+    return order;
+}
+
+%end
+
+%hook YTSettingsSectionItemManager
+
+- (void)updateVideoQualitySectionWithEntry:(id)entry {
+    YTHotConfig *hotConfig = [self valueForKey:@"_hotConfig"];
+    YTIMediaQualitySettingsHotConfig *mediaQualitySettingsHotConfig = [hotConfig hotConfigGroup].mediaHotConfig.mediaQualitySettingsHotConfig;
+    BOOL defaultValue = mediaQualitySettingsHotConfig.enablePersistentVideoQualitySettings;
+    mediaQualitySettingsHotConfig.enablePersistentVideoQualitySettings = YES;
+    %orig;
+    mediaQualitySettingsHotConfig.enablePersistentVideoQualitySettings = defaultValue;
+}
+
+%new(v@:@)
+- (void)updateYTUHDSectionWithEntry:(id)entry {
+    NSMutableArray <YTSettingsSectionItem *> *sectionItems = [NSMutableArray array];
     NSBundle *tweakBundle = YTUHDBundle();
-    Class Item = %c(YTSettingsSectionItem);
-    NSMutableArray *rows = [NSMutableArray array];
-    // Section header item
-    YTSettingsSectionItem *header =
-        [Item itemWithTitle:@"YTUHD"
-            titleDescription:@"Unlock 2K/4K video quality options"
-        accessibilityIdentifier:nil
-                 selectBlock:nil];
-    [rows addObject:header];
+    Class YTSettingsSectionItemClass = %c(YTSettingsSectionItem);
+    YTSettingsViewController *settingsViewController = [self valueForKey:@"_settingsViewControllerDelegate"];
 
     // Use VP9
-    YTSettingsSectionItem *vp9 =
-        [Item switchItemWithTitle:LOC(@"USE_VP9")
-                 titleDescription:LOC(@"USE_VP9_DESC")
-          accessibilityIdentifier:nil
-                        switchOn:UseVP9()
-                    switchBlock:^BOOL(YTSettingsCell *cell, BOOL en) {
-                        [[NSUserDefaults standardUserDefaults] setBool:en forKey:UseVP9Key];
-                        return YES;
-                    }
-                 settingItemId:0];
-    [rows addObject:vp9];
+    YTSettingsSectionItem *vp9 = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"USE_VP9")
+        titleDescription:[NSString stringWithFormat:@"%@\n\n%@: %d", LOC(@"USE_VP9_DESC"), LOC(@"HW_VP9_SUPPORT"), hasVP9]
+        accessibilityIdentifier:nil
+        switchOn:UseVP9()
+        switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+            [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:UseVP9Key];
+            return YES;
+        }
+        settingItemId:0];
+    [sectionItems addObject:vp9];
 
     // All VP9
-    YTSettingsSectionItem *allVP9 =
-        [Item switchItemWithTitle:LOC(@"ALL_VP9")
-                 titleDescription:LOC(@"ALL_VP9_DESC")
-          accessibilityIdentifier:nil
-                        switchOn:AllVP9()
-                    switchBlock:^BOOL(YTSettingsCell *cell, BOOL en) {
-                        [[NSUserDefaults standardUserDefaults] setBool:en forKey:AllVP9Key];
-                        return YES;
-                    }
-                 settingItemId:0];
-    [rows addObject:allVP9];
-
-    // Decode threads picker
-    NSString *title = LOC(@"DECODE_THREADS");
-    YTSettingsSectionItem *decodeThreads =
-        [Item itemWithTitle:title
-           titleDescription:LOC(@"DECODE_THREADS_DESC")
+    YTSettingsSectionItem *allVP9 = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"ALL_VP9")
+        titleDescription:LOC(@"ALL_VP9_DESC")
         accessibilityIdentifier:nil
-         detailTextBlock:^NSString *{
-             return [NSString stringWithFormat:@"%d", DecodeThreads()];
-         }
-         selectBlock:^BOOL(YTSettingsCell *cell, NSUInteger arg1) {
-             NSMutableArray *choices = [NSMutableArray array];
-             int cpu = NSProcessInfo.processInfo.activeProcessorCount;
-             for (int i = 1; i <= cpu; i++) {
-                 NSString *t = [NSString stringWithFormat:@"%d", i];
-                 YTSettingsSectionItem *choice =
-                     [Item checkmarkItemWithTitle:t
-                                 titleDescription:(i == 2 ? LOC(@"DECODE_THREADS_DEFAULT_VALUE") : nil)
-                                     selectBlock:^BOOL(YTSettingsCell *c, NSUInteger a) {
-                                         [[NSUserDefaults standardUserDefaults] setInteger:i forKey:DecodeThreadsKey];
-                                         [vc reloadData];
-                                         return YES;
-                                     }];
-                 [choices addObject:choice];
-             }
-             NSUInteger index = MIN(MAX(DecodeThreads() - 1, 0), cpu - 1);
-             YTSettingsPickerViewController *picker =
-                 [[%c(YTSettingsPickerViewController) alloc]
-                     initWithNavTitle:title
-                    pickerSectionTitle:nil
-                                 rows:choices
-                    selectedItemIndex:index
-                      parentResponder:[vc parentResponder]];
-             [vc pushViewController:picker];
-             return YES;
-         }];
-    [rows addObject:decodeThreads];
-    return rows;
+        switchOn:AllVP9()
+        switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+            [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:AllVP9Key];
+            return YES;
+        }
+        settingItemId:0];
+    [sectionItems addObject:allVP9];
+
+    // Decode threads
+    NSString *decodeThreadsTitle = LOC(@"DECODE_THREADS");
+    YTSettingsSectionItem *decodeThreads = [YTSettingsSectionItemClass itemWithTitle:decodeThreadsTitle
+        titleDescription:LOC(@"DECODE_THREADS_DESC")
+        accessibilityIdentifier:nil
+        detailTextBlock:^NSString *() {
+            return [NSString stringWithFormat:@"%d", DecodeThreads()];
+        }
+        selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
+            NSMutableArray <YTSettingsSectionItem *> *rows = [NSMutableArray array];
+            for (int i = 1; i <= NSProcessInfo.processInfo.activeProcessorCount; ++i) {
+                NSString *title = [NSString stringWithFormat:@"%d", i];
+                NSString *titleDescription = i == 2 ? LOC(@"DECODE_THREADS_DEFAULT_VALUE") : nil;
+                YTSettingsSectionItem *thread = [YTSettingsSectionItemClass checkmarkItemWithTitle:title titleDescription:titleDescription selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
+                    [[NSUserDefaults standardUserDefaults] setInteger:i forKey:DecodeThreadsKey];
+                    [settingsViewController reloadData];
+                    return YES;
+                }];
+                [rows addObject:thread];
+            }
+            NSUInteger index = DecodeThreads() - 1;
+            if (index >= NSProcessInfo.processInfo.activeProcessorCount) {
+                index = 1;
+                [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:DecodeThreadsKey];
+            }
+            YTSettingsPickerViewController *picker = [[%c(YTSettingsPickerViewController) alloc] initWithNavTitle:decodeThreadsTitle pickerSectionTitle:nil rows:rows selectedItemIndex:index parentResponder:[settingsViewController parentResponder]];
+            [settingsViewController pushViewController:picker];
+            return YES;
+        }];
+    [sectionItems addObject:decodeThreads];
+
+    if ([settingsViewController respondsToSelector:@selector(setSectionItems:forCategory:title:icon:titleDescription:headerHidden:)]) {
+        YTIIcon *icon = [%c(YTIIcon) new];
+        icon.iconType = YT_SETTINGS_HD;
+        [settingsViewController setSectionItems:sectionItems forCategory:TweakSection title:TweakName icon:icon titleDescription:nil headerHidden:NO];
+    } else
+        [settingsViewController setSectionItems:sectionItems forCategory:TweakSection title:TweakName titleDescription:nil headerHidden:NO];
 }
 
-// Add YTUHD section to YouTube settings
-%hook YTSettingsViewController
-
-- (void)setSectionItems:(NSArray *)items
-             forCategory:(NSInteger)category
-                    title:(NSString *)title
-          titleDescription:(NSString *)titleDesc
-             headerHidden:(BOOL)hidden
-{
-    NSMutableArray *mut = [items mutableCopy] ?: [NSMutableArray array];
-    NSArray *section = createYTUHDSection(self);
-    [mut addObjectsFromArray:section];
-    %orig(mut, category, title, titleDesc, hidden);
-}
-
-- (void)setSectionItems:(NSArray *)items
-             forCategory:(NSInteger)category
-                    title:(NSString *)title
-                     icon:(YTIIcon *)icon
-          titleDescription:(NSString *)titleDesc
-             headerHidden:(BOOL)hidden
-{
-    NSMutableArray *mut = [items mutableCopy] ?: [NSMutableArray array];
-    NSArray *section = createYTUHDSection(self);
-    [mut addObjectsFromArray:section];
-    %orig(mut, category, title, icon, titleDesc, hidden);
+- (void)updateSectionForCategory:(NSUInteger)category withEntry:(id)entry {
+    if (category == TweakSection) {
+        [self updateYTUHDSectionWithEntry:entry];
+        return;
+    }
+    %orig;
 }
 
 %end
