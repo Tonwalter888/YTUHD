@@ -1,6 +1,9 @@
 #ifndef YTUHD_H_
 #define YTUHD_H_
 
+#import <YouTubeHeader/YTColdConfig.h>
+#import <YouTubeHeader/YTHotConfig.h>
+#import <YouTubeHeader/MLABRPolicy.h>
 #import <YouTubeHeader/MLABRPolicyNew.h>
 #import <YouTubeHeader/MLABRPolicyOld.h>
 #import <YouTubeHeader/MLHAMPlayerItem.h>
