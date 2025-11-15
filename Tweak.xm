@@ -1,16 +1,8 @@
 #import <Foundation/NSProcessInfo.h>
-#import <YouTubeHeader/MLABRPolicyNew.h>
-#import <YouTubeHeader/MLABRPolicyOld.h>
-#import <YouTubeHeader/MLHAMPlayerItem.h>
-#import <YouTubeHeader/MLHLSMasterPlaylist.h>
-#import <YouTubeHeader/MLHLSStreamSelector.h>
-#import <YouTubeHeader/MLFormat.h>
-#import <YouTubeHeader/HAMDefaultABRPolicy.h>
-#import <YouTubeHeader/YTIHamplayerConfig.h>
-#import <YouTubeHeader/YTIHamplayerStreamFilter.h>
 #import <substrate.h>
 #import <sys/sysctl.h>
 #import <version.h>
+#import "Header.h"
 
 extern "C" {
     BOOL UseVP9();
