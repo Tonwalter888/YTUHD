@@ -1,9 +1,9 @@
 Package: com.water888.ytuhd
 Name: YTUHD
-Version: 1.9.1
+Version: 1.9.2
 Architecture: iphoneos-arm
 Description: Unlocks 1440p and 2160p resolutions in iOS YouTube app.
 Maintainer: Tonwalter888
 Author: Tonwalter888
 Section: Tweaks
-Depends: mobilesubstrate (>= 0.9.5000), firmware (>= 14.0)
+Depends: mobilesubstrate (>= 0.9.5000), firmware (>= 11.0)
