@@ -8,7 +8,6 @@
 #import <YouTubeHeader/MLHAMPlayerItem.h>
 #import <YouTubeHeader/MLHLSMasterPlaylist.h>
 #import <YouTubeHeader/MLHLSStreamSelector.h>
-#import <YouTubeHeader/MLFormat.h>
 #import <YouTubeHeader/HAMDefaultABRPolicy.h>
 #import <YouTubeHeader/YTIHamplayerConfig.h>
 #import <YouTubeHeader/YTIHamplayerStreamFilter.h>
