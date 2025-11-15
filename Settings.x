@@ -86,7 +86,7 @@ NSBundle *YTUHDBundle() {
 
     // Use VP9
     YTSettingsSectionItem *vp9 = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"USE_VP9")
-        titleDescription:[NSString stringWithFormat:@"%@\n\n%@: %d", LOC(@"USE_VP9_DESC"), LOC(@"HW_VP9_SUPPORT"), hasVP9]
+        titleDescription:LOC(@"USE_VP9_DESC")
         accessibilityIdentifier:nil
         switchOn:UseVP9()
         switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
