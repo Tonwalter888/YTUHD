@@ -155,6 +155,15 @@ static void hookFormats(MLABRPolicy *self) {
 
 %end
 
+%hook YTIIosOnesieHotConfig
+
+%new(B@:)
+- (BOOL)prepareVideoDecoder { 
+    return YES; 
+}
+
+%end
+
 %group Spoofing
 
 %hook UIDevice
