@@ -17,7 +17,7 @@ NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *codecs) {
     if (!AllVP9()) return codecs;
     NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(MLFormat *codec, NSDictionary *bindings) {
         if (![codec isKindOfClass:%c(MLFormat)]) return YES;
-        BOOL useAV1 =[[codec MIMEType] videoCodec] == 'av01';
+        BOOL useAV1 = [[codec MIMEType] videoCodec] == 'av01';
         return !useAV1;
     }];
     return [codecs filteredArrayUsingPredicate:predicate];
