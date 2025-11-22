@@ -12,8 +12,15 @@ extern "C" {
     BOOL RowThreading();
 }
 
-NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *formats) {
-    return formats;
+// Remove AV1 codec if AllVP9 is enabled
+NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *codecs) {
+    if (!AllVP9()) return codecs;
+    NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(MLFormat *codec, NSDictionary *bindings) {
+        if (![codec isKindOfClass:%c(MLFormat)]) return YES;
+        BOOL useAV1 =[[codec MIMEType] videoCodec] == 'av01';
+        return !useAV1;
+    }];
+    return [codecs filteredArrayUsingPredicate:predicate];
 }
 
 static void hookFormatsBase(YTIHamplayerConfig *config) {
@@ -101,7 +108,7 @@ static void hookFormats(MLABRPolicy *self) {
 %hook YTColdConfig
 
 - (BOOL)iosPlayerClientSharedConfigPopulateSwAv1MediaCapabilities {
-    return !AllVP9();
+    return YES;
 }
 
 - (BOOL)iosPlayerClientSharedConfigDisableLibvpxDecoder {
