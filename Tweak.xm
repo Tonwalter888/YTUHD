@@ -13,7 +13,7 @@ extern "C" {
     BOOL RowThreading();
 }
 
-// Remove 1080p Premium quality option if NoPremium is enabled
+// Remove 1080p Premium quality option if NoPremiumQuality is enabled
 NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *qualities) {
     if (!NoPremiumQuality()) return qualities;
     NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(MLFormat *quality, NSDictionary *bindings) {
