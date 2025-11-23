@@ -6,21 +6,23 @@
 extern "C" {
     BOOL UseVP9();
     BOOL AllVP9();
+    BOOL NoPremiumQuality();
     int DecodeThreads();
     BOOL SkipLoopFilter();
     BOOL LoopFilterOptimization();
     BOOL RowThreading();
 }
 
-// Remove AV1 codec if AllVP9 is enabled
-NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *codecs) {
-    if (!AllVP9()) return codecs;
-    NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(MLFormat *codec, NSDictionary *bindings) {
-        if (![codec isKindOfClass:%c(MLFormat)]) return YES;
-        BOOL useAV1 = [[codec MIMEType] videoCodec] == 'av01';
-        return !useAV1;
+// Remove 1080p Premium quality option if NoPremium is enabled
+NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *qualities) {
+    if (!NoPremiumQuality()) return qualities;
+    NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(MLFormat *quality, NSDictionary *bindings) {
+        if (![quality isKindOfClass:%c(MLFormat)]) return YES;
+        NSString *qualityLabel = [quality qualityLabel];
+        BOOL havePremiumQuality = [qualityLabel containsString:@"Premium"];
+        return !havePremiumQuality;
     }];
-    return [codecs filteredArrayUsingPredicate:predicate];
+    return [qualities filteredArrayUsingPredicate:predicate];
 }
 
 static void hookFormatsBase(YTIHamplayerConfig *config) {
@@ -108,7 +110,7 @@ static void hookFormats(MLABRPolicy *self) {
 %hook YTColdConfig
 
 - (BOOL)iosPlayerClientSharedConfigPopulateSwAv1MediaCapabilities {
-    return YES;
+    return !AllVP9();
 }
 
 - (BOOL)iosPlayerClientSharedConfigDisableLibvpxDecoder {

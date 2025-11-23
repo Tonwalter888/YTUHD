@@ -25,6 +25,10 @@ BOOL AllVP9() {
     return [[NSUserDefaults standardUserDefaults] boolForKey:AllVP9Key];
 }
 
+BOOL NoPremiumQuality() {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:NoPremiumQualityKey];
+}
+
 int DecodeThreads() {
     return [[NSUserDefaults standardUserDefaults] integerForKey:DecodeThreadsKey];
 }
@@ -119,6 +123,18 @@ NSBundle *YTUHDBundle() {
         }
         settingItemId:0];
     [sectionItems addObject:allVP9];
+
+    // Remove 1080p Premium quality option
+    YTSettingsSectionItem *noPremiumQuality = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"NO_PREMIUM_QUALITY")
+        titleDescription:LOC(@"NO_PREMIUM_QUALITY_DESC")
+        accessibilityIdentifier:nil
+        switchOn:NoPremiumQuality()
+        switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+            [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:NoPremiumQualityKey];
+            return YES;
+        }
+        settingItemId:0];
+    [sectionItems addObject:noPremiumQuality];
 
     // Decode threads
     NSString *decodeThreadsTitle = LOC(@"DECODE_THREADS");

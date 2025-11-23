@@ -13,3 +13,6 @@
 "LOOP_FILTER_OPTIMIZATION" = "Loop filter optimization";
 
 "ROW_THREADING" = "Row threading";
+
+"NO_PREMIUM_QUALITY" = "Remove 1080p Premium quality option";
+"NO_PREMIUM_QUALITY_DESC" = "Recommended for users that doesn't have YouTube Premium";

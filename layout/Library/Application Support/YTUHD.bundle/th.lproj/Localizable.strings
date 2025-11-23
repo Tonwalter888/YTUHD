@@ -13,3 +13,6 @@
 "LOOP_FILTER_OPTIMIZATION" = "Loop filter optimization";
 
 "ROW_THREADING" = "Row threading";
+        
+"NO_PREMIUM_QUALITY" = "ลบตัวเลือกคุณภาพ 1080p Premium ออก";
+"NO_PREMIUM_QUALITY_DESC" = "แนะนำสำหรับผู้ใช้งานที่ไม่มี YouTube Premium";
