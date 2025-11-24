@@ -105,7 +105,7 @@ static void hookFormats(MLABRPolicy *self) {
 }
 
 - (BOOL)iosPlayerClientSharedConfigDisableLibvpxDecoder {
-    return NO;
+    return NO; // 24.11.68 This won't work anymore with YouTube 20.47.3 and higher.
 }
 
 %end
