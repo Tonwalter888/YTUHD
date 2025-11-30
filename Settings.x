@@ -102,10 +102,6 @@ NSBundle *YTUHDBundle() {
     if (hasSWVP9VideoDecoder) {
     YTSettingsSectionItem *vp9 = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"USE_VP9")
         titleDescription:LOC(@"USE_VP9_DESC")
-    } else {
-    YTSettingsSectionItem *vp9 = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"USE_VP9")
-        titleDescription:LOC(@"USE_VP9_DESC")
-    }
         accessibilityIdentifier:nil
         switchOn:UseVP9()
         switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
@@ -114,6 +110,18 @@ NSBundle *YTUHDBundle() {
         }
         settingItemId:0];
     [sectionItems addObject:vp9];
+    } else {
+    YTSettingsSectionItem *vp9 = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"USE_AV1")
+        titleDescription:LOC(@"USE_AV1_DESC")
+        accessibilityIdentifier:nil
+        switchOn:UseVP9()
+        switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+            [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:UseVP9Key];
+            return YES;
+        }
+        settingItemId:0];
+    [sectionItems addObject:vp9];
+    }
 
     if (hasSWVP9VideoDecoder) {
         // All VP9
