@@ -1,6 +1,9 @@
 "USE_VP9" = "Utilizar VP9/AV1";
 "USE_VP9_DESC" = "Activa el códec VP9/AV1 que admite resoluciones de hasta 4K. Funciona mejor con dispositivos con CPU Apple A12 y superior. Es necesario reiniciar la aplicación";
 
+"USE_AV1" = "Utilizar AV1";
+"USE_AV1_DESC" = "Activa el códec AV1 que admite resoluciones de hasta 4K. Funciona mejor con dispositivos con CPU Apple A12 y superior. Es necesario reiniciar la aplicación";
+
 "ALL_VP9" = "VP9 para todo";
 "ALL_VP9_DESC" = "Utilizar el códec VP9 para todas las resoluciones de vídeo. Se recomienda activar esta opción en dispositivos con hardware compatible con VP9 (A12 y superior) Y cuando la aplicación YouTube tiene derecho a VP9";
 

@@ -1,6 +1,9 @@
 "USE_VP9" = "Sử dụng bộ giải mã VP9/AV1";
 "USE_VP9_DESC" = "Sử dụng bộ giải mã VP9/AV1 để có thể tải video với chất lượng 2K/4K. Hoạt động tốt nhất với chip A12 trở lên và ứng dụng được cài đặt bằng TrollStore. Cần khởi động lại ứng dụng.";
 
+"USE_AV1" = "Sử dụng bộ giải mã AV1";
+"USE_AV1_DESC" = "Sử dụng bộ giải mã AV1 để có thể tải video với chất lượng 2K/4K. Hoạt động tốt nhất với chip A12 trở lên và ứng dụng được cài đặt bằng TrollStore. Cần khởi động lại ứng dụng.";
+
 "ALL_VP9" = "Sử dụng bộ giải mã VP9 cho tất cả";
 "ALL_VP9_DESC" = "Sử dụng bộ giải mã VP9 cho tất cả độ phân giải video. Bạn nên bật tính năng này cho các thiết bị hỗ trợ phần cứng VP9 (A12 trở lên) và khi ứng dụng YouTube có quyền VP9.";
 
