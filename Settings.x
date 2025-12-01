@@ -19,8 +19,12 @@ static const NSInteger TweakSection = 'ythd';
 
 BOOL hasSWVP9VideoDecoder;
 
-BOOL UseVP9() {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:UseVP9Key];
+BOOL UseVP9andAV1() {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:UseVP9andAV1Key];
+}
+
+BOOL UseAV1() {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:UseAV1Key];
 }
 
 BOOL AllVP9() {
@@ -100,27 +104,27 @@ NSBundle *YTUHDBundle() {
 
     // Use VP9/AV1
     if (hasSWVP9VideoDecoder) {
-    YTSettingsSectionItem *vp9 = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"USE_VP9")
+    YTSettingsSectionItem *vp9andav1 = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"USE_VP9")
         titleDescription:LOC(@"USE_VP9_DESC")
         accessibilityIdentifier:nil
-        switchOn:UseVP9()
+        switchOn:UseVP9andAV1()
         switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-            [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:UseVP9Key];
+            [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:UseVP9andAV1Key];
             return YES;
         }
         settingItemId:0];
-    [sectionItems addObject:vp9];
+    [sectionItems addObject:vp9andav1];
     } else {
-    YTSettingsSectionItem *vp9 = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"USE_AV1")
+    YTSettingsSectionItem *av1 = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"USE_AV1")
         titleDescription:LOC(@"USE_AV1_DESC")
         accessibilityIdentifier:nil
-        switchOn:UseVP9()
+        switchOn:UseAV1()
         switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-            [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:UseVP9Key];
+            [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:UseAV1Key];
             return YES;
         }
         settingItemId:0];
-    [sectionItems addObject:vp9];
+    [sectionItems addObject:av1];
     }
 
     if (hasSWVP9VideoDecoder) {

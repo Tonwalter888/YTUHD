@@ -4,7 +4,8 @@
 #import "Header.h"
 
 extern "C" {
-    BOOL UseVP9();
+    BOOL UseVP9andAV1();
+    BOOL UseAV1();
     BOOL AllVP9();
     int DecodeThreads();
     BOOL SkipLoopFilter();
@@ -204,7 +205,7 @@ static void hookFormats(MLABRPolicy *self) {
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{
         DecodeThreadsKey: @2
     }];
-    if (!UseVP9()) return;
+    if (!UseVP9andAV1() || !UseAV1()) return;
     %init;
     if (!IS_IOS_OR_NEWER(iOS_15_0)) {
         %init(Spoofing);
