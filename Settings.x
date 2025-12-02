@@ -19,12 +19,8 @@ static const NSInteger TweakSection = 'ythd';
 
 BOOL hasSWVP9VideoDecoder;
 
-BOOL UseVP9andAV1() {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:UseVP9andAV1Key];
-}
-
-BOOL UseAV1() {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:UseAV1Key];
+BOOL UseVP9orAV1() {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:UseVP9orAV1Key];
 }
 
 BOOL AllVP9() {
