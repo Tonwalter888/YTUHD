@@ -107,9 +107,9 @@ NSBundle *YTUHDBundle() {
     YTSettingsSectionItem *vp9andav1 = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"USE_VP9")
         titleDescription:LOC(@"USE_VP9_DESC")
         accessibilityIdentifier:nil
-        switchOn:UseVP9andAV1()
+        switchOn:UseVP9orAV1()
         switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-            [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:UseVP9andAV1Key];
+            [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:UseVP9orAV1Key];
             return YES;
         }
         settingItemId:0];
@@ -118,9 +118,9 @@ NSBundle *YTUHDBundle() {
     YTSettingsSectionItem *av1 = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"USE_AV1")
         titleDescription:LOC(@"USE_AV1_DESC")
         accessibilityIdentifier:nil
-        switchOn:UseAV1()
+        switchOn:UseVP9orAV1()
         switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-            [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:UseAV1Key];
+            [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:UseVP9orAV1Key];
             return YES;
         }
         settingItemId:0];

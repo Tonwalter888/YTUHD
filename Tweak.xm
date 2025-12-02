@@ -4,8 +4,7 @@
 #import "Header.h"
 
 extern "C" {
-    BOOL UseVP9andAV1();
-    BOOL UseAV1();
+    BOOL UseVP9orAV1();
     BOOL AllVP9();
     int DecodeThreads();
     BOOL SkipLoopFilter();
@@ -106,7 +105,7 @@ static void hookFormats(MLABRPolicy *self) {
 }
 
 - (BOOL)iosPlayerClientSharedConfigDisableLibvpxDecoder {
-    return NO; // 24.11.68 This won't work anymore with YouTube 20.47.3 and higher.
+    return NO; // 24.11.25 This won't work anymore with YouTube 20.47.3 and higher.
 }
 
 %end
@@ -205,7 +204,7 @@ static void hookFormats(MLABRPolicy *self) {
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{
         DecodeThreadsKey: @2
     }];
-    if (!UseVP9andAV1() || !UseAV1()) return;
+    if (!UseVP9orAV1()) return;
     %init;
     if (!IS_IOS_OR_NEWER(iOS_15_0)) {
         %init(Spoofing);

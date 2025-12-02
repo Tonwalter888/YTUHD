@@ -15,8 +15,7 @@
 #define MAX_FPS 60
 #define MAX_PIXELS 8294400 // 3840 x 2160 (4K)
 
-#define UseVP9andAV1Key @"EnableSWVP9andSWAV1"
-#define UseAV1Key @"EnableSWAV1"
+#define UseVP9orAV1Key @"EnableSWVP9orSWAV1"
 #define AllVP9Key @"AllSWVP9"
 #define DecodeThreadsKey @"SWVP9DecodeThreads"
 #define SkipLoopFilterKey @"SWVP9SkipLoopFilter"
