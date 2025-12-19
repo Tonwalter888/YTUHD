@@ -1,5 +1,5 @@
-"USE_VP9" = "Használja a VP9/AV1-et";
-"USE_VP9_DESC" = "Engedélyezze az akár 4K felbontást támogató VP9/AV1 kodeket. A legjobban az Apple CPU A12 vagy újabb CPU-val rendelkező eszközökkel működik. Az alkalmazás újraindítása szükséges.";
+"USE_VP9_OR_AV1" = "Használja a VP9/AV1-et";
+"USE_VP9_OR_AV1_DESC" = "Engedélyezze az akár 4K felbontást támogató VP9/AV1 kodeket. A legjobban az Apple CPU A12 vagy újabb CPU-val rendelkező eszközökkel működik. Az alkalmazás újraindítása szükséges.";
 
 "USE_AV1" = "Használja a AV1-et";
 "USE_AV1_DESC" = "Engedélyezze az akár 4K felbontást támogató AV1 kodeket. A legjobban az Apple CPU A12 vagy újabb CPU-val rendelkező eszközökkel működik. Az alkalmazás újraindítása szükséges.";

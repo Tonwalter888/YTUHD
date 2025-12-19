@@ -1,5 +1,5 @@
-"USE_VP9" = "使用 VP9/AV1 编码";
-"USE_VP9_DESC" = "启用最高支持 4K 分辨率的 VP9/AV1 编解码器。推荐使用搭载 A12 芯片或以上的机型（如：iPhone 8/X 或以上）。更改本设置后需要重启 App。";
+"USE_VP9_OR_AV1" = "使用 VP9/AV1 编码";
+"USE_VP9_OR_AV1_DESC" = "启用最高支持 4K 分辨率的 VP9/AV1 编解码器。推荐使用搭载 A12 芯片或以上的机型（如：iPhone 8/X 或以上）。更改本设置后需要重启 App。";
 
 "USE_AV1" = "使用 AV1 编码";
 "USE_AV1_DESC" = "启用最高支持 4K 分辨率的 AV1 编解码器。推荐使用搭载 A12 芯片或以上的机型（如：iPhone 8/X 或以上）。更改本设置后需要重启 App。";
@@ -11,8 +11,8 @@
 "DECODE_THREADS_DESC" = "用于 VP9 视频解码的线程数。较高的值可能会提高视频播放性能，但也可能会增加电池消耗。";
 "DECODE_THREADS_DEFAULT_VALUE" = "默认值";
 
-"SKIP_LOOP_FILTER" = "跳过循环滤波";
+"SKIP_LOOP_FILTER" = "Skip loop filter";
 
-"LOOP_FILTER_OPTIMIZATION" = "循环滤波优化";
+"LOOP_FILTER_OPTIMIZATION" = "Loop filter optimization";
 
-"ROW_THREADING" = "行线程处理";
+"ROW_THREADING" = "Row threading";

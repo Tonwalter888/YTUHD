@@ -1,5 +1,5 @@
-"USE_VP9" = "Gebruik VP9/AV1";
-"USE_VP9_DESC" = "Schakel het VP9/AV1-codec in die tot 4K resoluties ondersteunt. Werkt het beste met apparaten met Apple CPU A12 of hoger. App herstart is vereist.";
+"USE_VP9_OR_AV1" = "Gebruik VP9/AV1";
+"USE_VP9_OR_AV1_DESC" = "Schakel het VP9/AV1-codec in die tot 4K resoluties ondersteunt. Werkt het beste met apparaten met Apple CPU A12 of hoger. App herstart is vereist.";
 
 "USE_AV1" = "Gebruik AV1";
 "USE_AV1_DESC" = "Schakel het AV1-codec in die tot 4K resoluties ondersteunt. Werkt het beste met apparaten met Apple CPU A12 of hoger. App herstart is vereist.";

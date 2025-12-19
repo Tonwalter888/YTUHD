@@ -100,8 +100,8 @@ NSBundle *YTUHDBundle() {
 
     // Use VP9/AV1
     if (hasSWVP9VideoDecoder) {
-    YTSettingsSectionItem *vp9andav1 = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"USE_VP9")
-        titleDescription:LOC(@"USE_VP9_DESC")
+    YTSettingsSectionItem *vp9orav1 = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"USE_VP9_OR_AV1")
+        titleDescription:LOC(@"USE_VP9_OR_AV1_DESC")
         accessibilityIdentifier:nil
         switchOn:UseVP9orAV1()
         switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
@@ -109,7 +109,7 @@ NSBundle *YTUHDBundle() {
             return YES;
         }
         settingItemId:0];
-    [sectionItems addObject:vp9andav1];
+    [sectionItems addObject:vp9orav1];
     } else {
     YTSettingsSectionItem *av1 = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"USE_AV1")
         titleDescription:LOC(@"USE_AV1_DESC")

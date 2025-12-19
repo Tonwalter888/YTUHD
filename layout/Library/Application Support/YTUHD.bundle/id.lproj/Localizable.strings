@@ -1,5 +1,5 @@
-"USE_VP9" = "Gunakan VP9/AV1";
-"USE_VP9_DESC" = "Mengaktifkan codec VP9/AV1 yang mendukung hingga resolusi 4K. Bekerja paling baik dengan perangkat yang menggunakan CPU Apple A12 dan yang lebih baru. Mulai ulang aplikasi diperlukan.";
+"USE_VP9_OR_AV1" = "Gunakan VP9/AV1";
+"USE_VP9_OR_AV1_DESC" = "Mengaktifkan codec VP9/AV1 yang mendukung hingga resolusi 4K. Bekerja paling baik dengan perangkat yang menggunakan CPU Apple A12 dan yang lebih baru. Mulai ulang aplikasi diperlukan.";
 
 "USE_AV1" = "Gunakan AV1";
 "USE_AV1_DESC" = "Mengaktifkan codec AV1 yang mendukung hingga resolusi 4K. Bekerja paling baik dengan perangkat yang menggunakan CPU Apple A12 dan yang lebih baru. Mulai ulang aplikasi diperlukan.";
