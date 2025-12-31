@@ -13,3 +13,9 @@ This requried at least iOS 11 and recommend at least A12 chip for the best 2K an
 - If anyone can make libundirect works in sideloading,PLEASE open a new issue and explain how you did it.
 - I removed auto reload logic,fixed All VP9 not working,fixed settings crashes and updated some codes from PoomSmart so now 2K and 4K videos should playing fine.
 - Maybe this repo might help you! If you find any bugs,you can open a new issue or make a PR to here.
+
+## Building
+1.Clone [Theos](https://github.com/theos/theos).
+2.Clone and Copy [iOS 18.6 SDK](https://github.com/xybp888/iOS-SDKs) to $THEOS/sdks.
+3.Cd into YTUHD and run make clean package FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless (You can change remove the rootless part if you are using in jailbroken iOS).
+ 
