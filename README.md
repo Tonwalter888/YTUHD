@@ -17,5 +17,5 @@ This requried at least iOS 11 and recommend at least A12 chip for the best 2K an
 ## Building
 - Clone [Theos](https://github.com/theos/theos).
 - Clone and Copy [iOS 18.6 SDK](https://github.com/xybp888/iOS-SDKs) to $THEOS/sdks.
-- Cd into YTUHD and run make clean package FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless (You can change remove the rootless part if you are using in jailbroken iOS).
+- Cd into YTUHD and run make clean package FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless (You can remove the rootless part if you are using in jailbroken iOS).
  
