@@ -7,6 +7,9 @@ This requried at least iOS 11 and recommend at least A12 chip for the best 2K an
 - Some videos may not playable in SW VP9.
 - And some videos may not get 4K in SW AV1.
 
+## Tip
+- iPhone 15 Pro and higher or any devices that have HW AV1 can get 4K without YTUHD.
+
 ## Backstory
 - The reason I created this repo because the latest version of YTUHD have some problems with libundirect that can't unlock 4K if you're sideloading.
 - And in main YTUHD repo,PoomSmart try to make 2K and 4K work in older devices (older than A12 chip) but libundirect doesn't work with sideloading. (maybe)
@@ -16,6 +19,6 @@ This requried at least iOS 11 and recommend at least A12 chip for the best 2K an
 
 ## Building
 - Clone [Theos](https://github.com/theos/theos).
-- Clone and Copy [iOS 18.6 SDK](https://github.com/xybp888/iOS-SDKs) to $THEOS/sdks.
-- Cd into YTUHD and run 'make clean package FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless'. (You can remove the THEOS_PACKAGE_SCHEME=rootless part if you are using in jailbroken iOS.)
+- Clone and Copy [iOS 18.6 SDK](https://github.com/xybp888/iOS-SDKs) to ``$THEOS/sdks``.
+- Cd into YTUHD and run ``make clean package FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless``. (You can remove the ``THEOS_PACKAGE_SCHEME=rootless`` part if you are using in jailbroken iOS.)
  
