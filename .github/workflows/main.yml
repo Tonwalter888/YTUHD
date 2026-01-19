@@ -1,0 +1,47 @@
+name: build YTUHD
+
+on:
+   workflow_dispatch:
+   
+jobs:
+  build:
+    runs-on: macos-latest
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: install theos
+      uses: Randomblock1/theos-action@v1.4
+
+    - name: setup iOS 18.6 SDK
+      run: |
+        rm -rf $THEOS/sdks/*
+        cd $THEOS/sdks
+        git clone https://github.com/Tonwalter888/iOS-18.6-SDK temp_sdk
+        mv temp_sdk/iPhoneOS18.6.sdk ./
+        rm -rf temp_sdk
+        
+    - name: clone YouTubeHeader
+      run: |
+        git clone https://github.com/PoomSmart/YouTubeHeader $THEOS/include/YouTubeHeader
+
+    - name: clone PSHeader
+      run: |
+        git clone https://github.com/PoomSmart/PSHeader $THEOS/include/PSHeader
+
+    - name: build rootful tweak
+      run: |
+        make clean package FINALPACKAGE=1
+        
+    - name: build rootles tweak
+      run: |
+        make clean package FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
+        echo "filename=$(find . -name '*arm64*' -path './packages/*' | cut -d/ -f3)" >> $GITHUB_ENV
+    - uses: actions/upload-artifact@v4
+      with:
+        name: ${{env.filename}}
+        path: packages/${{env.filename}}
+        if-no-files-found: error
