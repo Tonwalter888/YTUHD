@@ -15,7 +15,7 @@ jobs:
     
     steps:
       - name: Install Dependencies
-        run: brew install make ldid swiftlint
+        run: brew install make ldid
 
       - name: Set PATH Environment Variable
         run: |
