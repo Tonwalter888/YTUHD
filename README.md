@@ -17,13 +17,10 @@ This requried at least iOS 11 and recommend at least A12 chip for the best 2K an
 - Maybe this repo might help you! If you find any bugs,you can open a new issue or make a PR to here.
 
 ## Building
-- Clone [Theos](https://github.com/theos/theos) along with its submodules.
-- Clone and copy [iOS 18.6 SDK](https://github.com/Tonwalter888/iOS-18.6-SDK) to ``$THEOS/sdks``.
-- Clone [YouTubeHeader](https://github.com/PoomSmart/YouTubeHeader) and [PSHeader](https://github.com/PoomSmart/PSHeader) into ``$THEOS/include``.
-- Clone YTUHD, cd into it and run
-
-``make clean package DEBUG=0 FINALPACKAGE=1`` For rootful jailbroken iOS (iOS >15 - checkra1n, Cydia)
-
-``make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless`` For rootless jailbroken iOS (iOS 15+ - palera1n, Sileo, Zebra, Dolpamine, bakera1n, TrollStore)
-
-``make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=roothide`` For roothide jailbroken iOS (iOS 15 - Dolpamine, Bootstrap)
+1. Clone [Theos](https://github.com/theos/theos) along with its submodules.
+2. Clone and copy [iOS 18.6 SDK](https://github.com/Tonwalter888/iOS-18.6-SDK) to ``$THEOS/sdks``.
+3. Clone [YouTubeHeader](https://github.com/PoomSmart/YouTubeHeader) and [PSHeader](https://github.com/PoomSmart/PSHeader) into ``$THEOS/include``.
+4. Clone YTUHD, cd into it and run
+- ``make clean package DEBUG=0 FINALPACKAGE=1`` For rootful jailbroken iOS (iOS >15 - checkra1n, Cydia)
+- ``make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless`` For rootless jailbroken iOS (iOS 15+ - palera1n, Sileo, Zebra, Dolpamine, bakera1n, TrollStore)
+- ``make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=roothide`` For roothide jailbroken iOS (iOS 15 - Dolpamine, Bootstrap)
