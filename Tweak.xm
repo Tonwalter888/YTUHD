@@ -33,6 +33,39 @@ static void hookFormats(MLABRPolicy *self) {
     hookFormatsBase([self valueForKey:@"_hamplayerConfig"]);
 }
 
+%hook MLInnerTubePlayerConfig
+
+- (id)initWithPlayerConfig:(id)arg1 IOSPlayerConfig:(id)arg2 IOSShaderConfig:(id)arg3 HLSProxyConfig:(id)arg4 AVPlayerConfig:(id)arg5 hamplayerConfig:(id)arg6 autocropConfig:(id)arg7 videoToAudioItagMap:(id)arg8 DRMSessionID:(id)arg9 fairPlayConfig:(id)arg10 livePlayerConfig:(id)arg11 VRConfig:(id)arg12 stickyCeilingDuration:(double)arg13 offlineable:(BOOL)arg14 offline:(BOOL)arg15 dataSaverConfig:(id)arg16 audioConfig:(id)arg17 mediaCommonConfig:(id)arg18 varispeedAllowed:(BOOL)arg19 fetchManifestWhenNotActive:(BOOL)arg20 playbackStartConfig:(id)arg21 manifestlessWindowedLiveConfig:(id)arg22 qoeStatsClientConfig:(id)arg23 watchEndpointUstreamerConfig:(id)arg24 DAIType:(long long)arg25 {
+    hookFormatsBase(arg6);
+    return %orig;
+}
+
+%end
+
+%hook MLHAMPlayerItem
+
+- (id)initWithContext:(id)arg1 config:(id)arg2 onesieVideoData:(id)arg3 cache:(id)arg4 networkStatsProvider:(id)arg5 readaheadPolicy:(id)arg6 ustreamerRequestConfig:(id)arg7 loadRetryPolicy:(id)arg8 policyDelegate:(id)arg9 playerEventCenter:(id)arg10 QOEController:(id)arg11 hamplayerConfig:(id)arg12 watchEndpointUstreamerConfig:(id)arg13 contentType:(int)arg14 videoID:(id)arg15 {
+    hookFormatsBase(arg12);
+    return %orig;
+}
+
+- (void)onSelectableVideoFormats:(NSArray *)formats {
+    hookFormatsBase([self valueForKey:@"_hamplayerConfig"]);
+    %orig;
+}
+
+- (void)load {
+    hookFormatsBase([self valueForKey:@"_hamplayerConfig"]);
+    %orig;
+}
+
+- (void)loadWithInitialSeekRequired:(BOOL)initialSeekRequired initialSeekTime:(double)initialSeekTime {
+    hookFormatsBase([self valueForKey:@"_hamplayerConfig"]);
+    %orig;
+}
+
+%end
+
 %hook MLABRPolicy
 
 - (void)setFormats:(NSArray *)formats {
@@ -60,16 +93,20 @@ static void hookFormats(MLABRPolicy *self) {
 
 %end
 
-%hook MLHAMPlayerItem
+%hook HAMDefaultABRPolicy
 
-- (void)load {
-    hookFormatsBase([self valueForKey:@"_hamplayerConfig"]);
-    %orig;
+- (NSArray *)filterFormats:(NSArray *)formats {
+    return filteredFormats(%orig);
 }
 
-- (void)loadWithInitialSeekRequired:(BOOL)initialSeekRequired initialSeekTime:(double)initialSeekTime {
-    hookFormatsBase([self valueForKey:@"_hamplayerConfig"]);
-    %orig;
+- (id)getSelectableFormatDataAndReturnError:(NSError **)error {
+    [self setValue:@(NO) forKey:@"_postponePreferredFormatFiltering"];
+    return filteredFormats(%orig);
+}
+
+- (void)setFormats:(NSArray *)formats {
+    [self setValue:@(YES) forKey:@"_postponePreferredFormatFiltering"];
+    %orig(filteredFormats(formats));
 }
 
 %end
@@ -126,20 +163,6 @@ static void hookFormats(MLABRPolicy *self) {
 
 - (BOOL)iosPlayerClientSharedConfigHamplayerAlwaysEnqueueDecodedSampleBuffersToAvsbdl {
     return YES;
-}
-
-%end
-
-%hook HAMDefaultABRPolicy
-
-- (id)getSelectableFormatDataAndReturnError:(NSError **)error {
-    [self setValue:@(NO) forKey:@"_postponePreferredFormatFiltering"];
-    return filteredFormats(%orig);
-}
-
-- (void)setFormats:(NSArray *)formats {
-    [self setValue:@(YES) forKey:@"_postponePreferredFormatFiltering"];
-    %orig(filteredFormats(formats));
 }
 
 %end
