@@ -11,8 +11,10 @@
 "DECODE_THREADS_DESC" = "Nombre de threads utilisés pour le décodage vidéo VP9. Des valeurs plus élevées peuvent améliorer les performances de lecture vidéo mais peuvent également augmenter la consommation de la batterie.";
 "DECODE_THREADS_DEFAULT_VALUE" = "Valeur par défaut";
 
-"SKIP_LOOP_FILTER" = "Skip loop filter";
+"OP_BAR" = "Optimisations VP9";
+"SKIP_LOOP_FILTER" = "Ignorer le filtre de boucle";
+"LOOP_FILTER_OPTIMIZATION" = "Optimisation du filtre de boucle";
+"ROW_THREADING" = "Threading par ligne";
 
-"LOOP_FILTER_OPTIMIZATION" = "Loop filter optimization";
-
-"ROW_THREADING" = "Row threading";
+"RELOAD" = "Recharger automatiquement les vidéos bloquées";
+"RELOAD_DESC" = "En activant cette option, la vidéo bloquée sera rechargée automatiquement toutes les 5 secondes";

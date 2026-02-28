@@ -11,8 +11,10 @@
 "DECODE_THREADS_DESC" = "Numărul de fire utilizate pentru decodarea video VP9. Valorile mai mari pot îmbunătăți performanța redării video, dar pot crește și consumul bateriei.";
 "DECODE_THREADS_DEFAULT_VALUE" = "Valoare implicită";
 
-"SKIP_LOOP_FILTER" = "Skip loop filter";
+"OP_BAR" = "Optimizări VP9";
+"SKIP_LOOP_FILTER" = "Omite filtrul de buclă";
+"LOOP_FILTER_OPTIMIZATION" = "Optimizare filtru de buclă";
+"ROW_THREADING" = "Threading pe rânduri";
 
-"LOOP_FILTER_OPTIMIZATION" = "Loop filter optimization";
-
-"ROW_THREADING" = "Row threading";
+"RELOAD" = "Reîncarcă automat videoclipurile blocate";
+"RELOAD_DESC" = "Activarea acestei opțiuni va reîncărca automat videoclipul blocat la fiecare 5 secunde";

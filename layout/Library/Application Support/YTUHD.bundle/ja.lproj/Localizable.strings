@@ -11,8 +11,10 @@
 "DECODE_THREADS_DESC" = "VP9ビデオデコードに使用されるスレッド数。値を大きくするとビデオ再生性能が向上する可能性がありますが、バッテリー消費が増加する場合があります。";
 "DECODE_THREADS_DEFAULT_VALUE" = "デフォルト値";
 
-"SKIP_LOOP_FILTER" = "Skip loop filter";
+"OP_BAR" = "VP9最適化";
+"SKIP_LOOP_FILTER" = "ループフィルターをスキップ";
+"LOOP_FILTER_OPTIMIZATION" = "ループフィルター最適化";
+"ROW_THREADING" = "行スレッド処理";
 
-"LOOP_FILTER_OPTIMIZATION" = "Loop filter optimization";
-
-"ROW_THREADING" = "Row threading";
+"RELOAD" = "停止した動画を自動再読み込み";
+"RELOAD_DESC" = "このオプションを有効にすると、停止した動画を5秒ごとに自動で再読み込みします";

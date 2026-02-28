@@ -11,8 +11,10 @@
 "DECODE_THREADS_DESC" = "Aantal threads gebruikt voor VP9 videodecodering. Hogere waarden kunnen de videoweergaveprestaties verbeteren, maar kunnen ook het batterijverbruik verhogen.";
 "DECODE_THREADS_DEFAULT_VALUE" = "Standaardwaarde";
 
-"SKIP_LOOP_FILTER" = "Skip loop filter";
+"OP_BAR" = "VP9-optimalisaties";
+"SKIP_LOOP_FILTER" = "Loopfilter overslaan";
+"LOOP_FILTER_OPTIMIZATION" = "Loopfilter optimalisatie";
+"ROW_THREADING" = "Rij-threading";
 
-"LOOP_FILTER_OPTIMIZATION" = "Loop filter optimization";
-
-"ROW_THREADING" = "Row threading";
+"RELOAD" = "Vastgelopen video's automatisch herladen";
+"RELOAD_DESC" = "Wanneer ingeschakeld wordt een vastgelopen video elke 5 seconden automatisch herladen";

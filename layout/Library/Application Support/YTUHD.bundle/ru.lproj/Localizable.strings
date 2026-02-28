@@ -11,8 +11,10 @@
 "DECODE_THREADS_DESC" = "Количество потоков, используемых для декодирования видео VP9. Более высокие значения могут улучшить производительность воспроизведения видео, но также могут увеличить расход батареи.";
 "DECODE_THREADS_DEFAULT_VALUE" = "Значение по умолчанию";
 
-"SKIP_LOOP_FILTER" = "Skip loop filter";
+"OP_BAR" = "Оптимизации VP9";
+"SKIP_LOOP_FILTER" = "Пропустить циклический фильтр";
+"LOOP_FILTER_OPTIMIZATION" = "Оптимизация циклического фильтра";
+"ROW_THREADING" = "Построчная многопоточность";
 
-"LOOP_FILTER_OPTIMIZATION" = "Loop filter optimization";
-
-"ROW_THREADING" = "Row threading";
+"RELOAD" = "Автоперезагрузка зависших видео";
+"RELOAD_DESC" = "При включении этой опции зависшее видео будет автоматически перезагружаться каждые 5 секунд";

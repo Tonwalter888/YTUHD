@@ -11,9 +11,10 @@
 "DECODE_THREADS_DESC" = "Number of threads used for VP9 video decoding. Higher values may improve video playback performance but may also increase battery consumption.";
 "DECODE_THREADS_DEFAULT_VALUE" = "Default value";
 
+"OP_BAR" = "VP9 Optimizations";
 "SKIP_LOOP_FILTER" = "Skip loop filter";
-
 "LOOP_FILTER_OPTIMIZATION" = "Loop filter optimization";
-
 "ROW_THREADING" = "Row threading";
 
+"RELOAD" = "Auto reload stuck videos";
+"RELOAD_DESC" = "Turning this option on will auto reload stuck video every 5 seconds"; 

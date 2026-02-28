@@ -10,6 +10,7 @@ extern "C" {
     BOOL SkipLoopFilter();
     BOOL LoopFilterOptimization();
     BOOL RowThreading();
+    BOOL AutoReload();
 }
 
 NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *formats) {
@@ -107,6 +108,40 @@ static void hookFormatsBase(YTIHamplayerConfig *config) {
 
 %end
 
+%group AutoReloadVideo
+%hook MLHAMQueuePlayer
+
+- (void)setState:(NSInteger)state {
+    %orig;
+    NSTimer *bufferingTimer = nil;
+    if (state == 5 || state == 6 || state == 8) {
+        if (bufferingTimer) {
+            [bufferingTimer invalidate];
+            bufferingTimer = nil;
+        }
+        __weak typeof(self) weakSelf = self;
+        bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:5
+                            repeats:NO
+                            block:^(NSTimer *timer) {
+                                bufferingTimer = nil;
+                                __strong typeof(weakSelf) strongSelf = weakSelf;
+                                if (strongSelf) {
+                                    YTSingleVideoController *video = (YTSingleVideoController *)strongSelf.delegate;
+                                    YTLocalPlaybackController *playbackController = (YTLocalPlaybackController *)video.delegate;
+                                    [[%c(YTPlayerTapToRetryResponderEvent) eventWithFirstResponder:[playbackController parentResponder]] send];
+                                }
+                            }];
+    } else {
+        if (bufferingTimer) {
+            [bufferingTimer invalidate];
+            bufferingTimer = nil;
+        }
+    }
+}
+
+%end
+%end
+
 %hook YTIHamplayerHotConfig
 
 %new(i@:)
@@ -138,7 +173,7 @@ static void hookFormatsBase(YTIHamplayerConfig *config) {
 }
 
 - (BOOL)iosPlayerClientSharedConfigDisableLibvpxDecoder {
-    return NO; // 24.11.25 This won't work anymore with YouTube 20.47.3 and higher.
+    return NO; // This won't work anymore with YouTube 20.47.3 and higher.
 }
 
 %end
@@ -227,5 +262,8 @@ static void hookFormatsBase(YTIHamplayerConfig *config) {
     %init;
     if (!IS_IOS_OR_NEWER(iOS_15_0)) {
         %init(Spoofing);
+    }
+    if (AutoReload()) {
+        %init(AutoReloadVideo);
     }
 }

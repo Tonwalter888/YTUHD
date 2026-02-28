@@ -11,8 +11,10 @@
 "DECODE_THREADS_DESC" = "Jumlah threads yang digunakan untuk decoding video VP9. Nilai yang lebih tinggi dapat meningkatkan kinerja pemutaran video tetapi juga dapat meningkatkan konsumsi baterai.";
 "DECODE_THREADS_DEFAULT_VALUE" = "Nilai default";
 
-"SKIP_LOOP_FILTER" = "Skip loop filter";
+"OP_BAR" = "Optimasi VP9";
+"SKIP_LOOP_FILTER" = "Lewati filter loop";
+"LOOP_FILTER_OPTIMIZATION" = "Optimasi filter loop";
+"ROW_THREADING" = "Threading baris";
 
-"LOOP_FILTER_OPTIMIZATION" = "Loop filter optimization";
-
-"ROW_THREADING" = "Row threading";
+"RELOAD" = "Muat ulang video macet otomatis";
+"RELOAD_DESC" = "Saat diaktifkan, video yang macet akan dimuat ulang setiap 5 detik";

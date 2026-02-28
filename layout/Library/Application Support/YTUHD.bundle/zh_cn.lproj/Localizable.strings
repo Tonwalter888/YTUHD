@@ -11,8 +11,10 @@
 "DECODE_THREADS_DESC" = "用于 VP9 视频解码的线程数。较高的值可能会提高视频播放性能，但也可能会增加电池消耗。";
 "DECODE_THREADS_DEFAULT_VALUE" = "默认值";
 
-"SKIP_LOOP_FILTER" = "Skip loop filter";
+"OP_BAR" = "VP9 优化";
+"SKIP_LOOP_FILTER" = "跳过环路滤波";
+"LOOP_FILTER_OPTIMIZATION" = "环路滤波优化";
+"ROW_THREADING" = "行线程";
 
-"LOOP_FILTER_OPTIMIZATION" = "Loop filter optimization";
-
-"ROW_THREADING" = "Row threading";
+"RELOAD" = "自动重新加载卡住的视频";
+"RELOAD_DESC" = "启用此选项后，卡住的视频将每5秒自动重新加载一次";

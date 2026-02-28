@@ -42,6 +42,10 @@ BOOL RowThreading() {
     return [[NSUserDefaults standardUserDefaults] boolForKey:RowThreadingKey];
 }
 
+BOOL AutoReload() {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:AutoReloadKey];
+}
+
 NSBundle *YTUHDBundle() {
     static NSBundle *bundle = nil;
     static dispatch_once_t onceToken;
@@ -90,27 +94,27 @@ NSBundle *YTUHDBundle() {
 
     // Use VP9/AV1
     if (hasSWVP9VideoDecoder) {
-    YTSettingsSectionItem *vp9orav1 = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"USE_VP9_OR_AV1")
-        titleDescription:LOC(@"USE_VP9_OR_AV1_DESC")
-        accessibilityIdentifier:nil
-        switchOn:UseVP9orAV1()
-        switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-            [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:UseVP9orAV1Key];
-            return YES;
-        }
-        settingItemId:0];
-    [sectionItems addObject:vp9orav1];
+        YTSettingsSectionItem *vp9orav1 = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"USE_VP9_OR_AV1")
+            titleDescription:LOC(@"USE_VP9_OR_AV1_DESC")
+            accessibilityIdentifier:nil
+            switchOn:UseVP9orAV1()
+            switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:UseVP9orAV1Key];
+                return YES;
+            }
+            settingItemId:0];
+        [sectionItems addObject:vp9orav1];
     } else {
-    YTSettingsSectionItem *av1 = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"USE_AV1")
-        titleDescription:LOC(@"USE_AV1_DESC")
-        accessibilityIdentifier:nil
-        switchOn:UseVP9orAV1()
-        switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-            [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:UseVP9orAV1Key];
-            return YES;
-        }
-        settingItemId:0];
-    [sectionItems addObject:av1];
+        YTSettingsSectionItem *av1 = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"USE_AV1")
+            titleDescription:LOC(@"USE_AV1_DESC")
+            accessibilityIdentifier:nil
+            switchOn:UseVP9orAV1()
+            switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:UseVP9orAV1Key];
+                return YES;
+            }
+            settingItemId:0];
+        [sectionItems addObject:av1];
     }
 
     if (hasSWVP9VideoDecoder) {
@@ -125,7 +129,21 @@ NSBundle *YTUHDBundle() {
             }
             settingItemId:0];
         [sectionItems addObject:allVP9];
+    }
 
+        // Auto reload videos
+        YTSettingsSectionItem *autoreload = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"RELOAD")
+            titleDescription:LOC(@"RELOAD_DESC")
+            accessibilityIdentifier:nil
+            switchOn:AutoReload()
+            switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:AutoReloadKey];
+                return YES;
+            }
+            settingItemId:0];
+        [sectionItems addObject:autoreload];
+
+    if (hasSWVP9VideoDecoder) {
         // Decode threads
         NSString *decodeThreadsTitle = LOC(@"DECODE_THREADS");
         YTSettingsSectionItem *decodeThreads = [YTSettingsSectionItemClass itemWithTitle:decodeThreadsTitle
@@ -156,6 +174,16 @@ NSBundle *YTUHDBundle() {
                 return YES;
             }];
         [sectionItems addObject:decodeThreads];
+
+        // VP9 Optimizations bar
+        YTSettingsSectionItem *vp9Bar = [YTSettingsSectionItemClass itemWithTitle:LOC(@"OP_BAR")
+            titleDescription:nil
+            accessibilityIdentifier:nil
+            detailTextBlock:nil
+            selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
+                return NO;
+            }];
+        [sectionItems addObject:vp9Bar];
 
         // Skip loop filter
         YTSettingsSectionItem *skipLoopFilter = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"SKIP_LOOP_FILTER")

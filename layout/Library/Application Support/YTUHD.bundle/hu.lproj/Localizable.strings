@@ -11,8 +11,10 @@
 "DECODE_THREADS_DESC" = "A VP9 videó dekódolásához használt szálak száma. A magasabb értékek javíthatják a videólejátszás teljesítményét, de növelhetik az akkumulátor fogyasztását is.";
 "DECODE_THREADS_DEFAULT_VALUE" = "Alapértelmezett érték";
 
-"SKIP_LOOP_FILTER" = "Skip loop filter";
+"OP_BAR" = "VP9 optimalizálások";
+"SKIP_LOOP_FILTER" = "Hurokszűrő kihagyása";
+"LOOP_FILTER_OPTIMIZATION" = "Hurokszűrő optimalizálása";
+"ROW_THREADING" = "Sor alapú szálkezelés";
 
-"LOOP_FILTER_OPTIMIZATION" = "Loop filter optimization";
-
-"ROW_THREADING" = "Row threading";
+"RELOAD" = "Beragadt videók automatikus újratöltése";
+"RELOAD_DESC" = "Bekapcsolva a beragadt videó 5 másodpercenként automatikusan újratöltődik";

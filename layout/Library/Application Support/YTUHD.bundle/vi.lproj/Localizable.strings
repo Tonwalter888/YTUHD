@@ -11,8 +11,10 @@
 "DECODE_THREADS_DESC" = "Số lượng luồng được sử dụng để giải mã video VP9. Giá trị cao hơn có thể cải thiện hiệu suất phát video nhưng cũng có thể tăng mức tiêu thụ pin.";
 "DECODE_THREADS_DEFAULT_VALUE" = "Giá trị mặc định";
 
-"SKIP_LOOP_FILTER" = "Skip loop filter";
+"OP_BAR" = "Tối ưu hóa VP9";
+"SKIP_LOOP_FILTER" = "Bỏ qua bộ lọc vòng lặp";
+"LOOP_FILTER_OPTIMIZATION" = "Tối ưu hóa bộ lọc vòng lặp";
+"ROW_THREADING" = "Luồng theo hàng";
 
-"LOOP_FILTER_OPTIMIZATION" = "Loop filter optimization";
-
-"ROW_THREADING" = "Row threading";
+"RELOAD" = "Tự động tải lại video bị treo";
+"RELOAD_DESC" = "Khi bật tùy chọn này, video bị treo sẽ tự động tải lại mỗi 5 giây";

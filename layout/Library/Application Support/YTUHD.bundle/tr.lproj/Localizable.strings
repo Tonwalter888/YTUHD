@@ -11,8 +11,10 @@
 "DECODE_THREADS_DESC" = "VP9 video kod çözme için kullanılan iş parçacığı sayısı. Daha yüksek değerler video oynatma performansını artırabilir ancak pil tüketimini de artırabilir.";
 "DECODE_THREADS_DEFAULT_VALUE" = "Varsayılan değer";
 
-"SKIP_LOOP_FILTER" = "Skip loop filter";
+"OP_BAR" = "VP9 Optimizasyonları";
+"SKIP_LOOP_FILTER" = "Döngü filtresini atla";
+"LOOP_FILTER_OPTIMIZATION" = "Döngü filtresi optimizasyonu";
+"ROW_THREADING" = "Satır iş parçacığı";
 
-"LOOP_FILTER_OPTIMIZATION" = "Loop filter optimization";
-
-"ROW_THREADING" = "Row threading";
+"RELOAD" = "Takılan videoları otomatik yeniden yükle";
+"RELOAD_DESC" = "Bu seçenek açıldığında takılan video her 5 saniyede bir otomatik olarak yeniden yüklenecektir";

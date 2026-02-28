@@ -11,8 +11,10 @@
 "DECODE_THREADS_DESC" = "عدد الخيوط المستخدمة في فك تشفير فيديو VP9. قد تؤدي القيم الأعلى إلى تحسين أداء تشغيل الفيديو ولكنها قد تزيد أيضًا من استهلاك البطارية.";
 "DECODE_THREADS_DEFAULT_VALUE" = "القيمة الافتراضية";
 
-"SKIP_LOOP_FILTER" = "Skip loop filter";
+"OP_BAR" = "تحسينات VP9";
+"SKIP_LOOP_FILTER" = "تخطي مرشح الحلقة";
+"LOOP_FILTER_OPTIMIZATION" = "تحسين مرشح الحلقة";
+"ROW_THREADING" = "المعالجة المتوازية للصفوف";
 
-"LOOP_FILTER_OPTIMIZATION" = "Loop filter optimization";
-
-"ROW_THREADING" = "Row threading";
+"RELOAD" = "إعادة تحميل الفيديوهات العالقة تلقائيًا";
+"RELOAD_DESC" = "عند تفعيل هذا الخيار سيتم إعادة تحميل الفيديو العالق كل 5 ثوانٍ";
