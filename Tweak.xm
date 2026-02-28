@@ -50,17 +50,17 @@ static void hookFormats(MLABRPolicy *self) {
 }
 
 - (void)onSelectableVideoFormats:(NSArray *)formats {
-    hookFormatsBase([self valueForKey:@"_hamplayerConfig"]);
+    hookFormats(self);
     %orig;
 }
 
 - (void)load {
-    hookFormatsBase([self valueForKey:@"_hamplayerConfig"]);
+    hookFormats(self);
     %orig;
 }
 
 - (void)loadWithInitialSeekRequired:(BOOL)initialSeekRequired initialSeekTime:(double)initialSeekTime {
-    hookFormatsBase([self valueForKey:@"_hamplayerConfig"]);
+    hookFormats(self);
     %orig;
 }
 
