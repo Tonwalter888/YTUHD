@@ -29,10 +29,6 @@ static void hookFormatsBase(YTIHamplayerConfig *config) {
     filter.vp9.maxFps = MAX_FPS;
 }
 
-static void hookFormats(MLABRPolicy *self) {
-    hookFormatsBase([self valueForKey:@"_hamplayerConfig"]);
-}
-
 %hook MLInnerTubePlayerConfig
 
 - (id)initWithPlayerConfig:(id)arg1 IOSPlayerConfig:(id)arg2 IOSShaderConfig:(id)arg3 HLSProxyConfig:(id)arg4 AVPlayerConfig:(id)arg5 hamplayerConfig:(id)arg6 autocropConfig:(id)arg7 videoToAudioItagMap:(id)arg8 DRMSessionID:(id)arg9 fairPlayConfig:(id)arg10 livePlayerConfig:(id)arg11 VRConfig:(id)arg12 stickyCeilingDuration:(double)arg13 offlineable:(BOOL)arg14 offline:(BOOL)arg15 dataSaverConfig:(id)arg16 audioConfig:(id)arg17 mediaCommonConfig:(id)arg18 varispeedAllowed:(BOOL)arg19 fetchManifestWhenNotActive:(BOOL)arg20 playbackStartConfig:(id)arg21 manifestlessWindowedLiveConfig:(id)arg22 qoeStatsClientConfig:(id)arg23 watchEndpointUstreamerConfig:(id)arg24 DAIType:(long long)arg25 {
@@ -50,17 +46,17 @@ static void hookFormats(MLABRPolicy *self) {
 }
 
 - (void)onSelectableVideoFormats:(NSArray *)formats {
-    hookFormats(self);
+    hookFormatsBase([self valueForKey:@"_hamplayerConfig"]);
     %orig;
 }
 
 - (void)load {
-    hookFormats(self);
+    hookFormatsBase([self valueForKey:@"_hamplayerConfig"]);
     %orig;
 }
 
 - (void)loadWithInitialSeekRequired:(BOOL)initialSeekRequired initialSeekTime:(double)initialSeekTime {
-    hookFormats(self);
+    hookFormatsBase([self valueForKey:@"_hamplayerConfig"]);
     %orig;
 }
 
@@ -69,7 +65,7 @@ static void hookFormats(MLABRPolicy *self) {
 %hook MLABRPolicy
 
 - (void)setFormats:(NSArray *)formats {
-    hookFormats(self);
+    hookFormatsBase([self valueForKey:@"_hamplayerConfig"]);
     %orig(filteredFormats(formats));
 }
 
@@ -78,7 +74,7 @@ static void hookFormats(MLABRPolicy *self) {
 %hook MLABRPolicyOld
 
 - (void)setFormats:(NSArray *)formats {
-    hookFormats(self);
+    hookFormatsBase([self valueForKey:@"_hamplayerConfig"]);
     %orig(filteredFormats(formats));
 }
 
@@ -87,7 +83,7 @@ static void hookFormats(MLABRPolicy *self) {
 %hook MLABRPolicyNew
 
 - (void)setFormats:(NSArray *)formats {
-    hookFormats(self);
+    hookFormatsBase([self valueForKey:@"_hamplayerConfig"]);
     %orig(filteredFormats(formats));
 }
 
