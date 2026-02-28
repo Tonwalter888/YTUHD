@@ -132,7 +132,7 @@ NSBundle *YTUHDBundle() {
     }
 
         // Auto reload videos
-        YTSettingsSectionItem *autoreload = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"RELOAD")
+        YTSettingsSectionItem *autoReload = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"RELOAD")
             titleDescription:LOC(@"RELOAD_DESC")
             accessibilityIdentifier:nil
             switchOn:AutoReload()
@@ -141,7 +141,7 @@ NSBundle *YTUHDBundle() {
                 return YES;
             }
             settingItemId:0];
-        [sectionItems addObject:autoreload];
+        [sectionItems addObject:autoReload];
 
     if (hasSWVP9VideoDecoder) {
         // Decode threads
