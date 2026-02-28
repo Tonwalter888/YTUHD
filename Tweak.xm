@@ -108,12 +108,13 @@ static void hookFormatsBase(YTIHamplayerConfig *config) {
 
 %end
 
+NSTimer *bufferingTimer = nil;
+
 %group AutoReloadVideo
 %hook MLHAMQueuePlayer
 
 - (void)setState:(NSInteger)state {
     %orig;
-    NSTimer *bufferingTimer = nil;
     if (state == 5 || state == 6 || state == 8) {
         if (bufferingTimer) {
             [bufferingTimer invalidate];
