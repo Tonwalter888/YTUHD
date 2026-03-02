@@ -20,11 +20,11 @@
 #define MAX_PIXELS 8294400 // 3840 x 2160 (4K)
 
 #define UseVP9orAV1Key @"EnableSWVP9orSWAV1"
-#define AllVP9Key @"AllSWVP9"
 #define DecodeThreadsKey @"SWVP9DecodeThreads"
 #define SkipLoopFilterKey @"SWVP9SkipLoopFilter"
 #define LoopFilterOptimizationKey @"SWVP9LoopFilterOptimization"
 #define RowThreadingKey @"SWVP9RowThreading"
 #define AutoReloadKey @"ReloadVideos"
+#define CodecKey @"SelectCodec"
 
 #endif

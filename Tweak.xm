@@ -5,7 +5,6 @@
 
 extern "C" {
     BOOL UseVP9orAV1();
-    BOOL AllVP9();
     int DecodeThreads();
     BOOL SkipLoopFilter();
     BOOL LoopFilterOptimization();
@@ -26,6 +25,10 @@ static void hookFormatsBase(YTIHamplayerConfig *config) {
     filter.av1.maxFps = MAX_FPS;
     filter.vp9.maxArea = MAX_PIXELS;
     filter.vp9.maxFps = MAX_FPS;
+}
+
+static int Codec() {
+    return [[NSUserDefaults standardUserDefaults] integerForKey:CodecKey];
 }
 
 %hook MLInnerTubePlayerConfig
@@ -168,11 +171,18 @@ NSTimer *bufferingTimer = nil;
 %hook YTColdConfig
 
 - (BOOL)iosPlayerClientSharedConfigPopulateSwAv1MediaCapabilities {
-    return !AllVP9();
+    if (Codec() == 1) {
+        return NO;
+    }
+    return YES;
 }
 
 - (BOOL)iosPlayerClientSharedConfigDisableLibvpxDecoder {
-    return NO; // This won't work anymore with YouTube 20.47.3 and higher.
+    // This doesn't work anymore with YouTube 20.47.3 or higher.
+    if (Codec() == 2) {
+        return YES;
+    }
+    return NO;
 }
 
 %end
