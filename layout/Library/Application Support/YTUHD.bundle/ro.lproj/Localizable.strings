@@ -7,9 +7,6 @@
 "USE_AV1" = "Folosește AV1";
 "USE_AV1_DESC" = "Activează codecul AV1 care suportă video până la 4K. Este necesară repornirea aplicației.";
 
-"ALL_VP9" = "VP9 pentru toate";
-"ALL_VP9_DESC" = "Utilizați codec VP9 pentru toate rezoluțiile video. Este recomandat să fie activat pentru dispozitivele care suportă hardware VP9 (A12 și mai sus) ȘI când aplicația YouTube are dreptul VP9.";
-
 "CODEC" = "Codec";
 "CODEC_DESC" = "Puteți alege codec-ul pe care doriți să îl utilizați în videoclipuri";
 "BOTH" = "Ambele";
