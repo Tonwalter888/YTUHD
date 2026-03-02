@@ -7,9 +7,6 @@
 "USE_AV1" = "AV1 használata";
 "USE_AV1_DESC" = "Engedélyezi az AV1 kodeket, amely akár 4K felbontású videókat is támogat. Az alkalmazás újraindítása szükséges.";
 
-"ALL_VP9" = "VP9 mindenhez";
-"ALL_VP9_DESC" = "Használja a VP9 kodeket minden videófelbontáshoz. Ajánlott engedélyezni hardveres VP9 támogatott eszközökön (A12 és újabb) ÉS amikor a YouTube alkalmazás rendelkezik VP9 jogosultsággal.";
-
 "CODEC" = "Kodek";
 "CODEC_DESC" = "Kiválaszthatja, melyik kodeket szeretné használni a videókban";
 "BOTH" = "Mindkettő";
