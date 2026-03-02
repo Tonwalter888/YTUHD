@@ -25,10 +25,6 @@ BOOL UseVP9orAV1() {
     return [[NSUserDefaults standardUserDefaults] boolForKey:UseVP9orAV1Key];
 }
 
-BOOL AllVP9() {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:AllVP9Key];
-}
-
 int DecodeThreads() {
     return [[NSUserDefaults standardUserDefaults] integerForKey:DecodeThreadsKey];
 }
@@ -106,7 +102,7 @@ NSBundle *YTUHDBundle() {
         }];
     [sectionItems addObject:tweakVersion];
 
-    // Use VP9/AV1
+    // Use Codecs
     if (hasSWVP9VideoDecoder && Codec() == 0) {
         YTSettingsSectionItem *vp9orav1 = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"USE_VP9_OR_AV1")
             titleDescription:LOC(@"USE_VP9_OR_AV1_DESC")
@@ -140,20 +136,6 @@ NSBundle *YTUHDBundle() {
             }
             settingItemId:0];
         [sectionItems addObject:av1];
-    }
-
-    if (hasSWVP9VideoDecoder && Codec() != 2) {
-        // All VP9
-        YTSettingsSectionItem *allVP9 = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"ALL_VP9")
-            titleDescription:LOC(@"ALL_VP9_DESC")
-            accessibilityIdentifier:nil
-            switchOn:AllVP9()
-            switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:AllVP9Key];
-                return YES;
-            }
-            settingItemId:0];
-        [sectionItems addObject:allVP9];
     }
 
         // Auto reload videos
