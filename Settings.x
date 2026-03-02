@@ -7,8 +7,6 @@
 #import "Header.h"
 
 #define TweakName @"YTUHD"
-#define TWEAK_VERSION 1.10.0
-
 #define LOC(x) [tweakBundle localizedStringForKey:x value:nil table:nil]
 
 static const NSInteger TweakSection = 'ythd';
@@ -98,7 +96,7 @@ NSBundle *YTUHDBundle() {
     YTSettingsViewController *settingsViewController = [self valueForKey:@"_settingsViewControllerDelegate"];
 
     // Tweak Version
-    NSString *versionString = [NSString stringWithFormat:@"YTUHD v%s", TOSTRING(TWEAK_VERSION)];
+    NSString *versionString = [NSString stringWithFormat:@"YTUHD v1.10.0"];
     YTSettingsSectionItem *tweakVersion = [YTSettingsSectionItemClass itemWithTitle:versionString
         titleDescription:nil
         accessibilityIdentifier:nil
