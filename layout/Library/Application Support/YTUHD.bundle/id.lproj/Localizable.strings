@@ -7,9 +7,6 @@
 "USE_AV1" = "Gunakan AV1";
 "USE_AV1_DESC" = "Aktifkan codec AV1 yang mendukung video hingga resolusi 4K. Perlu memulai ulang aplikasi.";
 
-"ALL_VP9" = "VP9 untuk semua";
-"ALL_VP9_DESC" = "Gunakan codec VP9 untuk semua resolusi video. Ini disarankan untuk diaktifkan untuk perangkat yang mendukung hardware VP9 (A12 dan lebih tinggi) dan ketika aplikasi YouTube memiliki hak VP9.";
-
 "CODEC" = "Codec";
 "CODEC_DESC" = "Anda dapat memilih codec yang ingin digunakan dalam video";
 "BOTH" = "Keduanya";
