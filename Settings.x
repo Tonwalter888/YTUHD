@@ -187,17 +187,17 @@ NSBundle *YTUHDBundle() {
         selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
             NSArray <YTSettingsSectionItem *> *rows = @[
                 [YTSettingsSectionItemClass checkmarkItemWithTitle:LOC(@"BOTH") titleDescription:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
-                    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"CodecKey"];
+                    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"SelectCodec"];
                     [settingsViewController reloadData];
                     return YES;
                 }],
                 [YTSettingsSectionItemClass checkmarkItemWithTitle:LOC(@"VP9") titleDescription:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
-                    [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"CodecKey"];
+                    [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"SelectCodec"];
                     [settingsViewController reloadData];
                     return YES;
                 }],
                 [YTSettingsSectionItemClass checkmarkItemWithTitle:LOC(@"AV1") titleDescription:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
-                    [[NSUserDefaults standardUserDefaults] setInteger:2 forKey:@"CodecKey"];
+                    [[NSUserDefaults standardUserDefaults] setInteger:2 forKey:@"SelectCodec"];
                     [settingsViewController reloadData];
                     return YES;
                 }]
