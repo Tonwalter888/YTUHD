@@ -1,11 +1,18 @@
-"USE_VP9_OR_AV1" = "Használja a VP9/AV1-et";
-"USE_VP9_OR_AV1_DESC" = "Engedélyezze az akár 4K felbontást támogató VP9/AV1 kodeket. A legjobban az Apple CPU A12 vagy újabb CPU-val rendelkező eszközökkel működik. Az alkalmazás újraindítása szükséges.";
+"USE_VP9_OR_AV1" = "VP9 és AV1 használata";
+"USE_VP9_OR_AV1_DESC" = "Engedélyezi a VP9 és AV1 kodekeket, amelyek akár 4K felbontású videókat is támogatnak. Az alkalmazás újraindítása szükséges.";
 
-"USE_AV1" = "Használja a AV1-et";
-"USE_AV1_DESC" = "Engedélyezze az akár 4K felbontást támogató AV1 kodeket. A legjobban az Apple CPU A12 vagy újabb CPU-val rendelkező eszközökkel működik. Az alkalmazás újraindítása szükséges.";
+"USE_VP9" = "VP9 használata";
+"USE_VP9_DESC" = "Engedélyezi a VP9 kodeket, amely akár 4K felbontású videókat is támogat. Az alkalmazás újraindítása szükséges.";
+
+"USE_AV1" = "AV1 használata";
+"USE_AV1_DESC" = "Engedélyezi az AV1 kodeket, amely akár 4K felbontású videókat is támogat. Az alkalmazás újraindítása szükséges.";
 
 "ALL_VP9" = "VP9 mindenhez";
 "ALL_VP9_DESC" = "Használja a VP9 kodeket minden videófelbontáshoz. Ajánlott engedélyezni hardveres VP9 támogatott eszközökön (A12 és újabb) ÉS amikor a YouTube alkalmazás rendelkezik VP9 jogosultsággal.";
+
+"CODEC" = "Kodek";
+"CODEC_DESC" = "Kiválaszthatja, melyik kodeket szeretné használni a videókban";
+"BOTH" = "Mindkettő";
 
 "DECODE_THREADS" = "Dekódoló szálak";
 "DECODE_THREADS_DESC" = "A VP9 videó dekódolásához használt szálak száma. A magasabb értékek javíthatják a videólejátszás teljesítményét, de növelhetik az akkumulátor fogyasztását is.";

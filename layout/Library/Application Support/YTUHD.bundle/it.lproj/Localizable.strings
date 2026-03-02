@@ -1,11 +1,15 @@
-"USE_VP9_OR_AV1" = "Usa VP9/AV1";
-"USE_VP9_OR_AV1_DESC" = "Attiva il codec VP9/AV1 che supporta risoluzione fino a 4K. Funziona meglio con dispositivi con CPU Apple A12 o superiore. È richiesto un riavvio dell'app.";
+"USE_VP9_OR_AV1" = "Usa VP9 e AV1";
+"USE_VP9_OR_AV1_DESC" = "Abilita i codec VP9 e AV1 con supporto per video fino a 4K. È necessario riavviare l'app.";
+
+"USE_VP9" = "Usa VP9";
+"USE_VP9_DESC" = "Abilita il codec VP9 con supporto per video fino a 4K. È necessario riavviare l'app.";
 
 "USE_AV1" = "Usa AV1";
-"USE_AV1_DESC" = "Attiva il codec AV1 che supporta risoluzione fino a 4K. Funziona meglio con dispositivi con CPU Apple A12 o superiore. È richiesto un riavvio dell'app.";
+"USE_AV1_DESC" = "Abilita il codec AV1 con supporto per video fino a 4K. È necessario riavviare l'app.";
 
-"ALL_VP9" = "VP9 per tutti";
-"ALL_VP9_DESC" = "Usa il codec VP9 per tutte le risoluzioni video. Si consiglia di abilitare questa opzione per i dispositivi che supportano hardware VP9 (A12 e superiori) E quando l'app YouTube ha il diritto VP9.";
+"CODEC" = "Codec";
+"CODEC_DESC" = "Puoi scegliere il codec che desideri utilizzare nei video";
+"BOTH" = "Entrambi";
 
 "DECODE_THREADS" = "Thread di decodifica";
 "DECODE_THREADS_DESC" = "Numero di thread utilizzati per la decodifica video VP9. Valori più alti possono migliorare le prestazioni della riproduzione video ma possono anche aumentare il consumo della batteria.";

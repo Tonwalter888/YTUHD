@@ -30,6 +30,10 @@ static void hookFormatsBase(YTIHamplayerConfig *config) {
     filter.vp9.maxFps = MAX_FPS;
 }
 
+static int Codec() {
+    return [[NSUserDefaults standardUserDefaults] integerForKey:CodecKey];
+}
+
 %hook MLInnerTubePlayerConfig
 
 - (id)initWithPlayerConfig:(id)arg1 IOSPlayerConfig:(id)arg2 IOSShaderConfig:(id)arg3 HLSProxyConfig:(id)arg4 AVPlayerConfig:(id)arg5 hamplayerConfig:(id)arg6 autocropConfig:(id)arg7 videoToAudioItagMap:(id)arg8 DRMSessionID:(id)arg9 fairPlayConfig:(id)arg10 livePlayerConfig:(id)arg11 VRConfig:(id)arg12 stickyCeilingDuration:(double)arg13 offlineable:(BOOL)arg14 offline:(BOOL)arg15 dataSaverConfig:(id)arg16 audioConfig:(id)arg17 mediaCommonConfig:(id)arg18 varispeedAllowed:(BOOL)arg19 fetchManifestWhenNotActive:(BOOL)arg20 playbackStartConfig:(id)arg21 manifestlessWindowedLiveConfig:(id)arg22 qoeStatsClientConfig:(id)arg23 watchEndpointUstreamerConfig:(id)arg24 DAIType:(long long)arg25 {
@@ -170,11 +174,18 @@ NSTimer *bufferingTimer = nil;
 %hook YTColdConfig
 
 - (BOOL)iosPlayerClientSharedConfigPopulateSwAv1MediaCapabilities {
-    return !AllVP9();
+    if (Codec() == 1) {
+        return NO;
+    }
+    return YES;
 }
 
 - (BOOL)iosPlayerClientSharedConfigDisableLibvpxDecoder {
-    return NO; // This won't work anymore with YouTube 20.47.3 and higher.
+    // This won't work anymore with YouTube 20.47.3 and higher.
+    if (Codec() == 2) {
+        return NO;
+    }
+    return YES;
 }
 
 %end

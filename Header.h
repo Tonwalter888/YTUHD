@@ -26,5 +26,6 @@
 #define LoopFilterOptimizationKey @"SWVP9LoopFilterOptimization"
 #define RowThreadingKey @"SWVP9RowThreading"
 #define AutoReloadKey @"ReloadVideos"
+#define CodecKey @"SelectCodec"
 
 #endif

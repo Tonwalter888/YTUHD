@@ -1,11 +1,15 @@
-"USE_VP9_OR_AV1" = "VP9/AV1'u aç";
-"USE_VP9_OR_AV1_DESC" = "4K çözünürlüğe kadar VP9/AV1 kodeğini aç. Apple A12 ve üstü cihazlarla en iyi çalışır. Uyg. yeniden başlatılmalı.";
+"USE_VP9_OR_AV1" = "VP9 ve AV1 kullan";
+"USE_VP9_OR_AV1_DESC" = "4K çözünürlüğe kadar videoları destekleyen VP9 ve AV1 codec'lerini etkinleştirir. Uygulamayı yeniden başlatmak gerekir.";
 
-"USE_AV1" = "AV1'u aç";
-"USE_AV1_DESC" = "4K çözünürlüğe kadar AV1 kodeğini aç. Apple A12 ve üstü cihazlarla en iyi çalışır. Uyg. yeniden başlatılmalı.";
+"USE_VP9" = "VP9 kullan";
+"USE_VP9_DESC" = "4K çözünürlüğe kadar videoları destekleyen VP9 codec'ini etkinleştirir. Uygulamayı yeniden başlatmak gerekir.";
 
-"ALL_VP9" = "Tüm videolar için VP9";
-"ALL_VP9_DESC" = "Tüm video çözünürlüklerinde VP9 kodeğini kullan. Donanım VP9 destekli cihazlar (A12 ve üstü) ve YouTube uygulaması VP9 yetkisine sahip olduğunda önerilir.";
+"USE_AV1" = "AV1 kullan";
+"USE_AV1_DESC" = "4K çözünürlüğe kadar videoları destekleyen AV1 codec'ini etkinleştirir. Uygulamayı yeniden başlatmak gerekir.";
+
+"CODEC" = "Kodek";
+"CODEC_DESC" = "Videolarda kullanmak istediğiniz kodeği seçebilirsiniz";
+"BOTH" = "Her ikisi";
 
 "DECODE_THREADS" = "Kod Çözme İş Parçacıkları";
 "DECODE_THREADS_DESC" = "VP9 video kod çözme için kullanılan iş parçacığı sayısı. Daha yüksek değerler video oynatma performansını artırabilir ancak pil tüketimini de artırabilir.";
