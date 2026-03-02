@@ -5,7 +5,6 @@
 
 extern "C" {
     BOOL UseVP9orAV1();
-    BOOL AllVP9();
     int DecodeThreads();
     BOOL SkipLoopFilter();
     BOOL LoopFilterOptimization();
