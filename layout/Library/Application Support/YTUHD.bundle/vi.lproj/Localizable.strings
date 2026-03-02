@@ -7,9 +7,6 @@
 "USE_AV1" = "Sử dụng AV1";
 "USE_AV1_DESC" = "Bật codec AV1 hỗ trợ video lên đến độ phân giải 4K. Cần khởi động lại ứng dụng.";
 
-"ALL_VP9" = "Sử dụng bộ giải mã VP9 cho tất cả";
-"ALL_VP9_DESC" = "Sử dụng bộ giải mã VP9 cho tất cả độ phân giải video. Bạn nên bật tính năng này cho các thiết bị hỗ trợ phần cứng VP9 (A12 trở lên) và khi ứng dụng YouTube có quyền VP9.";
-
 "CODEC" = "Bộ mã hóa";
 "CODEC_DESC" = "Bạn có thể chọn bộ mã hóa bạn muốn sử dụng trong video";
 "BOTH" = "Cả hai";
