@@ -91,7 +91,7 @@ NSBundle *YTUHDBundle() {
     Class YTSettingsSectionItemClass = %c(YTSettingsSectionItem);
     YTSettingsViewController *settingsViewController = [self valueForKey:@"_settingsViewControllerDelegate"];
 
-    // Tweak Version
+    // Tweak Version Header
     NSString *versionString = [NSString stringWithFormat:@"YTUHD v1.10.0"];
     YTSettingsSectionItem *tweakVersion = [YTSettingsSectionItemClass itemWithTitle:versionString
         titleDescription:nil
