@@ -17,8 +17,6 @@ NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *formats) {
 }
 
 static void hookFormatsBase(YTIHamplayerConfig *config) {
-    if ([config.videoAbrConfig respondsToSelector:@selector(setPreferSoftwareHdrOverHardwareSdr:)])
-        config.videoAbrConfig.preferSoftwareHdrOverHardwareSdr = YES;
     if ([config respondsToSelector:@selector(setDisableResolveOverlappingQualitiesByCodec:)])
         config.disableResolveOverlappingQualitiesByCodec = NO;
     YTIHamplayerStreamFilter *filter = config.streamFilter;
