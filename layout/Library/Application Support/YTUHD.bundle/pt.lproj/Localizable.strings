@@ -21,4 +21,4 @@
 "ROW_THREADING" = "Threading por linha";
 
 "RELOAD" = "Recarregar vídeos travados automaticamente";
-"RELOAD_DESC" = "Ao ativar esta opção, o vídeo travado será recarregado automaticamente a cada 5 segundos";
+"RELOAD_DESC" = "Ao ativar esta opção, o vídeo travado será recarregado automaticamente a cada 3 segundos";

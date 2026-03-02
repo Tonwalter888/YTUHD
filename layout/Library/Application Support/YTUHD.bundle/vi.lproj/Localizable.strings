@@ -21,4 +21,4 @@
 "ROW_THREADING" = "Luồng theo hàng";
 
 "RELOAD" = "Tự động tải lại video bị treo";
-"RELOAD_DESC" = "Khi bật tùy chọn này, video bị treo sẽ tự động tải lại mỗi 5 giây";
+"RELOAD_DESC" = "Khi bật tùy chọn này, video bị treo sẽ tự động tải lại mỗi 3 giây";

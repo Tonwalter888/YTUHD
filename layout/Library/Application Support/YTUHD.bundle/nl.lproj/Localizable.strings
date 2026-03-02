@@ -21,4 +21,4 @@
 "ROW_THREADING" = "Rij-threading";
 
 "RELOAD" = "Vastgelopen video's automatisch herladen";
-"RELOAD_DESC" = "Wanneer ingeschakeld wordt een vastgelopen video elke 5 seconden automatisch herladen";
+"RELOAD_DESC" = "Wanneer ingeschakeld wordt een vastgelopen video elke 3 seconden automatisch herladen";

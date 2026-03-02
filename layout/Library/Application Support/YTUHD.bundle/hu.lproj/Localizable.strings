@@ -21,4 +21,4 @@
 "ROW_THREADING" = "Sor alapú szálkezelés";
 
 "RELOAD" = "Beragadt videók automatikus újratöltése";
-"RELOAD_DESC" = "Bekapcsolva a beragadt videó 5 másodpercenként automatikusan újratöltődik";
+"RELOAD_DESC" = "Bekapcsolva a beragadt videó 3 másodpercenként automatikusan újratöltődik";

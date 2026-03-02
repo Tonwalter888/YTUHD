@@ -21,4 +21,4 @@
 "ROW_THREADING" = "Threading baris";
 
 "RELOAD" = "Muat ulang video macet otomatis";
-"RELOAD_DESC" = "Saat diaktifkan, video yang macet akan dimuat ulang setiap 5 detik";
+"RELOAD_DESC" = "Saat diaktifkan, video yang macet akan dimuat ulang setiap 3 detik";

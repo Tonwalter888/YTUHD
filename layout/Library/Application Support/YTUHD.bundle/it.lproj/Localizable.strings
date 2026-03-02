@@ -21,4 +21,4 @@
 "ROW_THREADING" = "Threading per riga";
 
 "RELOAD" = "Ricarica automaticamente i video bloccati";
-"RELOAD_DESC" = "Attivando questa opzione, il video bloccato verrà ricaricato automaticamente ogni 5 secondi";
+"RELOAD_DESC" = "Attivando questa opzione, il video bloccato verrà ricaricato automaticamente ogni 3 secondi";

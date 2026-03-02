@@ -21,4 +21,4 @@
 "ROW_THREADING" = "Wątkowanie wierszy";
 
 "RELOAD" = "Automatycznie przeładuj zacięte filmy";
-"RELOAD_DESC" = "Po włączeniu tej opcji zacięty film będzie automatycznie przeładowywany co 5 sekund";
+"RELOAD_DESC" = "Po włączeniu tej opcji zacięty film będzie automatycznie przeładowywany co 3 sekund";
