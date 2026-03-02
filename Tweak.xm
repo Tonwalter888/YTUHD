@@ -183,9 +183,9 @@ NSTimer *bufferingTimer = nil;
 - (BOOL)iosPlayerClientSharedConfigDisableLibvpxDecoder {
     // This won't work anymore with YouTube 20.47.3 and higher.
     if (Codec() == 2) {
-        return NO;
+        return YES;
     }
-    return YES;
+    return NO;
 }
 
 %end
