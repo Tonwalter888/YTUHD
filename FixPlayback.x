@@ -1,22 +1,12 @@
 // Adapted from YouPiP by PoomSmart
 // Try to make this work in newer YT versions
 // This research based on YT version 21.06.2
-#import <Foundation/Foundation.h>
-#import <version.h>
 #import <YouTubeHeader/MLAVPlayer.h>
 #import <YouTubeHeader/MLDefaultPlayerViewFactory.h>
-#import <YouTubeHeader/MLHAMQueuePlayer.h>
-#import <YouTubeHeader/MLPIPController.h>
 #import <YouTubeHeader/MLPlayerPool.h>
 #import <YouTubeHeader/MLPlayerPoolImpl.h>
 #import <YouTubeHeader/MLVideoDecoderFactory.h>
-#import <YouTubeHeader/YTAutonavEndscreenController.h>
-#import <YouTubeHeader/YTBackgroundabilityPolicy.h>
 #import <YouTubeHeader/YTHotConfig.h>
-#import <YouTubeHeader/YTLiveWatchPlaybackOverlayView.h>
-#import <YouTubeHeader/YTPlayerPIPController.h>
-#import <YouTubeHeader/YTPlayerViewControllerConfig.h>
-#import <YouTubeHeader/YTSystemNotifications.h>
 
 extern BOOL FixPlayback();
 
