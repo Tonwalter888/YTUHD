@@ -31,6 +31,11 @@ static int Codec() {
     return [[NSUserDefaults standardUserDefaults] integerForKey:CodecKey];
 }
 
+%hook YTIHamplayerConfig
+- (BOOL)useSbdlRenderView { return NO; }
+- (int)renderViewType { return 0; }
+%end
+
 %hook MLInnerTubePlayerConfig
 
 - (id)initWithPlayerConfig:(id)arg1 IOSPlayerConfig:(id)arg2 IOSShaderConfig:(id)arg3 HLSProxyConfig:(id)arg4 AVPlayerConfig:(id)arg5 hamplayerConfig:(id)arg6 autocropConfig:(id)arg7 videoToAudioItagMap:(id)arg8 DRMSessionID:(id)arg9 fairPlayConfig:(id)arg10 livePlayerConfig:(id)arg11 VRConfig:(id)arg12 stickyCeilingDuration:(double)arg13 offlineable:(BOOL)arg14 offline:(BOOL)arg15 dataSaverConfig:(id)arg16 audioConfig:(id)arg17 mediaCommonConfig:(id)arg18 varispeedAllowed:(BOOL)arg19 fetchManifestWhenNotActive:(BOOL)arg20 playbackStartConfig:(id)arg21 manifestlessWindowedLiveConfig:(id)arg22 qoeStatsClientConfig:(id)arg23 watchEndpointUstreamerConfig:(id)arg24 DAIType:(long long)arg25 {
