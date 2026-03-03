@@ -6,11 +6,7 @@ extern BOOL Test();
 %hook YTIHamplayerConfig
 
 - (BOOL)useSbdlRenderView { return NO; }
-- (int)renderViewType {
-    int v = %orig;
-    NSLog(@"[WATERDEV] renderViewType read = %d", v);
-    return v;
-}
+- (int)renderViewType { return 6; }
 - (BOOL)disableResolveOverlappingQualitiesByCodec { return YES; }
 
 %end
