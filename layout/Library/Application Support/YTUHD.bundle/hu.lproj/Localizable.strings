@@ -22,3 +22,7 @@
 
 "RELOAD" = "Beragadt videók automatikus újratöltése";
 "RELOAD_DESC" = "Bekapcsolva a beragadt videó 3 másodpercenként automatikusan újratöltődik";
+
+"EXTRA" = "Extra funkció";
+"FIX_PLAYBACK" = "Lejátszási problémák javítása";
+"FIX_PLAYBACK_DESC" = "Videólejátszási problémák javítása egyes felhasználóknál. Bekapcsolása letiltja a VP9 és AV1 kodekeket.";

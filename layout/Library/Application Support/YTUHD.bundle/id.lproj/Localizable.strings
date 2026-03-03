@@ -22,3 +22,7 @@
 
 "RELOAD" = "Muat ulang video macet otomatis";
 "RELOAD_DESC" = "Saat diaktifkan, video yang macet akan dimuat ulang setiap 3 detik";
+
+"EXTRA" = "Fitur tambahan";
+"FIX_PLAYBACK" = "Perbaiki masalah pemutaran";
+"FIX_PLAYBACK_DESC" = "Memperbaiki masalah pemutaran video untuk beberapa pengguna. Mengaktifkan ini akan menonaktifkan VP9 dan AV1.";

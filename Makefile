@@ -13,7 +13,7 @@ DEBUG = 0
 include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = YTUHD
-$(TWEAK_NAME)_FILES = Tweak.xm Settings.x Test.x
+$(TWEAK_NAME)_FILES = Tweak.xm Settings.x FixPlayback.x
 $(TWEAK_NAME)_CFLAGS = -fobjc-arc $(EXTRA_CFLAGS)
 
 include $(THEOS_MAKE_PATH)/tweak.mk

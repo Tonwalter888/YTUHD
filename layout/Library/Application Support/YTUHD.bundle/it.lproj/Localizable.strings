@@ -22,3 +22,7 @@
 
 "RELOAD" = "Ricarica automaticamente i video bloccati";
 "RELOAD_DESC" = "Attivando questa opzione, il video bloccato verrà ricaricato automaticamente ogni 3 secondi";
+
+"EXTRA" = "Funzionalità extra";
+"FIX_PLAYBACK" = "Correggi problemi di riproduzione";
+"FIX_PLAYBACK_DESC" = "Corregge problemi di riproduzione video per alcuni utenti. Attivandolo verranno disabilitati VP9 e AV1.";

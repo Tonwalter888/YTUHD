@@ -1,4 +1,4 @@
-// Adapt from YouPiP by PoomSmart
+// Adapted from YouPiP by PoomSmart
 // Try to make this work in newer YT versions
 // This research based on YT version 21.06.2
 #import <Foundation/Foundation.h>
@@ -17,11 +17,22 @@
 #import <YouTubeHeader/YTPlayerPIPController.h>
 #import <YouTubeHeader/YTPlayerViewControllerConfig.h>
 #import <YouTubeHeader/YTSystemNotifications.h>
+#import <YouTubeHeader/MLFormat.h>
 
-extern BOOL Test();
+extern BOOL FixPlayback();
 
 @interface YTGLMediaPlayerViewFactory : NSObject
 @end
+
+NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *formats) {
+    NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(MLFormat *format, NSDictionary *bindings) {
+        if (![format isKindOfClass:%c(MLFormat)]) return YES;
+        NSString *qualityLabel = [format qualityLabel];
+        BOOL isHighRes = [qualityLabel hasPrefix:@"2160p"] || [qualityLabel hasPrefix:@"1440p"];
+        return !isHighRes;
+    }];
+    return [formats filteredArrayUsingPredicate:predicate];
+}
 
 static MLAVPlayer *makeAVPlayer(id self, MLVideo *video, MLInnerTubePlayerConfig *playerConfig, MLPlayerStickySettings *stickySettings) {
     BOOL externalPlaybackActive = [(MLAVPlayer *)[self valueForKey:@"_activePlayer"] externalPlaybackActive];
@@ -46,7 +57,6 @@ static void forceRenderViewType(YTHotConfig *hotConfig) {
     forceRenderViewTypeHot(hamplayerHotConfig);
 }
 
-%group FixPlayback
 %hook MLPlayerPoolImpl
 
 - (id)acquirePlayerForVideo:(MLVideo *)video playerConfig:(MLInnerTubePlayerConfig *)playerConfig stickySettings:(MLPlayerStickySettings *)stickySettings {
@@ -178,10 +188,8 @@ static void forceRenderViewType(YTHotConfig *hotConfig) {
 }
 
 %end
-%end
 
 %ctor {
-    if (Test()) {
-        %init(FixPlayback)
-    }
+    if (!FixPlayback()) return;
+    %init
 }

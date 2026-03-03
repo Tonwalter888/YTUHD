@@ -22,3 +22,7 @@
 
 "RELOAD" = "Automatycznie przeładuj zacięte filmy";
 "RELOAD_DESC" = "Po włączeniu tej opcji zacięty film będzie automatycznie przeładowywany co 3 sekund";
+
+"EXTRA" = "Dodatkowa funkcja";
+"FIX_PLAYBACK" = "Napraw problemy z odtwarzaniem";
+"FIX_PLAYBACK_DESC" = "Naprawia problemy z odtwarzaniem wideo u niektórych użytkowników. Włączenie tego wyłączy VP9 i AV1.";

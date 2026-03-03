@@ -21,10 +21,6 @@ static int Codec() {
 
 BOOL hasSWVP9VideoDecoder;
 
-BOOL Test() {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:TestKey];
-}
-
 BOOL UseVP9orAV1() {
     return [[NSUserDefaults standardUserDefaults] boolForKey:UseVP9orAV1Key];
 }
@@ -47,6 +43,10 @@ BOOL RowThreading() {
 
 BOOL AutoReload() {
     return [[NSUserDefaults standardUserDefaults] boolForKey:AutoReloadKey];
+}
+
+BOOL FixPlayback() {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:FixPlaybackKey];
 }
 
 NSBundle *YTUHDBundle() {
@@ -96,7 +96,7 @@ NSBundle *YTUHDBundle() {
     YTSettingsViewController *settingsViewController = [self valueForKey:@"_settingsViewControllerDelegate"];
 
     // Tweak Version Header
-    NSString *versionString = [NSString stringWithFormat:@"YTUHD v1.10.2"];
+    NSString *versionString = [NSString stringWithFormat:@"YTUHD v1.11.0"];
     YTSettingsSectionItem *tweakVersion = [YTSettingsSectionItemClass itemWithTitle:versionString
         titleDescription:nil
         accessibilityIdentifier:nil
@@ -105,17 +105,6 @@ NSBundle *YTUHDBundle() {
             return NO;
         }];
     [sectionItems addObject:tweakVersion];
-
-    YTSettingsSectionItem *test = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"TEST")
-            titleDescription:LOC(@"TEST_DESC")
-            accessibilityIdentifier:nil
-            switchOn:Test()
-            switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:TestKey];
-                return YES;
-            }
-            settingItemId:0];
-        [sectionItems addObject:test];
 
     // Use Codecs
     if (hasSWVP9VideoDecoder && Codec() == 0) {
@@ -284,6 +273,28 @@ NSBundle *YTUHDBundle() {
             settingItemId:0];
         [sectionItems addObject:rowThreading];
     }
+
+        // Extra Feature Header
+        YTSettingsSectionItem *extra = [YTSettingsSectionItemClass itemWithTitle:LOC(@"EXTRA")
+            titleDescription:nil
+            accessibilityIdentifier:nil
+            detailTextBlock:nil
+            selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
+                return NO;
+            }];
+        [sectionItems addObject:extra];
+
+        // Fix playback issues
+        YTSettingsSectionItem *fixPlayback = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"FIX_PLAYBACK")
+            titleDescription:LOC(@"FIX_PLAYBACK_DESC")
+            accessibilityIdentifier:nil
+            switchOn:FixPlayback()
+            switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:FixPlaybackKey];
+                return YES;
+            }
+            settingItemId:0];
+        [sectionItems addObject:fixPlayback];
 
     if ([settingsViewController respondsToSelector:@selector(setSectionItems:forCategory:title:icon:titleDescription:headerHidden:)]) {
         YTIIcon *icon = [%c(YTIIcon) new];

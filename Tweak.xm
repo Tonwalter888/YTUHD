@@ -122,7 +122,7 @@ NSTimer *bufferingTimer = nil;
             bufferingTimer = nil;
         }
         __weak typeof(self) weakSelf = self;
-        bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:3
+        bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:2.5
                             repeats:NO
                             block:^(NSTimer *timer) {
                                 bufferingTimer = nil;
@@ -267,7 +267,7 @@ NSTimer *bufferingTimer = nil;
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{
         DecodeThreadsKey: @2
     }];
-    if (!UseVP9orAV1()) return;
+    if (!UseVP9orAV1() || FixPlayback()) return;
     %init;
     if (!IS_IOS_OR_NEWER(iOS_15_0)) {
         %init(Spoofing);

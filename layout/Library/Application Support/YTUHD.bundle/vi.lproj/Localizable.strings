@@ -22,3 +22,7 @@
 
 "RELOAD" = "Tự động tải lại video bị treo";
 "RELOAD_DESC" = "Khi bật tùy chọn này, video bị treo sẽ tự động tải lại mỗi 3 giây";
+
+"EXTRA" = "Ek özellik";
+"FIX_PLAYBACK" = "Oynatma sorunlarını düzelt";
+"FIX_PLAYBACK_DESC" = "Bazı kullanıcılar için video oynatma sorunlarını düzeltir. Bunu açmak VP9 ve AV1'i devre dışı bırakacaktır.";

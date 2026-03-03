@@ -26,6 +26,6 @@
 #define RowThreadingKey @"SWVP9RowThreading"
 #define AutoReloadKey @"ReloadVideos"
 #define CodecKey @"SelectCodec"
-#define TestKey @"IDK"
+#define FixPlaybackKey @"FixPlaybackIssues"
 
 #endif
