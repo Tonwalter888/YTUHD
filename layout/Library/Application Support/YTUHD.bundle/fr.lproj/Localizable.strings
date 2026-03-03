@@ -21,7 +21,7 @@
 "ROW_THREADING" = "Threading par ligne";
 
 "RELOAD" = "Recharger automatiquement les vidéos bloquées";
-"RELOAD_DESC" = "En activant cette option, la vidéo bloquée sera rechargée automatiquement toutes les 3 secondes";
+"RELOAD_DESC" = "En activant cette option, la vidéo bloquée sera rechargée automatiquement toutes les 2.5 secondes";
 
 "EXTRA" = "Fonction supplémentaire";
 "FIX_PLAYBACK" = "Corriger les problèmes de lecture";

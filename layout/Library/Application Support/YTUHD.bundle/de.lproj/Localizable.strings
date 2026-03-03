@@ -21,7 +21,7 @@
 "ROW_THREADING" = "Zeilen-Threading";
 
 "RELOAD" = "Hängende Videos automatisch neu laden";
-"RELOAD_DESC" = "Wenn aktiviert, wird ein hängendes Video alle 3 Sekunden automatisch neu geladen";
+"RELOAD_DESC" = "Wenn aktiviert, wird ein hängendes Video alle 2.5 Sekunden automatisch neu geladen";
 
 "EXTRA" = "Zusätzliche Funktion";
 "FIX_PLAYBACK" = "Wiedergabeprobleme beheben";

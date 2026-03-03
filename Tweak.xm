@@ -10,6 +10,7 @@ extern "C" {
     BOOL LoopFilterOptimization();
     BOOL RowThreading();
     BOOL AutoReload();
+    BOOL FixPlayback();
 }
 
 NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *formats) {
