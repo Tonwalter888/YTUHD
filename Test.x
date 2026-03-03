@@ -6,7 +6,7 @@ extern BOOL Test();
 %hook YTIHamplayerConfig
 
 - (BOOL)useSbdlRenderView { return NO; }
-- (int)renderViewType { return 1; }
+- (int)renderViewType { return 11; }
 - (BOOL)disableResolveOverlappingQualitiesByCodec { return YES; }
 
 %end
