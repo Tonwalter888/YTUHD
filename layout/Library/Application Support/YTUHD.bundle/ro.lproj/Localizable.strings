@@ -21,4 +21,8 @@
 "ROW_THREADING" = "Threading pe rânduri";
 
 "RELOAD" = "Reîncarcă automat videoclipurile blocate";
-"RELOAD_DESC" = "Activarea acestei opțiuni va reîncărca automat videoclipul blocat la fiecare 3 secunde";
+"RELOAD_DESC" = "Activarea acestei opțiuni va reîncărca automat videoclipul blocat la fiecare 2.5 secunde";
+
+"EXTRA" = "Funcție suplimentară";
+"FIX_PLAYBACK" = "Remediază problemele de redare";
+"FIX_PLAYBACK_DESC" = "Remediază problemele de redare video pentru unii utilizatori. Activarea acestei opțiuni va dezactiva VP9 și AV1.";

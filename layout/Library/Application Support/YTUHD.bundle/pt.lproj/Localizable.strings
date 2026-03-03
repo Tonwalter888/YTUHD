@@ -21,4 +21,8 @@
 "ROW_THREADING" = "Threading por linha";
 
 "RELOAD" = "Recarregar vídeos travados automaticamente";
-"RELOAD_DESC" = "Ao ativar esta opção, o vídeo travado será recarregado automaticamente a cada 3 segundos";
+"RELOAD_DESC" = "Ao ativar esta opção, o vídeo travado será recarregado automaticamente a cada 2.5 segundos";
+
+"EXTRA" = "Recurso extra";
+"FIX_PLAYBACK" = "Corrigir problemas de reprodução";
+"FIX_PLAYBACK_DESC" = "Corrige problemas de reprodução de vídeo para alguns usuários. Ativar isto desativará VP9 e AV1.";

@@ -21,5 +21,8 @@
 "ROW_THREADING" = "行线程";
 
 "RELOAD" = "自动重新加载卡住的视频";
+"RELOAD_DESC" = "启用此选项后，卡住的视频将每2.5秒自动重新加载一次";
 
-"RELOAD_DESC" = "启用此选项后，卡住的视频将每3秒自动重新加载一次";
+"EXTRA" = "额外功能";
+"FIX_PLAYBACK" = "修复播放问题";
+"FIX_PLAYBACK_DESC" = "为部分用户修复视频播放问题。开启此选项将禁用 VP9 和 AV1。";

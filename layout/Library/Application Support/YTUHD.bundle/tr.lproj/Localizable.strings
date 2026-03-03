@@ -21,4 +21,8 @@
 "ROW_THREADING" = "Satır iş parçacığı";
 
 "RELOAD" = "Takılan videoları otomatik yeniden yükle";
-"RELOAD_DESC" = "Bu seçenek açıldığında takılan video her 3 saniyede bir otomatik olarak yeniden yüklenecektir";
+"RELOAD_DESC" = "Bu seçenek açıldığında takılan video her 2.5 saniyede bir otomatik olarak yeniden yüklenecektir";
+
+"EXTRA" = "Ek özellik";
+"FIX_PLAYBACK" = "Oynatma sorunlarını düzelt";
+"FIX_PLAYBACK_DESC" = "Bazı kullanıcılar için video oynatma sorunlarını düzeltir. Bunu açmak VP9 ve AV1'i devre dışı bırakacaktır.";

@@ -21,4 +21,8 @@
 "ROW_THREADING" = "Procesamiento por filas";
 
 "RELOAD" = "Recargar videos bloqueados automáticamente";
-"RELOAD_DESC" = "Al activar esta opción, el video bloqueado se recargará automáticamente cada 3 segundos";
+"RELOAD_DESC" = "Al activar esta opción, el video bloqueado se recargará automáticamente cada 2.5 segundos";
+
+"EXTRA" = "Función extra";
+"FIX_PLAYBACK" = "Corregir problemas de reproducción";
+"FIX_PLAYBACK_DESC" = "Corrige problemas de reproducción de video para algunos usuarios. Activar esto deshabilitará VP9 y AV1.";

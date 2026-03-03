@@ -45,6 +45,10 @@ BOOL AutoReload() {
     return [[NSUserDefaults standardUserDefaults] boolForKey:AutoReloadKey];
 }
 
+BOOL FixPlayback() {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:FixPlaybackKey];
+}
+
 NSBundle *YTUHDBundle() {
     static NSBundle *bundle = nil;
     static dispatch_once_t onceToken;
@@ -92,7 +96,7 @@ NSBundle *YTUHDBundle() {
     YTSettingsViewController *settingsViewController = [self valueForKey:@"_settingsViewControllerDelegate"];
 
     // Tweak Version Header
-    NSString *versionString = [NSString stringWithFormat:@"YTUHD v1.10.1"];
+    NSString *versionString = [NSString stringWithFormat:@"YTUHD v1.11.0"];
     YTSettingsSectionItem *tweakVersion = [YTSettingsSectionItemClass itemWithTitle:versionString
         titleDescription:nil
         accessibilityIdentifier:nil
@@ -269,6 +273,28 @@ NSBundle *YTUHDBundle() {
             settingItemId:0];
         [sectionItems addObject:rowThreading];
     }
+
+        // Extra Feature Header
+        YTSettingsSectionItem *extra = [YTSettingsSectionItemClass itemWithTitle:LOC(@"EXTRA")
+            titleDescription:nil
+            accessibilityIdentifier:nil
+            detailTextBlock:nil
+            selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
+                return NO;
+            }];
+        [sectionItems addObject:extra];
+
+        // Fix playback issues
+        YTSettingsSectionItem *fixPlayback = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"FIX_PLAYBACK")
+            titleDescription:LOC(@"FIX_PLAYBACK_DESC")
+            accessibilityIdentifier:nil
+            switchOn:FixPlayback()
+            switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:FixPlaybackKey];
+                return YES;
+            }
+            settingItemId:0];
+        [sectionItems addObject:fixPlayback];
 
     if ([settingsViewController respondsToSelector:@selector(setSectionItems:forCategory:title:icon:titleDescription:headerHidden:)]) {
         YTIIcon *icon = [%c(YTIIcon) new];
