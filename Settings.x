@@ -21,6 +21,10 @@ static int Codec() {
 
 BOOL hasSWVP9VideoDecoder;
 
+BOOL Test() {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:TestKey];
+}
+
 BOOL UseVP9orAV1() {
     return [[NSUserDefaults standardUserDefaults] boolForKey:UseVP9orAV1Key];
 }
@@ -92,7 +96,7 @@ NSBundle *YTUHDBundle() {
     YTSettingsViewController *settingsViewController = [self valueForKey:@"_settingsViewControllerDelegate"];
 
     // Tweak Version Header
-    NSString *versionString = [NSString stringWithFormat:@"YTUHD v1.10.1"];
+    NSString *versionString = [NSString stringWithFormat:@"YTUHD v1.10.2"];
     YTSettingsSectionItem *tweakVersion = [YTSettingsSectionItemClass itemWithTitle:versionString
         titleDescription:nil
         accessibilityIdentifier:nil
@@ -101,6 +105,17 @@ NSBundle *YTUHDBundle() {
             return NO;
         }];
     [sectionItems addObject:tweakVersion];
+
+    YTSettingsSectionItem *test = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"TEST")
+            titleDescription:LOC(@"TEST_DESC")
+            accessibilityIdentifier:nil
+            switchOn:Test()
+            switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:TestKey];
+                return YES;
+            }
+            settingItemId:0];
+        [sectionItems addObject:test];
 
     // Use Codecs
     if (hasSWVP9VideoDecoder && Codec() == 0) {
