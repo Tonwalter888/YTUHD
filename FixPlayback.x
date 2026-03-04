@@ -81,8 +81,7 @@ static void forceRenderViewType(YTHotConfig *hotConfig) {
 }
 
 - (BOOL)canUsePlayerView:(id)playerView forPlayerConfig:(MLInnerTubePlayerConfig *)playerConfig {
-    forceRenderViewTypeBase([playerConfig hamplayerConfig]);
-    return %orig;
+    return NO;
 }
 
 %end
@@ -103,8 +102,7 @@ static void forceRenderViewType(YTHotConfig *hotConfig) {
 }
 
 - (BOOL)canUsePlayerView:(id)playerView forVideo:(MLVideo *)video playerConfig:(MLInnerTubePlayerConfig *)playerConfig {
-    forceRenderViewTypeBase([playerConfig hamplayerConfig]);
-    return %orig;
+    return NO;
 }
 
 - (BOOL)canQueuePlayerPlayVideo:(MLVideo *)video playerConfig:(MLInnerTubePlayerConfig *)playerConfig {
@@ -128,13 +126,11 @@ static void forceRenderViewType(YTHotConfig *hotConfig) {
 }
 
 - (BOOL)canUsePlayerView:(id)playerView forVideo:(MLVideo *)video playerConfig:(MLInnerTubePlayerConfig *)playerConfig {
-    forceRenderViewTypeBase([playerConfig hamplayerConfig]);
-    return %orig;
+    return NO;
 }
 
 - (BOOL)canUsePlayerView:(id)playerView forPlayerConfig:(MLInnerTubePlayerConfig *)playerConfig {
-    forceRenderViewTypeBase([playerConfig hamplayerConfig]);
-    return %orig;
+    return NO;
 }
 
 %end
@@ -156,8 +152,7 @@ static void forceRenderViewType(YTHotConfig *hotConfig) {
 %hook YTGLMediaPlayerViewFactory
 
 - (BOOL)canUsePlayerView:(id)playerView forPlayerConfig:(MLInnerTubePlayerConfig *)playerConfig {
-    forceRenderViewTypeBase([playerConfig hamplayerConfig]);
-    return %orig;
+    return NO;
 }
 
 - (id)hamPlayerViewForPlayerConfig:(MLInnerTubePlayerConfig *)playerConfig {
