@@ -81,7 +81,8 @@ static void forceRenderViewType(YTHotConfig *hotConfig) {
 }
 
 - (BOOL)canUsePlayerView:(id)playerView forPlayerConfig:(MLInnerTubePlayerConfig *)playerConfig {
-    return NO;
+    forceRenderViewTypeBase([playerConfig hamplayerConfig]);
+    return %orig;
 }
 
 %end
@@ -102,7 +103,8 @@ static void forceRenderViewType(YTHotConfig *hotConfig) {
 }
 
 - (BOOL)canUsePlayerView:(id)playerView forVideo:(MLVideo *)video playerConfig:(MLInnerTubePlayerConfig *)playerConfig {
-    return NO;
+    forceRenderViewTypeBase([playerConfig hamplayerConfig]);
+    return %orig;
 }
 
 - (BOOL)canQueuePlayerPlayVideo:(MLVideo *)video playerConfig:(MLInnerTubePlayerConfig *)playerConfig {
@@ -125,12 +127,19 @@ static void forceRenderViewType(YTHotConfig *hotConfig) {
     return %orig;
 }
 
-- (BOOL)canUsePlayerView:(id)playerView forVideo:(MLVideo *)video playerConfig:(MLInnerTubePlayerConfig *)playerConfig {
-    return NO;
+- (id)AVPlayerViewForPlayerConfig:(MLInnerTubePlayerConfig *)playerConfig {
+    forceRenderViewType([self valueForKey:@"_hotConfig"]);
+    forceRenderViewTypeBase([playerConfig hamplayerConfig]);
+    return %orig;
 }
 
+- (BOOL)canUsePlayerView:(id)playerView forVideo:(MLVideo *)video playerConfig:(MLInnerTubePlayerConfig *)playerConfig {
+    forceRenderViewTypeBase([playerConfig hamplayerConfig]);
+    return %orig;
+}
 - (BOOL)canUsePlayerView:(id)playerView forPlayerConfig:(MLInnerTubePlayerConfig *)playerConfig {
-    return NO;
+    forceRenderViewTypeBase([playerConfig hamplayerConfig]);
+    return %orig;
 }
 
 %end
@@ -152,10 +161,17 @@ static void forceRenderViewType(YTHotConfig *hotConfig) {
 %hook YTGLMediaPlayerViewFactory
 
 - (BOOL)canUsePlayerView:(id)playerView forPlayerConfig:(MLInnerTubePlayerConfig *)playerConfig {
-    return NO;
+    forceRenderViewTypeBase([playerConfig hamplayerConfig]);
+    return %orig;
 }
 
 - (id)hamPlayerViewForPlayerConfig:(MLInnerTubePlayerConfig *)playerConfig {
+    forceRenderViewType([self valueForKey:@"_hotConfig"]);
+    forceRenderViewTypeBase([playerConfig hamplayerConfig]);
+    return %orig;
+}
+
+- (id)AVPlayerViewForPlayerConfig:(MLInnerTubePlayerConfig *)playerConfig {
     forceRenderViewType([self valueForKey:@"_hotConfig"]);
     forceRenderViewTypeBase([playerConfig hamplayerConfig]);
     return %orig;
