@@ -169,5 +169,4 @@ NSArray <MLFormat *> *filteredAlot(NSArray <MLFormat *> *sth) {
             %init(Normal);
         }
     }
-
 }
