@@ -1,4 +1,4 @@
-// Remove Premium quality option and Disables HDR
+// Remove Premium quality and Disables HDR
 #import "Header.h"
 
 extern BOOL Premium();
@@ -169,4 +169,5 @@ NSArray <MLFormat *> *filteredAlot(NSArray <MLFormat *> *sth) {
             %init(Normal);
         }
     }
+
 }
