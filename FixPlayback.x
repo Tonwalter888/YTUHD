@@ -137,6 +137,7 @@ static void forceRenderViewType(YTHotConfig *hotConfig) {
     forceRenderViewTypeBase([playerConfig hamplayerConfig]);
     return %orig;
 }
+
 - (BOOL)canUsePlayerView:(id)playerView forPlayerConfig:(MLInnerTubePlayerConfig *)playerConfig {
     forceRenderViewTypeBase([playerConfig hamplayerConfig]);
     return %orig;
@@ -182,4 +183,5 @@ static void forceRenderViewType(YTHotConfig *hotConfig) {
 %ctor {
     if (!FixPlayback()) return;
     %init
+
 }
