@@ -23,6 +23,10 @@
 "RELOAD" = "Recarregar vídeos travados automaticamente";
 "RELOAD_DESC" = "Ao ativar esta opção, o vídeo travado será recarregado automaticamente a cada 2.5 segundos";
 
-"EXTRA" = "Recurso extra";
+"EXTRA" = "Recursos extras";
 "FIX_PLAYBACK" = "Corrigir problemas de reprodução";
-"FIX_PLAYBACK_DESC" = "Corrige problemas de reprodução de vídeo para alguns usuários. Ativar isto desativará VP9 e AV1.";
+"FIX_PLAYBACK_DESC" = "Corrige problemas de reprodução de vídeo para alguns usuários. Ativar isto desativará VP9 e AV1. Além disso, a qualidade do vídeo será limitada a 1080p e o HDR será removido.";
+"PREMIUM" = "Remover qualidade Premium";
+"PREMIUM_DESC" = "Remove a qualidade de vídeo Premium em alguns vídeos, especialmente em 1080p.";
+"HDR" = "Wyłącz HDR";
+"HDR_DESC" = "Wyłącza HDR w niektórych filmach.";

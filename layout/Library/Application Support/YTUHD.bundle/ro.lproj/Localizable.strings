@@ -23,6 +23,10 @@
 "RELOAD" = "Reîncarcă automat videoclipurile blocate";
 "RELOAD_DESC" = "Activarea acestei opțiuni va reîncărca automat videoclipul blocat la fiecare 2.5 secunde";
 
-"EXTRA" = "Funcție suplimentară";
+"EXTRA" = "Funcții suplimentare";
 "FIX_PLAYBACK" = "Remediază problemele de redare";
-"FIX_PLAYBACK_DESC" = "Remediază problemele de redare video pentru unii utilizatori. Activarea acestei opțiuni va dezactiva VP9 și AV1.";
+"FIX_PLAYBACK_DESC" = "Remediază problemele de redare video pentru unii utilizatori. Activarea acestei opțiuni va dezactiva VP9 și AV1. În plus, calitatea video va fi limitată la 1080p iar HDR va fi eliminat.";
+"PREMIUM" = "Elimină calitatea Premium";
+"PREMIUM_DESC" = "Elimină calitatea video Premium în unele videoclipuri, în special la 1080p.";
+"HDR" = "Desativar HDR";
+"HDR_DESC" = "Desativa HDR em alguns vídeos.";

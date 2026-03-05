@@ -7,6 +7,7 @@
 #import <YouTubeHeader/MLPlayerPoolImpl.h>
 #import <YouTubeHeader/MLVideoDecoderFactory.h>
 #import <YouTubeHeader/YTHotConfig.h>
+#import "Header.h"
 
 extern BOOL FixPlayback();
 
@@ -176,6 +177,26 @@ static void forceRenderViewType(YTHotConfig *hotConfig) {
     forceRenderViewType([self valueForKey:@"_hotConfig"]);
     forceRenderViewTypeBase([playerConfig hamplayerConfig]);
     return %orig;
+}
+
+%end
+
+// Remove 2K and 4K options including HDR, since they don't work anyways.
+%hook MLHLSStreamSelector
+
+- (void)didLoadHLSMasterPlaylist:(id)arg1 {
+    %orig;
+    MLHLSMasterPlaylist *playlist = [self valueForKey:@"_completeMasterPlaylist"];
+    NSArray *remotePlaylists = [playlist remotePlaylists];
+    NSMutableArray *filter = [NSMutableArray array];
+    for (MLFormat *formats in remotePlaylists) {
+        NSString *label = [formats qualityLabel];
+        if ([label containsString:@"HDR"]) continue;
+        if ([label containsString:@"2160p"]) continue;
+        if ([label containsString:@"1440p"]) continue;
+        [filter addObject:formats];
+    }
+    [[self delegate] streamSelectorHasSelectableVideoFormats:filter];
 }
 
 %end

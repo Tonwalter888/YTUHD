@@ -11,10 +11,15 @@ extern "C" {
     BOOL RowThreading();
     BOOL AutoReload();
     BOOL FixPlayback();
+    BOOL DisablesHDR();
+    BOOL Premium();
 }
 
 NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *formats) {
-    return formats;
+    if (!Premium() && !DisablesHDR()) {
+        return formats;
+    }
+    return nil;
 }
 
 static void hookFormatsBase(YTIHamplayerConfig *config) {
@@ -208,6 +213,7 @@ NSTimer *bufferingTimer = nil;
 
 %end
 
+%group HLS
 %hook MLHLSStreamSelector
 
 - (void)didLoadHLSMasterPlaylist:(id)arg1 {
@@ -217,6 +223,7 @@ NSTimer *bufferingTimer = nil;
     [[self delegate] streamSelectorHasSelectableVideoFormats:remotePlaylists];
 }
 
+%end
 %end
 
 %hook YTIIosOnesieHotConfig
@@ -275,5 +282,8 @@ NSTimer *bufferingTimer = nil;
     }
     if (AutoReload()) {
         %init(AutoReloadVideo);
+    }
+    if (!FixPlayback() && !DisablesHDR() && !Premium()) {
+        %init(HLS);
     }
 }

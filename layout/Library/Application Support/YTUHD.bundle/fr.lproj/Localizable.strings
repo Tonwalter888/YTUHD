@@ -23,6 +23,10 @@
 "RELOAD" = "Recharger automatiquement les vidéos bloquées";
 "RELOAD_DESC" = "En activant cette option, la vidéo bloquée sera rechargée automatiquement toutes les 2.5 secondes";
 
-"EXTRA" = "Fonction supplémentaire";
-"FIX_PLAYBACK" = "Corriger les problèmes de lecture";
-"FIX_PLAYBACK_DESC" = "Corrige les problèmes de lecture vidéo pour certains utilisateurs. L'activer désactivera VP9 et AV1.";
+"EXTRA" = "Funciones extra";
+"FIX_PLAYBACK" = "Solucionar problemas de reproducción";
+"FIX_PLAYBACK_DESC" = "Soluciona problemas de reproducción de video para algunos usuarios. Al activarlo se desactivan VP9 y AV1. Además la calidad del video se limita a 1080p y se elimina HDR.";
+"PREMIUM" = "Eliminar calidad Premium";
+"PREMIUM_DESC" = "Elimina la calidad de video Premium en algunos videos, especialmente en 1080p.";
+"HDR" = "Desactivar HDR";
+"HDR_DESC" = "Desactiva HDR en algunos videos.";

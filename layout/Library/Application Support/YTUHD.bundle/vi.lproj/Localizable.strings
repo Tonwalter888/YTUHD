@@ -23,6 +23,10 @@
 "RELOAD" = "Tự động tải lại video bị treo";
 "RELOAD_DESC" = "Khi bật tùy chọn này, video bị treo sẽ tự động tải lại mỗi 2.5 giây";
 
-"EXTRA" = "Ek özellik";
-"FIX_PLAYBACK" = "Oynatma sorunlarını düzelt";
-"FIX_PLAYBACK_DESC" = "Bazı kullanıcılar için video oynatma sorunlarını düzeltir. Bunu açmak VP9 ve AV1'i devre dışı bırakacaktır.";
+"EXTRA" = "Tính năng bổ sung";
+"FIX_PLAYBACK" = "Sửa lỗi phát video";
+"FIX_PLAYBACK_DESC" = "Sửa lỗi phát video cho một số người dùng. Bật tùy chọn này sẽ vô hiệu hóa VP9 và AV1. Ngoài ra chất lượng video sẽ bị giới hạn ở 1080p và HDR sẽ bị loại bỏ.";
+"PREMIUM" = "Xóa chất lượng Premium";
+"PREMIUM_DESC" = "Xóa chất lượng video Premium trong một số video, đặc biệt ở 1080p.";
+"HDR" = "Tắt HDR";
+"HDR_DESC" = "Tắt HDR trong một số video.";

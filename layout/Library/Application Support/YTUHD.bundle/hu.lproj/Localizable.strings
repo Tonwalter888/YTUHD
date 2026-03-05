@@ -23,6 +23,10 @@
 "RELOAD" = "Beragadt videók automatikus újratöltése";
 "RELOAD_DESC" = "Bekapcsolva a beragadt videó 2.5 másodpercenként automatikusan újratöltődik";
 
-"EXTRA" = "Extra funkció";
-"FIX_PLAYBACK" = "Lejátszási problémák javítása";
-"FIX_PLAYBACK_DESC" = "Videólejátszási problémák javítása egyes felhasználóknál. Bekapcsolása letiltja a VP9 és AV1 kodekeket.";
+"EXTRA" = "Funciones extra";
+"FIX_PLAYBACK" = "Solucionar problemas de reproducción";
+"FIX_PLAYBACK_DESC" = "Soluciona problemas de reproducción de video para algunos usuarios. Al activarlo se desactivan VP9 y AV1. Además la calidad del video se limita a 1080p y se elimina HDR.";
+"PREMIUM" = "Eliminar calidad Premium";
+"PREMIUM_DESC" = "Elimina la calidad de video Premium en algunos videos, especialmente en 1080p.";
+"HDR" = "HDR kikapcsolása";
+"HDR_DESC" = "HDR kikapcsolása egyes videókban.";

@@ -14,6 +14,7 @@ This requried at least iOS 11 and recommend at least A12 chip for the best 2K an
 - And in main YTUHD repo,PoomSmart try to make 2K and 4K work in older devices (older than A12 chip) but libundirect doesn't work with sideloading. (maybe)
 - If anyone can make libundirect works in sideloading,PLEASE open a new issue and explain how you did it.
 - I fixed All VP9 not working, fixed settings crashes and updated some codes from PoomSmart and other contributors so now 2K and 4K videos should playing fine.
+- I also added some new features that OG YTUHD doesn't have eg. Remove Premium video quality.
 - Maybe this repo might help you! If you find any bugs,you can open a new issue or make a PR to here.
 
 ## Building

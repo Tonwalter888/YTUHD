@@ -49,6 +49,14 @@ BOOL FixPlayback() {
     return [[NSUserDefaults standardUserDefaults] boolForKey:FixPlaybackKey];
 }
 
+BOOL Premium() {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:PremiumKey];
+}
+
+BOOL DisablesHDR() {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:DisablesHDRKey];
+}
+
 NSBundle *YTUHDBundle() {
     static NSBundle *bundle = nil;
     static dispatch_once_t onceToken;
@@ -96,7 +104,7 @@ NSBundle *YTUHDBundle() {
     YTSettingsViewController *settingsViewController = [self valueForKey:@"_settingsViewControllerDelegate"];
 
     // Tweak Version Header
-    NSString *versionString = [NSString stringWithFormat:@"YTUHD v1.11.3"];
+    NSString *versionString = [NSString stringWithFormat:@"YTUHD v1.12.0"];
     YTSettingsSectionItem *tweakVersion = [YTSettingsSectionItemClass itemWithTitle:versionString
         titleDescription:nil
         accessibilityIdentifier:nil
@@ -274,7 +282,7 @@ NSBundle *YTUHDBundle() {
         [sectionItems addObject:rowThreading];
     }
 
-        // Extra Feature Header
+        // Extra Features Header
         YTSettingsSectionItem *extra = [YTSettingsSectionItemClass itemWithTitle:LOC(@"EXTRA")
             titleDescription:nil
             accessibilityIdentifier:nil
@@ -295,6 +303,30 @@ NSBundle *YTUHDBundle() {
             }
             settingItemId:0];
         [sectionItems addObject:fixPlayback];
+
+        // Remove Premium video quality
+        YTSettingsSectionItem *premium = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"PREMIUM")
+            titleDescription:LOC(@"PREMIUM_DESC")
+            accessibilityIdentifier:nil
+            switchOn:Premium()
+            switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:PremiumKey];
+                return YES;
+            }
+            settingItemId:0];
+        [sectionItems addObject:premium];
+
+        // Disables HDR
+        YTSettingsSectionItem *hdr = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"HDR")
+            titleDescription:LOC(@"HDR_DESC")
+            accessibilityIdentifier:nil
+            switchOn:DisablesHDR()
+            switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:DisablesHDRKey];
+                return YES;
+            }
+            settingItemId:0];
+        [sectionItems addObject:hdr];
 
     if ([settingsViewController respondsToSelector:@selector(setSectionItems:forCategory:title:icon:titleDescription:headerHidden:)]) {
         YTIIcon *icon = [%c(YTIIcon) new];

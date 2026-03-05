@@ -2,6 +2,7 @@
 #define YTUHD_H_
 
 #import <Foundation/Foundation.h>
+#import <YouTubeHeader/MLFormat.h>
 #import <YouTubeHeader/MLABRPolicyNew.h>
 #import <YouTubeHeader/MLABRPolicyOld.h>
 #import <YouTubeHeader/MLHAMPlayerItem.h>
@@ -27,5 +28,7 @@
 #define AutoReloadKey @"ReloadVideos"
 #define CodecKey @"SelectCodec"
 #define FixPlaybackKey @"FixPlaybackIssues"
+#define PremiumKey @"NoPremiumQuality"
+#define DisablesHDRKey @"RemoveHDR"
 
 #endif

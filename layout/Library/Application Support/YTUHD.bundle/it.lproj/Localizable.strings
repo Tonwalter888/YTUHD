@@ -25,4 +25,8 @@
 
 "EXTRA" = "Funzionalità extra";
 "FIX_PLAYBACK" = "Correggi problemi di riproduzione";
-"FIX_PLAYBACK_DESC" = "Corregge problemi di riproduzione video per alcuni utenti. Attivandolo verranno disabilitati VP9 e AV1.";
+"FIX_PLAYBACK_DESC" = "Corregge problemi di riproduzione video per alcuni utenti. Attivandolo verranno disabilitati VP9 e AV1. Inoltre la qualità video sarà limitata a 1080p e l'HDR verrà rimosso.";
+"PREMIUM" = "Rimuovi qualità Premium";
+"PREMIUM_DESC" = "Rimuove la qualità video Premium in alcuni video, specialmente a 1080p.";
+"HDR" = "Nonaktifkan HDR";
+"HDR_DESC" = "Nonaktifkan HDR pada beberapa video.";

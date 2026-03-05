@@ -25,4 +25,8 @@
 
 "EXTRA" = "额外功能";
 "FIX_PLAYBACK" = "修复播放问题";
-"FIX_PLAYBACK_DESC" = "为部分用户修复视频播放问题。开启此选项将禁用 VP9 和 AV1。";
+"FIX_PLAYBACK_DESC" = "修复部分用户的视频播放问题。启用后将禁用 VP9 和 AV1。同时视频质量将限制为 1080p，并移除 HDR。";
+"PREMIUM" = "移除 Premium 画质";
+"PREMIUM_DESC" = "在某些视频中移除 Premium 视频质量，尤其是在 1080p。";
+"HDR" = "禁用 HDR";
+"HDR_DESC" = "在部分视频中禁用 HDR。";

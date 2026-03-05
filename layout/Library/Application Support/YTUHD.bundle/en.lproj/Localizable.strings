@@ -8,7 +8,7 @@
 "USE_AV1_DESC" = "Enable the AV1 codec that supports videos up to 4K resolution. App restart is required.";
 
 "CODEC" = "Codec";
-"CODEC_DESC" = "You can choose codec you want to use in videos";
+"CODEC_DESC" = "You can choose codec you want to use in videos.";
 "BOTH" = "Both";
 
 "DECODE_THREADS" = "Decode threads";
@@ -21,8 +21,12 @@
 "ROW_THREADING" = "Row threading";
 
 "RELOAD" = "Auto reload stuck videos";
-"RELOAD_DESC" = "Turning this option on will auto reload stuck video every 2.5 seconds"; 
+"RELOAD_DESC" = "Turning this option on will auto reload stuck video every 2.5 seconds."; 
 
-"EXTRA" = "Extra feature";
+"EXTRA" = "Extra features";
 "FIX_PLAYBACK" = "Fix playback issues";
-"FIX_PLAYBACK_DESC" = "Fix video playback issues for some users. Turning this on will disable VP9 and AV1.";
+"FIX_PLAYBACK_DESC" = "Fix video playback issues for some users. Turning this on will disable VP9 and AV1. Plus the video quality is limited to 1080p and HDR is removed.";
+"PREMIUM" = "Remove Premium quality";
+"PREMIUM_DESC" = "Remove premium video quality in some videos especially in 1080p.";
+"HDR" = "Disables HDR";
+"HDR_DESC" = "Disables HDR in some videos";

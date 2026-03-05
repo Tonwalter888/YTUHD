@@ -23,6 +23,10 @@
 "RELOAD" = "Automatycznie przeładuj zacięte filmy";
 "RELOAD_DESC" = "Po włączeniu tej opcji zacięty film będzie automatycznie przeładowywany co 2.5 sekund";
 
-"EXTRA" = "Dodatkowa funkcja";
+"EXTRA" = "Dodatkowe funkcje";
 "FIX_PLAYBACK" = "Napraw problemy z odtwarzaniem";
-"FIX_PLAYBACK_DESC" = "Naprawia problemy z odtwarzaniem wideo u niektórych użytkowników. Włączenie tego wyłączy VP9 i AV1.";
+"FIX_PLAYBACK_DESC" = "Naprawia problemy z odtwarzaniem wideo u niektórych użytkowników. Włączenie tej opcji wyłączy VP9 i AV1. Dodatkowo jakość wideo zostanie ograniczona do 1080p, a HDR zostanie usunięty.";
+"PREMIUM" = "Usuń jakość Premium";
+"PREMIUM_DESC" = "Usuwa jakość wideo Premium w niektórych filmach, szczególnie w 1080p.";
+"HDR" = "Wyłącz HDR";
+"HDR_DESC" = "Wyłącza HDR w niektórych filmach.";

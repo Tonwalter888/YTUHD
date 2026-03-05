@@ -23,6 +23,10 @@
 "RELOAD" = "Hängende Videos automatisch neu laden";
 "RELOAD_DESC" = "Wenn aktiviert, wird ein hängendes Video alle 2.5 Sekunden automatisch neu geladen";
 
-"EXTRA" = "Zusätzliche Funktion";
+"EXTRA" = "Zusätzliche Funktionen";
 "FIX_PLAYBACK" = "Wiedergabeprobleme beheben";
-"FIX_PLAYBACK_DESC" = "Behebt Videowiedergabeprobleme für einige Benutzer. Wenn aktiviert, werden VP9 und AV1 deaktiviert.";
+"FIX_PLAYBACK_DESC" = "Behebt Videowiedergabeprobleme bei einigen Nutzern. Wenn aktiviert, werden VP9 und AV1 deaktiviert. Außerdem wird die Videoqualität auf 1080p begrenzt und HDR entfernt.";
+"PREMIUM" = "Premium-Qualität entfernen";
+"PREMIUM_DESC" = "Entfernt die Premium-Videoqualität bei einigen Videos, besonders bei 1080p.";
+"HDR" = "HDR deaktivieren";
+"HDR_DESC" = "HDR in einigen Videos deaktivieren.";

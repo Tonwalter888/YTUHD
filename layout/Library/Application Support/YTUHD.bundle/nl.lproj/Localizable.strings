@@ -23,6 +23,10 @@
 "RELOAD" = "Vastgelopen video's automatisch herladen";
 "RELOAD_DESC" = "Wanneer ingeschakeld wordt een vastgelopen video elke 2.5 seconden automatisch herladen";
 
-"EXTRA" = "Extra functie";
+"EXTRA" = "Extra functies";
 "FIX_PLAYBACK" = "Afspeelproblemen oplossen";
-"FIX_PLAYBACK_DESC" = "Lost videoweergaveproblemen op voor sommige gebruikers. Als dit wordt ingeschakeld, worden VP9 en AV1 uitgeschakeld.";
+"FIX_PLAYBACK_DESC" = "Lost videoweergaveproblemen op voor sommige gebruikers. Dit inschakelen schakelt VP9 en AV1 uit. Daarnaast wordt de videokwaliteit beperkt tot 1080p en wordt HDR verwijderd.";
+"PREMIUM" = "Premiumkwaliteit verwijderen";
+"PREMIUM_DESC" = "Verwijdert premium videokwaliteit bij sommige video's, vooral bij 1080p.";
+"HDR" = "HDR 비활성화";
+"HDR_DESC" = "일부 동영상에서 HDR을 비활성화합니다.";
