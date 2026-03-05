@@ -147,26 +147,12 @@ NSArray <MLFormat *> *filteredAlot(NSArray <MLFormat *> *sth) {
 %end
 
 %ctor {
-    if (DisablesHDR() && Premium()) {
-        if (FixPlayback()) {
-            %init(ForAVPIPPremium);
-        } else {
-            %init(ForAVPIPBoth);
-            %init(Normal);
-        }
+    if (DisablesHDR() && Premium() && !FixPlayback()) {
+        %init(ForAVPIPBoth);
     } else if (!DisablesHDR() && Premium()) {
-        if (FixPlayback()) {
-            %init(ForAVPIPPremium);
-        } else {
-            %init(Normal);
-            %init(ForAVPIPPremium);
-        }
-    } else if (DisablesHDR() && !Premium()) {
-        if (FixPlayback()) {
-            return;
-        } else {
-            %init(ForAVPIPHDR);
-            %init(Normal);
-        }
+        %init(ForAVPIPPremium);
+    } else if (DisablesHDR() && !Premium() && !FixPlayback()) {
+        %init(ForAVPIPHDR);
     }
+    %init(Normal);
 }
