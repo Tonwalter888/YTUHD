@@ -48,7 +48,7 @@ NSArray <MLFormat *> *filteredAlot(NSArray <MLFormat *> *sth) {
 %hook MLABRPolicy
 
 - (void)setFormats:(NSArray *)formats {
-    %orig(filteredAlot(sth));
+    %orig(filteredAlot(formats));
 }
 
 %end
@@ -56,7 +56,7 @@ NSArray <MLFormat *> *filteredAlot(NSArray <MLFormat *> *sth) {
 %hook MLABRPolicyOld
 
 - (void)setFormats:(NSArray *)formats {
-    %orig(filteredAlot(sth));
+    %orig(filteredAlot(formats));
 }
 
 %end
@@ -64,7 +64,7 @@ NSArray <MLFormat *> *filteredAlot(NSArray <MLFormat *> *sth) {
 %hook MLABRPolicyNew
 
 - (void)setFormats:(NSArray *)formats {
-    %orig(filteredAlot(sth));
+    %orig(filteredAlot(formats));
 }
 
 %end
@@ -82,7 +82,7 @@ NSArray <MLFormat *> *filteredAlot(NSArray <MLFormat *> *sth) {
 
 - (void)setFormats:(NSArray *)formats {
     [self setValue:@(YES) forKey:@"_postponePreferredFormatFiltering"];
-    %orig(filteredAlot(sth));
+    %orig(filteredAlot(formats));
 }
 
 %end
