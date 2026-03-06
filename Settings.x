@@ -104,7 +104,7 @@ NSBundle *YTUHDBundle() {
     YTSettingsViewController *settingsViewController = [self valueForKey:@"_settingsViewControllerDelegate"];
 
     // Tweak Version Header
-    NSString *versionString = [NSString stringWithFormat:@"YTUHD v1.12.0"];
+    NSString *versionString = [NSString stringWithFormat:@"YTUHD v1.12.1"];
     YTSettingsSectionItem *tweakVersion = [YTSettingsSectionItemClass itemWithTitle:versionString
         titleDescription:nil
         accessibilityIdentifier:nil
@@ -304,6 +304,7 @@ NSBundle *YTUHDBundle() {
             settingItemId:0];
         [sectionItems addObject:fixPlayback];
 
+    if (!FixPlayback()) {
         // Remove Premium video quality
         YTSettingsSectionItem *premium = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"PREMIUM")
             titleDescription:LOC(@"PREMIUM_DESC")
@@ -327,6 +328,7 @@ NSBundle *YTUHDBundle() {
             }
             settingItemId:0];
         [sectionItems addObject:hdr];
+    }
 
     if ([settingsViewController respondsToSelector:@selector(setSectionItems:forCategory:title:icon:titleDescription:headerHidden:)]) {
         YTIIcon *icon = [%c(YTIIcon) new];
