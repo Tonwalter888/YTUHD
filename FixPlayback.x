@@ -77,7 +77,7 @@ static void forceRenderViewType(YTHotConfig *hotConfig) {
     return NO;
 }
 
-- (BOOL)canQueuePlayerPlayVideo:(MLVideo *)video playerConfig:(MLInnerTubePlayerConfig *)playerConfig reloadContext:(id)reloadContext error:(id *)error {
+- (BOOL)canQueuePlayerPlayVideo:(MLVideo *)video playerConfig:(MLInnerTubePlayerConfig *)playerConfig reloadContext:(id)reloadContext error:(NSError **)error {
     return NO;
 }
 
