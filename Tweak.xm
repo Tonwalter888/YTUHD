@@ -16,10 +16,7 @@ extern "C" {
 }
 
 NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *formats) {
-    if (!Premium() && !DisablesHDR()) {
-        return formats;
-    }
-    return nil;
+    return formats;
 }
 
 static void hookFormatsBase(YTIHamplayerConfig *config) {
