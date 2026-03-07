@@ -18,6 +18,7 @@ NSArray <MLFormat *> *filteredAlot(NSArray <MLFormat *> *sth) {
         } else if (DisablesHDR() && !Premium()) {
             return !isHDR;
         }
+        return YES;
     }];
     return [sth filteredArrayUsingPredicate:predicate];
 }
@@ -143,3 +144,4 @@ NSArray <MLFormat *> *filteredAlot(NSArray <MLFormat *> *sth) {
     }
 
 }
+
