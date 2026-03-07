@@ -203,5 +203,5 @@ static void forceRenderViewType(YTHotConfig *hotConfig) {
 
 %ctor {
     if (!FixPlayback()) return;
-    %init
+    %init;
 }
