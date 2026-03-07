@@ -25,11 +25,8 @@ NSArray <MLFormat *> *filteredAlot(NSArray <MLFormat *> *sth) {
 %group Normal
 %hook YTHotConfig
 - (BOOL)iosPlayerClientSharedConfigDisableServerDrivenAbr { return YES; }
-
 - (BOOL)iosPlayerClientSharedConfigPostponeCabrPreferredFormatFiltering { return YES; }
-
 - (BOOL)iosPlayerClientSharedConfigHamplayerPrepareVideoDecoderForAvsbdl { return YES; }
-
 - (BOOL)iosPlayerClientSharedConfigHamplayerAlwaysEnqueueDecodedSampleBuffersToAvsbdl { return YES; }
 %end
 
@@ -144,4 +141,5 @@ NSArray <MLFormat *> *filteredAlot(NSArray <MLFormat *> *sth) {
     } else if (Premium()) {
         %init(ForAVPIPPremium);
     }
+
 }
