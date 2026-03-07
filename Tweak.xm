@@ -280,7 +280,7 @@ NSTimer *bufferingTimer = nil;
     if (AutoReload()) {
         %init(AutoReloadVideo);
     }
-    if (!FixPlayback() && !DisablesHDR() && !Premium()) {
+    if (!DisablesHDR() && !Premium()) {
         %init(HLS);
     }
 }

@@ -18,30 +18,19 @@ NSArray <MLFormat *> *filteredAlot(NSArray <MLFormat *> *sth) {
         } else if (DisablesHDR() && !Premium()) {
             return !isHDR;
         }
-        return YES;
     }];
     return [sth filteredArrayUsingPredicate:predicate];
 }
 
 %group Normal
 %hook YTHotConfig
+- (BOOL)iosPlayerClientSharedConfigDisableServerDrivenAbr { return YES; }
 
-- (BOOL)iosPlayerClientSharedConfigDisableServerDrivenAbr {
-    return YES;
-}
+- (BOOL)iosPlayerClientSharedConfigPostponeCabrPreferredFormatFiltering { return YES; }
 
-- (BOOL)iosPlayerClientSharedConfigPostponeCabrPreferredFormatFiltering {
-    return YES;
-}
+- (BOOL)iosPlayerClientSharedConfigHamplayerPrepareVideoDecoderForAvsbdl { return YES; }
 
-- (BOOL)iosPlayerClientSharedConfigHamplayerPrepareVideoDecoderForAvsbdl {
-    return YES;
-}
-
-- (BOOL)iosPlayerClientSharedConfigHamplayerAlwaysEnqueueDecodedSampleBuffersToAvsbdl {
-    return YES;
-}
-
+- (BOOL)iosPlayerClientSharedConfigHamplayerAlwaysEnqueueDecodedSampleBuffersToAvsbdl { return YES; }
 %end
 
 %hook MLABRPolicy
@@ -148,9 +137,9 @@ NSArray <MLFormat *> *filteredAlot(NSArray <MLFormat *> *sth) {
 %ctor {
     if (FixPlayback()) return;
     %init(Normal);
-    if (DisablesHDR() && Premium() && !FixPlayback()) {
+    if (DisablesHDR() && Premium()) {
         %init(ForAVPIPBoth);
-    } else if (DisablesHDR() && !FixPlayback()) {
+    } else if (DisablesHDR()) {
         %init(ForAVPIPHDR);
     } else if (Premium()) {
         %init(ForAVPIPPremium);

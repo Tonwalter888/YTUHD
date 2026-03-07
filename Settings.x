@@ -104,7 +104,7 @@ NSBundle *YTUHDBundle() {
     YTSettingsViewController *settingsViewController = [self valueForKey:@"_settingsViewControllerDelegate"];
 
     // Tweak Version Header
-    NSString *versionString = [NSString stringWithFormat:@"YTUHD v1.12.1"];
+    NSString *versionString = [NSString stringWithFormat:@"YTUHD v1.12.2"];
     YTSettingsSectionItem *tweakVersion = [YTSettingsSectionItemClass itemWithTitle:versionString
         titleDescription:nil
         accessibilityIdentifier:nil
@@ -114,6 +114,7 @@ NSBundle *YTUHDBundle() {
         }];
     [sectionItems addObject:tweakVersion];
 
+if (!FixPlayback()) {
     // Use Codecs
     if (hasSWVP9VideoDecoder && Codec() == 0) {
         YTSettingsSectionItem *vp9orav1 = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"USE_VP9_OR_AV1")
@@ -281,6 +282,7 @@ NSBundle *YTUHDBundle() {
             settingItemId:0];
         [sectionItems addObject:rowThreading];
     }
+}
 
         // Extra Features Header
         YTSettingsSectionItem *extra = [YTSettingsSectionItemClass itemWithTitle:LOC(@"EXTRA")
