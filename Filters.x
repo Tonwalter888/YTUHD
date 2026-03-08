@@ -142,6 +142,4 @@ NSArray <MLFormat *> *filteredAlot(NSArray <MLFormat *> *sth) {
     } else if (Premium()) {
         %init(ForAVPIPPremium);
     }
-
 }
-
