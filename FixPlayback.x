@@ -179,6 +179,12 @@ static void forceRenderViewType(YTHotConfig *hotConfig) {
     return %orig;
 }
 
+- (id)viewForPlayerConfig:(MLInnerTubePlayerConfig *)playerConfig {
+    forceRenderViewType([self valueForKey:@"_hotConfig"]);
+    forceRenderViewTypeBase([playerConfig hamplayerConfig]);
+    return %orig;
+}
+
 %end
 
 // Remove 2K and 4K options including HDR, since they don't work anyways.
