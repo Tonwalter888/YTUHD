@@ -13,9 +13,9 @@ NSArray <MLFormat *> *filteredAlot(NSArray <MLFormat *> *sth) {
         BOOL isHDR = [qualityLabel containsString:@"HDR"];
         if (DisablesHDR() && Premium()) {
             return !isHDR && !isPremiumQuality;
-        } else if (!DisablesHDR() && Premium()) {
+        } else if (Premium()) {
             return !isPremiumQuality;
-        } else if (DisablesHDR() && !Premium()) {
+        } else if (DisablesHDR()) {
             return !isHDR;
         }
         return YES;
@@ -32,34 +32,20 @@ NSArray <MLFormat *> *filteredAlot(NSArray <MLFormat *> *sth) {
 %end
 
 %hook MLABRPolicy
-
-- (void)setFormats:(NSArray *)formats {
-    %orig(filteredAlot(formats));
-}
-
+- (void)setFormats:(NSArray *)formats { %orig(filteredAlot(formats)); }
 %end
 
 %hook MLABRPolicyOld
-
-- (void)setFormats:(NSArray *)formats {
-    %orig(filteredAlot(formats));
-}
-
+- (void)setFormats:(NSArray *)formats { %orig(filteredAlot(formats)); }
 %end
 
 %hook MLABRPolicyNew
-
-- (void)setFormats:(NSArray *)formats {
-    %orig(filteredAlot(formats));
-}
-
+- (void)setFormats:(NSArray *)formats { %orig(filteredAlot(formats)); }
 %end
 
 %hook HAMDefaultABRPolicy
 
-- (NSArray *)filterFormats:(NSArray *)formats {
-    return filteredAlot(%orig);
-}
+- (NSArray *)filterFormats:(NSArray *)formats { return filteredAlot(%orig); }
 
 - (id)getSelectableFormatDataAndReturnError:(NSError **)error {
     [self setValue:@(NO) forKey:@"_postponePreferredFormatFiltering"];

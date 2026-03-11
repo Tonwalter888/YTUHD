@@ -15,6 +15,8 @@ extern "C" {
     BOOL Premium();
 }
 
+NSTimer *bufferingTimer = nil;
+
 NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *formats) {
     return formats;
 }
@@ -96,9 +98,7 @@ static int Codec() {
 
 %hook HAMDefaultABRPolicy
 
-- (NSArray *)filterFormats:(NSArray *)formats {
-    return filteredFormats(%orig);
-}
+- (NSArray *)filterFormats:(NSArray *)formats { return filteredFormats(%orig); }
 
 - (id)getSelectableFormatDataAndReturnError:(NSError **)error {
     [self setValue:@(NO) forKey:@"_postponePreferredFormatFiltering"];
@@ -111,8 +111,6 @@ static int Codec() {
 }
 
 %end
-
-NSTimer *bufferingTimer = nil;
 
 %group AutoReloadVideo
 %hook MLHAMQueuePlayer
@@ -148,27 +146,14 @@ NSTimer *bufferingTimer = nil;
 %end
 
 %hook YTIHamplayerHotConfig
-
 %new(i@:)
-- (int)libvpxDecodeThreads {
-    return DecodeThreads();
-}
-
+- (int)libvpxDecodeThreads { return DecodeThreads(); }
 %new(B@:)
-- (BOOL)libvpxRowThreading {
-    return RowThreading();
-}
-
+- (BOOL)libvpxRowThreading { return RowThreading(); }
 %new(B@:)
-- (BOOL)libvpxSkipLoopFilter {
-    return SkipLoopFilter();
-}
-
+- (BOOL)libvpxSkipLoopFilter { return SkipLoopFilter(); }
 %new(B@:)
-- (BOOL)libvpxLoopFilterOptimization {
-    return LoopFilterOptimization();
-}
-
+- (BOOL)libvpxLoopFilterOptimization { return LoopFilterOptimization(); }
 %end
 
 %hook YTColdConfig
@@ -191,23 +176,10 @@ NSTimer *bufferingTimer = nil;
 %end
 
 %hook YTHotConfig
-
-- (BOOL)iosPlayerClientSharedConfigDisableServerDrivenAbr {
-    return YES;
-}
-
-- (BOOL)iosPlayerClientSharedConfigPostponeCabrPreferredFormatFiltering {
-    return YES;
-}
-
-- (BOOL)iosPlayerClientSharedConfigHamplayerPrepareVideoDecoderForAvsbdl {
-    return YES;
-}
-
-- (BOOL)iosPlayerClientSharedConfigHamplayerAlwaysEnqueueDecodedSampleBuffersToAvsbdl {
-    return YES;
-}
-
+- (BOOL)iosPlayerClientSharedConfigDisableServerDrivenAbr { return YES; }
+- (BOOL)iosPlayerClientSharedConfigPostponeCabrPreferredFormatFiltering { return YES; }
+- (BOOL)iosPlayerClientSharedConfigHamplayerPrepareVideoDecoderForAvsbdl { return YES; }
+- (BOOL)iosPlayerClientSharedConfigHamplayerAlwaysEnqueueDecodedSampleBuffersToAvsbdl { return YES; }
 %end
 
 %group HLS
@@ -224,22 +196,13 @@ NSTimer *bufferingTimer = nil;
 %end
 
 %hook YTIIosOnesieHotConfig
-
 %new(B@:)
-- (BOOL)prepareVideoDecoder { 
-    return YES; 
-}
-
+- (BOOL)prepareVideoDecoder { return YES; }
 %end
 
 %group Spoofing
-
 %hook UIDevice
-
-- (NSString *)systemVersion {
-    return @"15.8.5";
-}
-
+- (NSString *)systemVersion { return @"15.8.6"; }
 %end
 
 %hook NSProcessInfo
@@ -248,7 +211,7 @@ NSTimer *bufferingTimer = nil;
     NSOperatingSystemVersion version;
     version.majorVersion = 15;
     version.minorVersion = 8;
-    version.patchVersion = 5;
+    version.patchVersion = 6;
     return version;
 }
 
@@ -266,6 +229,7 @@ NSTimer *bufferingTimer = nil;
     return %orig;
 }
 
+%end
 %end
 
 %ctor {
