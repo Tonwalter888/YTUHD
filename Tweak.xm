@@ -230,7 +230,6 @@ static int Codec() {
 }
 
 %end
-%end
 
 %ctor {
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{
