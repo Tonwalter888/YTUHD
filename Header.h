@@ -1,6 +1,7 @@
 #ifndef YTUHD_H_
 #define YTUHD_H_
 
+#import <Foundation/Foundation.h>
 #import <YouTubeHeader/MLFormat.h>
 #import <YouTubeHeader/MLABRPolicyNew.h>
 #import <YouTubeHeader/MLABRPolicyOld.h>
