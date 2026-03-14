@@ -104,7 +104,7 @@ NSBundle *YTUHDBundle() {
     YTSettingsViewController *settingsViewController = [self valueForKey:@"_settingsViewControllerDelegate"];
 
     // Tweak Version Header
-    YTSettingsSectionItem *tweakVersion = [YTSettingsSectionItemClass itemWithTitle:@"YTUHD v1.12.3"
+    YTSettingsSectionItem *tweakVersion = [YTSettingsSectionItemClass itemWithTitle:@"YTUHD v1.12.4"
         titleDescription:nil
         accessibilityIdentifier:nil
         detailTextBlock:nil
@@ -163,6 +163,18 @@ if (!FixPlayback()) {
         [sectionItems addObject:autoReload];
 
     if (hasSWVP9VideoDecoder) {
+        // Remove Premium video quality
+        YTSettingsSectionItem *premium = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"PREMIUM")
+            titleDescription:LOC(@"PREMIUM_DESC")
+            accessibilityIdentifier:nil
+            switchOn:Premium()
+            switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:PremiumKey];
+                return YES;
+            }
+            settingItemId:0];
+        [sectionItems addObject:premium];
+        
         // Codec Options
         YTSettingsSectionItem *codecOptions = [YTSettingsSectionItemClass itemWithTitle:LOC(@"CODEC")
         titleDescription:LOC(@"CODEC_DESC")
@@ -306,18 +318,6 @@ if (!FixPlayback()) {
         [sectionItems addObject:fixPlayback];
 
     if (!FixPlayback()) {
-        // Remove Premium video quality
-        YTSettingsSectionItem *premium = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"PREMIUM")
-            titleDescription:LOC(@"PREMIUM_DESC")
-            accessibilityIdentifier:nil
-            switchOn:Premium()
-            switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:PremiumKey];
-                return YES;
-            }
-            settingItemId:0];
-        [sectionItems addObject:premium];
-
         // Disables HDR
         YTSettingsSectionItem *hdr = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"HDR")
             titleDescription:LOC(@"HDR_DESC")
