@@ -202,7 +202,7 @@ static int Codec() {
 
 %group Spoofing
 %hook UIDevice
-- (NSString *)systemVersion { return @"15.8.6"; }
+- (NSString *)systemVersion { return @"15.8.7"; }
 %end
 
 %hook NSProcessInfo
@@ -211,7 +211,7 @@ static int Codec() {
     NSOperatingSystemVersion version;
     version.majorVersion = 15;
     version.minorVersion = 8;
-    version.patchVersion = 6;
+    version.patchVersion = 7;
     return version;
 }
 

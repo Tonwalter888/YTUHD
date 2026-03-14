@@ -1,7 +1,6 @@
 #ifndef YTUHD_H_
 #define YTUHD_H_
 
-#import <Foundation/Foundation.h>
 #import <YouTubeHeader/MLFormat.h>
 #import <YouTubeHeader/MLABRPolicyNew.h>
 #import <YouTubeHeader/MLABRPolicyOld.h>
@@ -16,7 +15,7 @@
 #import <YouTubeHeader/YTSingleVideoController.h>
 #import <YouTubeHeader/YTPlayerTapToRetryResponderEvent.h>
 
-#define IOS_BUILD "19H402" // iOS 15.8.6
+#define IOS_BUILD "19H411" // iOS 15.8.7
 #define MAX_FPS 60
 #define MAX_PIXELS 8294400 // 3840 x 2160 (4K)
 
