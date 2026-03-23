@@ -5,7 +5,7 @@ else ifeq ($(THEOS_PACKAGE_SCHEME),roothide)
 else
 	TARGET = iphone:clang:latest:11.0
 endif
-ARCHS = arm64 arm64e
+ARCHS = arm64
 INSTALL_TARGET_PROCESSES = YouTube
 FINALPACKAGE = 1
 DEBUG = 0
