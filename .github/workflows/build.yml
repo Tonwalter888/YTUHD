@@ -14,10 +14,10 @@ jobs:
       contents: write
     
     steps:
-      - name: Install Dependencies
+      - name: Install dependencies
         run: brew install make ldid
 
-      - name: Set PATH Environment Variable
+      - name: Set PATH environment variables
         run: |
           echo "$(brew --prefix make)/libexec/gnubin" >> $GITHUB_PATH
           echo "THEOS=${{ github.workspace }}/theos" >> $GITHUB_ENV
@@ -51,16 +51,16 @@ jobs:
           make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=roothide
           mv packages/*.deb ${{ github.workspace }}
 
-      - name: Output .deb(s)
-        uses: actions/upload-artifact@v6
+      - name: Output tweak .deb(s)
+        uses: actions/upload-artifact@v7
         with:
          name: YTUHD v${{ env.YTUHD_VERSION }}
          path: ${{ github.workspace }}/*.deb
          if-no-files-found: error
          overwrite: true
 
-      - name: Create a Draft Release
-        uses: softprops/action-gh-release@v2.5.0
+      - name: Create a draft release
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ env.YTUHD_VERSION }}
           name: v${{ env.YTUHD_VERSION }} 
