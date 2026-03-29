@@ -9,7 +9,6 @@ extern "C" {
     BOOL SkipLoopFilter();
     BOOL LoopFilterOptimization();
     BOOL RowThreading();
-    BOOL AutoReload();
     BOOL FixPlayback();
     BOOL DisablesHDR();
     BOOL Premium();
@@ -22,6 +21,8 @@ NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *formats) {
 }
 
 static void hookFormatsBase(YTIHamplayerConfig *config) {
+    if ([config.videoAbrConfig respondsToSelector:@selector(setPreferSoftwareHdrOverHardwareSdr:)])
+        config.videoAbrConfig.preferSoftwareHdrOverHardwareSdr = YES; // Removed in YouTube 19.2x
     if ([config respondsToSelector:@selector(setDisableResolveOverlappingQualitiesByCodec:)])
         config.disableResolveOverlappingQualitiesByCodec = NO;
     YTIHamplayerStreamFilter *filter = config.streamFilter;
@@ -110,39 +111,6 @@ static int Codec() {
     %orig(filteredFormats(formats));
 }
 
-%end
-
-%group AutoReloadVideo
-%hook MLHAMQueuePlayer
-
-- (void)setState:(NSInteger)state {
-    %orig;
-    if (state == 5 || state == 6 || state == 8) {
-        if (bufferingTimer) {
-            [bufferingTimer invalidate];
-            bufferingTimer = nil;
-        }
-        __weak typeof(self) weakSelf = self;
-        bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:2.5
-                            repeats:NO
-                            block:^(NSTimer *timer) {
-                                bufferingTimer = nil;
-                                __strong typeof(weakSelf) strongSelf = weakSelf;
-                                if (strongSelf) {
-                                    YTSingleVideoController *video = (YTSingleVideoController *)strongSelf.delegate;
-                                    YTLocalPlaybackController *playbackController = (YTLocalPlaybackController *)video.delegate;
-                                    [[%c(YTPlayerTapToRetryResponderEvent) eventWithFirstResponder:[playbackController parentResponder]] send];
-                                }
-                            }];
-    } else {
-        if (bufferingTimer) {
-            [bufferingTimer invalidate];
-            bufferingTimer = nil;
-        }
-    }
-}
-
-%end
 %end
 
 %hook YTIHamplayerHotConfig
@@ -239,9 +207,6 @@ static int Codec() {
     %init;
     if (!IS_IOS_OR_NEWER(iOS_15_0)) {
         %init(Spoofing);
-    }
-    if (AutoReload()) {
-        %init(AutoReloadVideo);
     }
     if (!DisablesHDR() && !Premium()) {
         %init(HLS);

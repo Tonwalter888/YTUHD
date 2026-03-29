@@ -150,18 +150,6 @@ if (!FixPlayback()) {
         [sectionItems addObject:av1];
     }
 
-        // Auto reload videos
-        YTSettingsSectionItem *autoReload = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"RELOAD")
-            titleDescription:LOC(@"RELOAD_DESC")
-            accessibilityIdentifier:nil
-            switchOn:AutoReload()
-            switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:AutoReloadKey];
-                return YES;
-            }
-            settingItemId:0];
-        [sectionItems addObject:autoReload];
-
     if (hasSWVP9VideoDecoder) {
         // Remove Premium video quality
         YTSettingsSectionItem *premium = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"PREMIUM")
@@ -316,6 +304,20 @@ if (!FixPlayback()) {
             }
             settingItemId:0];
         [sectionItems addObject:fixPlayback];
+
+    if (AutoReload()) {
+        // Auto reload videos
+        YTSettingsSectionItem *autoReload = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"RELOAD")
+            titleDescription:LOC(@"RELOAD_DESC")
+            accessibilityIdentifier:nil
+            switchOn:AutoReload()
+            switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:AutoReloadKey];
+                return YES;
+            }
+            settingItemId:0];
+        [sectionItems addObject:autoReload];
+    }
 
     if (!FixPlayback()) {
         // Disables HDR
