@@ -12,6 +12,7 @@ extern "C" {
     BOOL FixPlayback();
     BOOL DisablesHDR();
     BOOL Premium();
+    int Codec();
 }
 
 NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *formats) {
@@ -20,7 +21,7 @@ NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *formats) {
 
 static void hookFormatsBase(YTIHamplayerConfig *config) {
     if ([config.videoAbrConfig respondsToSelector:@selector(setPreferSoftwareHdrOverHardwareSdr:)])
-        config.videoAbrConfig.preferSoftwareHdrOverHardwareSdr = YES; // Removed in YouTube 19.2x
+        config.videoAbrConfig.preferSoftwareHdrOverHardwareSdr = YES; // Removed in YouTube 19.22.3
     if ([config respondsToSelector:@selector(setDisableResolveOverlappingQualitiesByCodec:)])
         config.disableResolveOverlappingQualitiesByCodec = NO;
     YTIHamplayerStreamFilter *filter = config.streamFilter;
@@ -29,10 +30,6 @@ static void hookFormatsBase(YTIHamplayerConfig *config) {
     filter.av1.maxFps = MAX_FPS;
     filter.vp9.maxArea = MAX_PIXELS;
     filter.vp9.maxFps = MAX_FPS;
-}
-
-static int Codec() {
-    return [[NSUserDefaults standardUserDefaults] integerForKey:CodecKey];
 }
 
 %hook MLInnerTubePlayerConfig

@@ -11,10 +11,6 @@
 
 static const NSInteger TweakSection = 'ythd';
 
-static int Codec() {
-    return [[NSUserDefaults standardUserDefaults] integerForKey:CodecKey];
-}
-
 @interface YTSettingsSectionItemManager (YTUHD)
 - (void)updateYTUHDSectionWithEntry:(id)entry;
 @end
@@ -55,6 +51,10 @@ BOOL Premium() {
 
 BOOL DisablesHDR() {
     return [[NSUserDefaults standardUserDefaults] boolForKey:DisablesHDRKey];
+}
+
+int Codec() {
+    return [[NSUserDefaults standardUserDefaults] integerForKey:CodecKey];
 }
 
 NSBundle *YTUHDBundle() {
@@ -104,7 +104,7 @@ NSBundle *YTUHDBundle() {
     YTSettingsViewController *settingsViewController = [self valueForKey:@"_settingsViewControllerDelegate"];
 
     // Tweak Version Header
-    YTSettingsSectionItem *tweakVersion = [YTSettingsSectionItemClass itemWithTitle:@"YTUHD v1.12.6"
+    YTSettingsSectionItem *tweakVersion = [YTSettingsSectionItemClass itemWithTitle:@"YTUHD v1.12.8"
         titleDescription:nil
         accessibilityIdentifier:nil
         detailTextBlock:nil
