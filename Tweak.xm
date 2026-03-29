@@ -14,8 +14,6 @@ extern "C" {
     BOOL Premium();
 }
 
-NSTimer *bufferingTimer = nil;
-
 NSArray <MLFormat *> *filteredFormats(NSArray <MLFormat *> *formats) {
     return formats;
 }

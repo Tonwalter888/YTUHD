@@ -2,6 +2,8 @@
 
 extern BOOL AutoReload();
 
+NSTimer *bufferingTimer = nil;
+
 %hook MLHAMQueuePlayer
 
 - (void)setState:(NSInteger)state {
