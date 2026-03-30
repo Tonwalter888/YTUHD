@@ -27,8 +27,6 @@ NSArray <MLFormat *> *filteredAlot(NSArray <MLFormat *> *sth) {
 %hook YTHotConfig
 - (BOOL)iosPlayerClientSharedConfigDisableServerDrivenAbr { return YES; }
 - (BOOL)iosPlayerClientSharedConfigPostponeCabrPreferredFormatFiltering { return YES; }
-- (BOOL)iosPlayerClientSharedConfigHamplayerPrepareVideoDecoderForAvsbdl { return YES; }
-- (BOOL)iosPlayerClientSharedConfigHamplayerAlwaysEnqueueDecodedSampleBuffersToAvsbdl { return YES; }
 %end
 
 %hook MLABRPolicy
