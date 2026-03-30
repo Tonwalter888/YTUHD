@@ -104,7 +104,7 @@ NSBundle *YTUHDBundle() {
     YTSettingsViewController *settingsViewController = [self valueForKey:@"_settingsViewControllerDelegate"];
 
     // Tweak Version Header
-    YTSettingsSectionItem *tweakVersion = [YTSettingsSectionItemClass itemWithTitle:@"YTUHD v1.12.8"
+    YTSettingsSectionItem *tweakVersion = [YTSettingsSectionItemClass itemWithTitle:@"YTUHD v1.12.9"
         titleDescription:nil
         accessibilityIdentifier:nil
         detailTextBlock:nil
@@ -305,7 +305,6 @@ if (!FixPlayback()) {
             settingItemId:0];
         [sectionItems addObject:fixPlayback];
 
-    if (AutoReload()) {
         // Auto reload videos
         YTSettingsSectionItem *autoReload = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"RELOAD")
             titleDescription:LOC(@"RELOAD_DESC")
@@ -317,7 +316,6 @@ if (!FixPlayback()) {
             }
             settingItemId:0];
         [sectionItems addObject:autoReload];
-    }
 
     if (!FixPlayback()) {
         // Disables HDR
