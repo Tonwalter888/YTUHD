@@ -1,4 +1,4 @@
-"RESTART_BAR" = "Bất kỳ thay đổi nào đối với các cài đặt này đều yêu cầu khởi động lại ứng dụng để có hiệu lực."
+"RESTART_BAR" = "Bất kỳ thay đổi nào đối với các cài đặt này đều yêu cầu khởi động lại ứng dụng để có hiệu lực.";
 "USE_VP9_OR_AV1" = "Sử dụng VP9 và AV1";
 "USE_VP9_OR_AV1_DESC" = "Bật codec VP9 và AV1 hỗ trợ video lên đến độ phân giải 4K.";
 

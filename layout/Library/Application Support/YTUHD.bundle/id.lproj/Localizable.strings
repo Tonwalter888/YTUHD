@@ -1,4 +1,4 @@
-"RESTART_BAR" = "Setiap perubahan pada pengaturan ini memerlukan aplikasi untuk dimulai ulang agar dapat berlaku."
+"RESTART_BAR" = "Setiap perubahan pada pengaturan ini memerlukan aplikasi untuk dimulai ulang agar dapat berlaku.";
 "USE_VP9_OR_AV1" = "Gunakan VP9 dan AV1";
 "USE_VP9_OR_AV1_DESC" = "Aktifkan codec VP9 dan AV1 yang mendukung video hingga resolusi 4K.";
 

@@ -1,4 +1,4 @@
-"RESTART_BAR" = "Wijzigingen in deze instellingen vereisen een herstart van de app om van kracht te worden."
+"RESTART_BAR" = "Wijzigingen in deze instellingen vereisen een herstart van de app om van kracht te worden.";
 "USE_VP9_OR_AV1" = "Gebruik VP9 en AV1";
 "USE_VP9_OR_AV1_DESC" = "Schakel VP9- en AV1-codecs in die video's tot 4K-resolutie ondersteunen.";
 

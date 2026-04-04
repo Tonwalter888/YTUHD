@@ -1,4 +1,4 @@
-"RESTART_BAR" = "Qualsiasi modifica a queste impostazioni richiede il riavvio dell'app per avere effetto."
+"RESTART_BAR" = "Qualsiasi modifica a queste impostazioni richiede il riavvio dell'app per avere effetto.";
 "USE_VP9_OR_AV1" = "Usa VP9 e AV1";
 "USE_VP9_OR_AV1_DESC" = "Abilita i codec VP9 e AV1 che supportano video con risoluzione fino a 4K.";
 

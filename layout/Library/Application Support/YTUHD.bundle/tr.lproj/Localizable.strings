@@ -1,4 +1,4 @@
-"RESTART_BAR" = "Bu ayarlarda yapılan herhangi bir değişikliğin geçerli olması için uygulamanın yeniden başlatılması gerekir."
+"RESTART_BAR" = "Bu ayarlarda yapılan herhangi bir değişikliğin geçerli olması için uygulamanın yeniden başlatılması gerekir.";
 "USE_VP9_OR_AV1" = "VP9 ve AV1 kullanın";
 "USE_VP9_OR_AV1_DESC" = "4K çözünürlüğe kadar videoları destekleyen VP9 ve AV1 kodeklerini etkinleştirin.";
 

@@ -1,4 +1,4 @@
-"RESTART_BAR" = "Wszelkie zmiany w tych ustawieniach wymagają ponownego uruchomienia aplikacji, aby zaczęły obowiązywać."
+"RESTART_BAR" = "Wszelkie zmiany w tych ustawieniach wymagają ponownego uruchomienia aplikacji, aby zaczęły obowiązywać.";
 "USE_VP9_OR_AV1" = "Użyj VP9 i AV1";
 "USE_VP9_OR_AV1_DESC" = "Włącz kodeki VP9 i AV1, które obsługują filmy w rozdzielczości do 4K.";
 

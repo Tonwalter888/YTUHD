@@ -1,4 +1,4 @@
-"RESTART_BAR" = "Orice modificare a acestor setări necesită repornirea aplicației pentru a intra în vigoare."
+"RESTART_BAR" = "Orice modificare a acestor setări necesită repornirea aplicației pentru a intra în vigoare.";
 "USE_VP9_OR_AV1" = "Utilizați VP9 și AV1";
 "USE_VP9_OR_AV1_DESC" = "Activați codecurile VP9 și AV1 care acceptă videoclipuri până la rezoluția 4K.";
 

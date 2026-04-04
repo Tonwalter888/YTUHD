@@ -1,4 +1,4 @@
-"RESTART_BAR" = "Ezen beállítások módosításainak érvénybe lépéséhez újra kell indítani az alkalmazást."
+"RESTART_BAR" = "Ezen beállítások módosításainak érvénybe lépéséhez újra kell indítani az alkalmazást.";
 "USE_VP9_OR_AV1" = "VP9 és AV1 használata";
 "USE_VP9_OR_AV1_DESC" = "Engedélyezze a VP9 és AV1 kodekeket, amelyek akár 4K felbontású videókat is támogatnak.";
 

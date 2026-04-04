@@ -1,4 +1,4 @@
-"RESTART_BAR" = "Cualquier cambio en esta configuración requiere reiniciar la aplicación para que surta efecto."
+"RESTART_BAR" = "Cualquier cambio en esta configuración requiere reiniciar la aplicación para que surta efecto.";
 "USE_VP9_OR_AV1" = "Usar VP9 y AV1";
 "USE_VP9_OR_AV1_DESC" = "Habilite los códecs VP9 y AV1 que admiten videos con una resolución de hasta 4K.";
 
