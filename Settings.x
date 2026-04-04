@@ -245,8 +245,7 @@ NSBundle *YTUHDBundle() {
                     YTSettingsPickerViewController *picker = [[%c(YTSettingsPickerViewController) alloc] initWithNavTitle:decodeThreadsTitle pickerSectionTitle:nil rows:rows selectedItemIndex:index parentResponder:[settingsViewController parentResponder]];
                     [settingsViewController pushViewController:picker];
                     return YES;
-                }
-            ];
+                }];
             [sectionItems addObject:decodeThreads];
 
             // VP9 Optimizations bar
