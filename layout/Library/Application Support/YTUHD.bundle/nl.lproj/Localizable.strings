@@ -1,32 +1,33 @@
-"USE_VP9_OR_AV1" = "VP9 en AV1 gebruiken";
-"USE_VP9_OR_AV1_DESC" = "Schakelt de VP9- en AV1-codecs in met ondersteuning voor video's tot 4K-resolutie. Een herstart van de app is vereist.";
+"RESTART_BAR" = "Wijzigingen in deze instellingen vereisen een herstart van de app om van kracht te worden."
+"USE_VP9_OR_AV1" = "Gebruik VP9 en AV1";
+"USE_VP9_OR_AV1_DESC" = "Schakel VP9- en AV1-codecs in die video's tot 4K-resolutie ondersteunen.";
 
-"USE_VP9" = "VP9 gebruiken";
-"USE_VP9_DESC" = "Schakelt de VP9-codec in met ondersteuning voor video's tot 4K-resolutie. Een herstart van de app is vereist.";
+"USE_VP9" = "Gebruik VP9";
+"USE_VP9_DESC" = "Schakel de VP9-codec in die video's tot 4K-resolutie ondersteunt.";
 
-"USE_AV1" = "AV1 gebruiken";
-"USE_AV1_DESC" = "Schakelt de AV1-codec in met ondersteuning voor video's tot 4K-resolutie. Een herstart van de app is vereist.";
+"USE_AV1" = "Gebruik AV1";
+"USE_AV1_DESC" = "Schakel de AV1-codec in die video's tot 4K-resolutie ondersteunt.";
 
 "CODEC" = "Codec";
-"CODEC_DESC" = "U kunt de codec kiezen die u in video's wilt gebruiken";
+"CODEC_DESC" = "U kunt de codec kiezen die u in video's wilt gebruiken.";
 "BOTH" = "Beide";
 
-"DECODE_THREADS" = "Decodeer threads";
-"DECODE_THREADS_DESC" = "Aantal threads gebruikt voor VP9 videodecodering. Hogere waarden kunnen de videoweergaveprestaties verbeteren, maar kunnen ook het batterijverbruik verhogen.";
+"DECODE_THREADS" = "Decodeer-threads";
+"DECODE_THREADS_DESC" = "Aantal threads gebruikt voor VP9-videodecodering. Hogere waarden kunnen de videoweergave verbeteren, maar kunnen ook het batterijverbruik verhogen.";
 "DECODE_THREADS_DEFAULT_VALUE" = "Standaardwaarde";
 
 "OP_BAR" = "VP9-optimalisaties";
-"SKIP_LOOP_FILTER" = "Loopfilter overslaan";
-"LOOP_FILTER_OPTIMIZATION" = "Loopfilter optimalisatie";
+"SKIP_LOOP_FILTER" = "Loop-filter overslaan";
+"LOOP_FILTER_OPTIMIZATION" = "Loop-filteroptimalisatie";
 "ROW_THREADING" = "Rij-threading";
 
 "RELOAD" = "Vastgelopen video's automatisch herladen";
-"RELOAD_DESC" = "Wanneer ingeschakeld wordt een vastgelopen video elke 2.5 seconden automatisch herladen";
+"RELOAD_DESC" = "Als u deze optie inschakelt, wordt een vastgelopen video elke 2,5 seconden automatisch opnieuw geladen.";
 
 "EXTRA" = "Extra functies";
 "FIX_PLAYBACK" = "Afspeelproblemen oplossen";
-"FIX_PLAYBACK_DESC" = "Lost videoweergaveproblemen op voor sommige gebruikers. Dit inschakelen schakelt VP9 en AV1 uit. Daarnaast wordt de videokwaliteit beperkt tot 1080p en wordt HDR verwijderd.";
-"PREMIUM" = "Premiumkwaliteit verwijderen";
-"PREMIUM_DESC" = "Verwijdert premium videokwaliteit bij sommige video's, vooral bij 1080p.";
-"HDR" = "HDR 비활성화";
-"HDR_DESC" = "일부 동영상에서 HDR을 비활성화합니다.";
+"FIX_PLAYBACK_DESC" = "Los videoweergaveproblemen op voor sommige gebruikers. Als u dit inschakelt, worden VP9 en AV1 uitgeschakeld. Bovendien is de videokwaliteit beperkt tot 1080p en wordt HDR verwijderd.";
+"PREMIUM" = "Premium-kwaliteit verwijderen";
+"PREMIUM_DESC" = "Verwijder de premium videokwaliteit in sommige video's, vooral in 1080p.";
+"HDR" = "HDR uitschakelen";
+"HDR_DESC" = "Schakelt HDR uit in sommige video's.";

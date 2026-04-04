@@ -1,18 +1,19 @@
-"USE_VP9_OR_AV1" = "VP9 ve AV1 kullan";
-"USE_VP9_OR_AV1_DESC" = "4K çözünürlüğe kadar videoları destekleyen VP9 ve AV1 codec'lerini etkinleştirir. Uygulamayı yeniden başlatmak gerekir.";
+"RESTART_BAR" = "Bu ayarlarda yapılan herhangi bir değişikliğin geçerli olması için uygulamanın yeniden başlatılması gerekir."
+"USE_VP9_OR_AV1" = "VP9 ve AV1 kullanın";
+"USE_VP9_OR_AV1_DESC" = "4K çözünürlüğe kadar videoları destekleyen VP9 ve AV1 kodeklerini etkinleştirin.";
 
-"USE_VP9" = "VP9 kullan";
-"USE_VP9_DESC" = "4K çözünürlüğe kadar videoları destekleyen VP9 codec'ini etkinleştirir. Uygulamayı yeniden başlatmak gerekir.";
+"USE_VP9" = "VP9 kullanın";
+"USE_VP9_DESC" = "4K çözünürlüğe kadar videoları destekleyen VP9 kodeğini etkinleştirin.";
 
-"USE_AV1" = "AV1 kullan";
-"USE_AV1_DESC" = "4K çözünürlüğe kadar videoları destekleyen AV1 codec'ini etkinleştirir. Uygulamayı yeniden başlatmak gerekir.";
+"USE_AV1" = "AV1 kullanın";
+"USE_AV1_DESC" = "4K çözünürlüğe kadar videoları destekleyen AV1 kodeğini etkinleştirin.";
 
 "CODEC" = "Kodek";
-"CODEC_DESC" = "Videolarda kullanmak istediğiniz kodeği seçebilirsiniz";
-"BOTH" = "Her ikisi";
+"CODEC_DESC" = "Videolarda kullanmak istediğiniz kodeği seçebilirsiniz.";
+"BOTH" = "Her İkisi";
 
-"DECODE_THREADS" = "Kod Çözme İş Parçacıkları";
-"DECODE_THREADS_DESC" = "VP9 video kod çözme için kullanılan iş parçacığı sayısı. Daha yüksek değerler video oynatma performansını artırabilir ancak pil tüketimini de artırabilir.";
+"DECODE_THREADS" = "Kod çözme iş parçacıkları";
+"DECODE_THREADS_DESC" = "VP9 video kod çözme için kullanılan iş parçacığı sayısı. Daha yüksek değerler video oynatma performansını iyileştirebilir ancak pil tüketimini de artırabilir.";
 "DECODE_THREADS_DEFAULT_VALUE" = "Varsayılan değer";
 
 "OP_BAR" = "VP9 Optimizasyonları";
@@ -20,13 +21,13 @@
 "LOOP_FILTER_OPTIMIZATION" = "Döngü filtresi optimizasyonu";
 "ROW_THREADING" = "Satır iş parçacığı";
 
-"RELOAD" = "Takılan videoları otomatik yeniden yükle";
-"RELOAD_DESC" = "Bu seçenek açıldığında takılan video her 2.5 saniyede bir otomatik olarak yeniden yüklenecektir";
+"RELOAD" = "Sıkışan videoları otomatik yeniden yükle";
+"RELOAD_DESC" = "Bu seçeneği açmak, sıkışan videoyu her 2,5 saniyede bir otomatik olarak yeniden yükleyecektir.";
 
-"EXTRA" = "Ek özellikler";
+"EXTRA" = "Ekstra özellikler";
 "FIX_PLAYBACK" = "Oynatma sorunlarını düzelt";
-"FIX_PLAYBACK_DESC" = "Bazı kullanıcılar için video oynatma sorunlarını düzeltir. Bunu açmak VP9 ve AV1'i devre dışı bırakır. Ayrıca video kalitesi 1080p ile sınırlandırılır ve HDR kaldırılır.";
+"FIX_PLAYBACK_DESC" = "Bazı kullanıcılar için video oynatma sorunlarını düzeltir. Bunu açmak VP9 ve AV1'i devre dışı bırakacaktır. Ayrıca video kalitesi 1080p ile sınırlıdır ve HDR kaldırılır.";
 "PREMIUM" = "Premium kaliteyi kaldır";
-"PREMIUM_DESC" = "Bazı videolarda özellikle 1080p'de Premium video kalitesini kaldırır.";
-"HDR" = "HDR'yi devre dışı bırak";
+"PREMIUM_DESC" = "Özellikle 1080p'deki bazı videolarda premium video kalitesini kaldırır.";
+"HDR" = "HDR'yi Devre Dışı Bırak";
 "HDR_DESC" = "Bazı videolarda HDR'yi devre dışı bırakır.";

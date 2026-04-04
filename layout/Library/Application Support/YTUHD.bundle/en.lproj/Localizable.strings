@@ -1,11 +1,12 @@
+"RESTART_BAR" = "Any changes to these settings are required to restart the app to take effect."
 "USE_VP9_OR_AV1" = "Use VP9 and AV1";
-"USE_VP9_OR_AV1_DESC" = "Enable VP9 and AV1 codecs that support videos up to 4K resolution. App restart is required.";
+"USE_VP9_OR_AV1_DESC" = "Enable VP9 and AV1 codecs that support videos up to 4K resolution.";
 
 "USE_VP9" = "Use VP9";
-"USE_VP9_DESC" = "Enable the VP9 codec that supports videos up to 4K resolution. App restart is required.";
+"USE_VP9_DESC" = "Enable the VP9 codec that supports videos up to 4K resolution.";
 
 "USE_AV1" = "Use AV1";
-"USE_AV1_DESC" = "Enable the AV1 codec that supports videos up to 4K resolution. App restart is required.";
+"USE_AV1_DESC" = "Enable the AV1 codec that supports videos up to 4K resolution.";
 
 "CODEC" = "Codec";
 "CODEC_DESC" = "You can choose codec you want to use in videos.";
@@ -29,4 +30,4 @@
 "PREMIUM" = "Remove Premium quality";
 "PREMIUM_DESC" = "Remove premium video quality in some videos especially in 1080p.";
 "HDR" = "Disables HDR";
-"HDR_DESC" = "Disables HDR in some videos";
+"HDR_DESC" = "Disables HDR in some videos.";

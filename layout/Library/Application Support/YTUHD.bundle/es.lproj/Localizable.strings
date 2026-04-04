@@ -1,32 +1,33 @@
+"RESTART_BAR" = "Cualquier cambio en esta configuración requiere reiniciar la aplicación para que surta efecto."
 "USE_VP9_OR_AV1" = "Usar VP9 y AV1";
-"USE_VP9_OR_AV1_DESC" = "Activa los códecs VP9 y AV1 compatibles con videos de hasta 4K. Es necesario reiniciar la aplicación.";
+"USE_VP9_OR_AV1_DESC" = "Habilite los códecs VP9 y AV1 que admiten videos con una resolución de hasta 4K.";
 
 "USE_VP9" = "Usar VP9";
-"USE_VP9_DESC" = "Activa el códec VP9 compatible con videos de hasta 4K. Es necesario reiniciar la aplicación.";
+"USE_VP9_DESC" = "Habilite el códec VP9 que admite videos con una resolución de hasta 4K.";
 
 "USE_AV1" = "Usar AV1";
-"USE_AV1_DESC" = "Activa el códec AV1 compatible con videos de hasta 4K. Es necesario reiniciar la aplicación.";
+"USE_AV1_DESC" = "Habilite el códec AV1 que admite videos con una resolución de hasta 4K.";
 
 "CODEC" = "Códec";
-"CODEC_DESC" = "Puedes elegir el códec que deseas usar en los videos";
+"CODEC_DESC" = "Puede elegir el códec que desea usar en los videos.";
 "BOTH" = "Ambos";
 
 "DECODE_THREADS" = "Hilos de decodificación";
-"DECODE_THREADS_DESC" = "Número de hilos utilizados para la decodificación de video VP9. Valores más altos pueden mejorar el rendimiento de la reproducción de video, pero también pueden aumentar el consumo de batería.";
+"DECODE_THREADS_DESC" = "Número de hilos utilizados para la decodificación de video VP9. Los valores más altos pueden mejorar el rendimiento de la reproducción de video, pero también pueden aumentar el consumo de batería.";
 "DECODE_THREADS_DEFAULT_VALUE" = "Valor predeterminado";
 
 "OP_BAR" = "Optimizaciones de VP9";
 "SKIP_LOOP_FILTER" = "Omitir filtro de bucle";
 "LOOP_FILTER_OPTIMIZATION" = "Optimización del filtro de bucle";
-"ROW_THREADING" = "Procesamiento por filas";
+"ROW_THREADING" = "Subprocesamiento de filas";
 
-"RELOAD" = "Recargar videos bloqueados automáticamente";
-"RELOAD_DESC" = "Al activar esta opción, el video bloqueado se recargará automáticamente cada 2.5 segundos";
+"RELOAD" = "Recarga automática de videos atascados";
+"RELOAD_DESC" = "Al activar esta opción, los videos atascados se recargarán automáticamente cada 2.5 segundos.";
 
-"EXTRA" = "Funciones extra";
+"EXTRA" = "Funciones adicionales";
 "FIX_PLAYBACK" = "Solucionar problemas de reproducción";
-"FIX_PLAYBACK_DESC" = "Soluciona problemas de reproducción de video para algunos usuarios. Al activarlo se desactivan VP9 y AV1. Además la calidad del video se limita a 1080p y se elimina HDR.";
+"FIX_PLAYBACK_DESC" = "Soluciona los problemas de reproducción de video para algunos usuarios. Al activar esto, se deshabilitarán VP9 y AV1. Además, la calidad del video se limita a 1080p y se elimina el HDR.";
 "PREMIUM" = "Eliminar calidad Premium";
-"PREMIUM_DESC" = "Elimina la calidad de video Premium en algunos videos, especialmente en 1080p.";
-"HDR" = "HDR deaktivieren";
-"HDR_DESC" = "HDR in einigen Videos deaktivieren.";
+"PREMIUM_DESC" = "Elimina la calidad de video premium en algunos videos, especialmente en 1080p.";
+"HDR" = "Deshabilitar HDR";
+"HDR_DESC" = "Deshabilita HDR en algunos videos.";

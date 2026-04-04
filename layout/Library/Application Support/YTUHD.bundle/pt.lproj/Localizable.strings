@@ -1,32 +1,33 @@
+"RESTART_BAR" = "Qualquer alteração nessas configurações requer a reinicialização do aplicativo para entrar em vigor."
 "USE_VP9_OR_AV1" = "Usar VP9 e AV1";
-"USE_VP9_OR_AV1_DESC" = "Ativa os codecs VP9 e AV1 com suporte para vídeos até 4K. É necessário reiniciar o app.";
+"USE_VP9_OR_AV1_DESC" = "Habilite os codecs VP9 e AV1 que suportam vídeos com resolução de até 4K.";
 
 "USE_VP9" = "Usar VP9";
-"USE_VP9_DESC" = "Ativa o codec VP9 com suporte para vídeos até 4K. É necessário reiniciar o app.";
+"USE_VP9_DESC" = "Habilite o codec VP9 que suporta vídeos com resolução de até 4K.";
 
 "USE_AV1" = "Usar AV1";
-"USE_AV1_DESC" = "Ativa o codec AV1 com suporte para vídeos até 4K. É necessário reiniciar o app.";
+"USE_AV1_DESC" = "Habilite o codec AV1 que suporta vídeos com resolução de até 4K.";
 
 "CODEC" = "Codec";
-"CODEC_DESC" = "Pode escolher o codec que pretende usar nos vídeos";
+"CODEC_DESC" = "Você pode escolher o codec que deseja usar nos vídeos.";
 "BOTH" = "Ambos";
 
 "DECODE_THREADS" = "Threads de decodificação";
 "DECODE_THREADS_DESC" = "Número de threads usados para decodificação de vídeo VP9. Valores mais altos podem melhorar o desempenho da reprodução de vídeo, mas também podem aumentar o consumo de bateria.";
 "DECODE_THREADS_DEFAULT_VALUE" = "Valor padrão";
 
-"OP_BAR" = "Otimizações de VP9";
-"SKIP_LOOP_FILTER" = "Ignorar filtro de loop";
+"OP_BAR" = "Otimizações do VP9";
+"SKIP_LOOP_FILTER" = "Pular filtro de loop";
 "LOOP_FILTER_OPTIMIZATION" = "Otimização do filtro de loop";
-"ROW_THREADING" = "Threading por linha";
+"ROW_THREADING" = "Threading de linha";
 
 "RELOAD" = "Recarregar vídeos travados automaticamente";
-"RELOAD_DESC" = "Ao ativar esta opção, o vídeo travado será recarregado automaticamente a cada 2.5 segundos";
+"RELOAD_DESC" = "Ativar esta opção recarregará automaticamente o vídeo travado a cada 2,5 segundos.";
 
 "EXTRA" = "Recursos extras";
 "FIX_PLAYBACK" = "Corrigir problemas de reprodução";
-"FIX_PLAYBACK_DESC" = "Corrige problemas de reprodução de vídeo para alguns usuários. Ativar isto desativará VP9 e AV1. Além disso, a qualidade do vídeo será limitada a 1080p e o HDR será removido.";
+"FIX_PLAYBACK_DESC" = "Corrige problemas de reprodução de vídeo para alguns usuários. Ativar isso desabilitará VP9 e AV1. Além disso, a qualidade do vídeo é limitada a 1080p e o HDR é removido.";
 "PREMIUM" = "Remover qualidade Premium";
-"PREMIUM_DESC" = "Remove a qualidade de vídeo Premium em alguns vídeos, especialmente em 1080p.";
-"HDR" = "Wyłącz HDR";
-"HDR_DESC" = "Wyłącza HDR w niektórych filmach.";
+"PREMIUM_DESC" = "Remove a qualidade de vídeo premium em alguns vídeos, especialmente em 1080p.";
+"HDR" = "Desativar HDR";
+"HDR_DESC" = "Desativa o HDR em alguns vídeos.";

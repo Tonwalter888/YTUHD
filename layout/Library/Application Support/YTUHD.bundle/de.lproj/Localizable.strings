@@ -1,32 +1,33 @@
+"RESTART_BAR" = "Änderungen an diesen Einstellungen erfordern einen Neustart der App, um wirksam zu werden."
 "USE_VP9_OR_AV1" = "VP9 und AV1 verwenden";
-"USE_VP9_OR_AV1_DESC" = "Aktiviert die VP9- und AV1-Codecs mit Unterstützung für Videos bis zu 4K-Auflösung. Ein Neustart der App ist erforderlich.";
+"USE_VP9_OR_AV1_DESC" = "VP9- und AV1-Codecs aktivieren, die Videos bis zu einer 4K-Auflösung unterstützen.";
 
 "USE_VP9" = "VP9 verwenden";
-"USE_VP9_DESC" = "Aktiviert den VP9-Codec mit Unterstützung für Videos bis zu 4K-Auflösung. Ein Neustart der App ist erforderlich.";
+"USE_VP9_DESC" = "Aktiviert den VP9-Codec, der Videos bis zu einer 4K-Auflösung unterstützt.";
 
 "USE_AV1" = "AV1 verwenden";
-"USE_AV1_DESC" = "Aktiviert den AV1-Codec mit Unterstützung für Videos bis zu 4K-Auflösung. Ein Neustart der App ist erforderlich.";
+"USE_AV1_DESC" = "Aktiviert den AV1-Codec, der Videos bis zu einer 4K-Auflösung unterstützt.";
 
 "CODEC" = "Codec";
-"CODEC_DESC" = "Sie können den Codec auswählen, den Sie in Videos verwenden möchten";
+"CODEC_DESC" = "Sie können den Codec auswählen, den Sie in Videos verwenden möchten.";
 "BOTH" = "Beide";
 
-"DECODE_THREADS" = "Dekodier-Threads";
-"DECODE_THREADS_DESC" = "Anzahl der Threads, die für die VP9-Videodekodierung verwendet werden. Höhere Werte können die Videowiedergabeleistung verbessern, aber auch den Batterieverbrauch erhöhen.";
+"DECODE_THREADS" = "Dekodierungs-Threads";
+"DECODE_THREADS_DESC" = "Anzahl der Threads, die für die VP9-Videodekodierung verwendet werden. Höhere Werte können die Videowiedergabeleistung verbessern, aber auch den Akkuverbrauch erhöhen.";
 "DECODE_THREADS_DEFAULT_VALUE" = "Standardwert";
 
 "OP_BAR" = "VP9-Optimierungen";
-"SKIP_LOOP_FILTER" = "Loop-Filter überspringen";
-"LOOP_FILTER_OPTIMIZATION" = "Loop-Filter-Optimierung";
+"SKIP_LOOP_FILTER" = "Schleifenfilter überspringen";
+"LOOP_FILTER_OPTIMIZATION" = "Schleifenfilter-Optimierung";
 "ROW_THREADING" = "Zeilen-Threading";
 
 "RELOAD" = "Hängende Videos automatisch neu laden";
-"RELOAD_DESC" = "Wenn aktiviert, wird ein hängendes Video alle 2.5 Sekunden automatisch neu geladen";
+"RELOAD_DESC" = "Wenn diese Option aktiviert ist, werden hängende Videos alle 2,5 Sekunden automatisch neu geladen.";
 
 "EXTRA" = "Zusätzliche Funktionen";
 "FIX_PLAYBACK" = "Wiedergabeprobleme beheben";
-"FIX_PLAYBACK_DESC" = "Behebt Videowiedergabeprobleme bei einigen Nutzern. Wenn aktiviert, werden VP9 und AV1 deaktiviert. Außerdem wird die Videoqualität auf 1080p begrenzt und HDR entfernt.";
+"FIX_PLAYBACK_DESC" = "Behebt Videowiedergabeprobleme für einige Benutzer. Durch das Aktivieren dieser Option werden VP9 und AV1 deaktiviert. Außerdem wird die Videoqualität auf 1080p begrenzt und HDR entfernt.";
 "PREMIUM" = "Premium-Qualität entfernen";
-"PREMIUM_DESC" = "Entfernt die Premium-Videoqualität bei einigen Videos, besonders bei 1080p.";
+"PREMIUM_DESC" = "Entfernt die Premium-Videoqualität in einigen Videos, insbesondere in 1080p.";
 "HDR" = "HDR deaktivieren";
-"HDR_DESC" = "HDR in einigen Videos deaktivieren.";
+"HDR_DESC" = "Deaktiviert HDR in einigen Videos.";

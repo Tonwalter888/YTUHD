@@ -61,8 +61,11 @@ NSBundle *YTUHDBundle() {
     static NSBundle *bundle = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSString *tweakBundlePath = [[NSBundle mainBundle] pathForResource:@"YTUHD" ofType:@"bundle"];
-        bundle = [NSBundle bundleWithPath:tweakBundlePath ?: PS_ROOT_PATH_NS(@"/Library/Application Support/YTUHD.bundle")];
+        NSString *tweakBundlePath = [[NSBundle mainBundle] pathForResource:TweakName ofType:@"bundle"];
+        if (tweakBundlePath)
+            bundle = [NSBundle bundleWithPath:tweakBundlePath];
+        else
+            bundle = [NSBundle bundleWithPath:[NSString stringWithFormat:PS_ROOT_PATH_NS(@"/Library/Application Support/%@.bundle"), TweakName]];
     });
     return bundle;
 }
@@ -104,7 +107,7 @@ NSBundle *YTUHDBundle() {
     YTSettingsViewController *settingsViewController = [self valueForKey:@"_settingsViewControllerDelegate"];
 
     // Tweak Version Header
-    YTSettingsSectionItem *tweakVersion = [YTSettingsSectionItemClass itemWithTitle:@"YTUHD v1.12.10"
+    YTSettingsSectionItem *tweakVersion = [YTSettingsSectionItemClass itemWithTitle:@"YTUHD v1.12.11"
         titleDescription:nil
         accessibilityIdentifier:nil
         detailTextBlock:nil
@@ -113,231 +116,241 @@ NSBundle *YTUHDBundle() {
         }];
     [sectionItems addObject:tweakVersion];
 
-if (!FixPlayback()) {
-    // Use Codecs
-    if (hasSWVP9VideoDecoder && Codec() == 0) {
-        YTSettingsSectionItem *vp9orav1 = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"USE_VP9_OR_AV1")
-            titleDescription:LOC(@"USE_VP9_OR_AV1_DESC")
-            accessibilityIdentifier:nil
-            switchOn:UseVP9orAV1()
-            switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:UseVP9orAV1Key];
-                return YES;
-            }
-            settingItemId:0];
-        [sectionItems addObject:vp9orav1];
-    } else if (hasSWVP9VideoDecoder && Codec() == 1) {
-        YTSettingsSectionItem *vp9 = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"USE_VP9")
-            titleDescription:LOC(@"USE_VP9_DESC")
-            accessibilityIdentifier:nil
-            switchOn:UseVP9orAV1()
-            switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:UseVP9orAV1Key];
-                return YES;
-            }
-            settingItemId:0];
-        [sectionItems addObject:vp9];
-    } else {
-        YTSettingsSectionItem *av1 = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"USE_AV1")
-            titleDescription:LOC(@"USE_AV1_DESC")
-            accessibilityIdentifier:nil
-            switchOn:UseVP9orAV1()
-            switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:UseVP9orAV1Key];
-                return YES;
-            }
-            settingItemId:0];
-        [sectionItems addObject:av1];
-    }
-
-    if (hasSWVP9VideoDecoder) {
-        // Remove Premium video quality
-        YTSettingsSectionItem *premium = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"PREMIUM")
-            titleDescription:LOC(@"PREMIUM_DESC")
-            accessibilityIdentifier:nil
-            switchOn:Premium()
-            switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:PremiumKey];
-                return YES;
-            }
-            settingItemId:0];
-        [sectionItems addObject:premium];
-        
-        // Codec Options
-        YTSettingsSectionItem *codecOptions = [YTSettingsSectionItemClass itemWithTitle:LOC(@"CODEC")
-        titleDescription:LOC(@"CODEC_DESC")
+    // App restart bar
+    YTSettingsSectionItem *restartBar = [YTSettingsSectionItemClass itemWithTitle:LOC(@"RESTART_BAR")
+        titleDescription:nil
         accessibilityIdentifier:nil
-        detailTextBlock:^NSString *() {
-            switch (Codec()) {
-                case 1:
-                    return LOC(@"VP9");
-                case 2:
-                    return LOC(@"AV1");
-                case 0:
-                default:
-                    return LOC(@"BOTH");
-            }
-        }
+        detailTextBlock:nil
         selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
-            NSArray <YTSettingsSectionItem *> *rows = @[
-                [YTSettingsSectionItemClass checkmarkItemWithTitle:LOC(@"BOTH") titleDescription:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
-                    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"SelectCodec"];
-                    [settingsViewController reloadData];
-                    return YES;
-                }],
-                [YTSettingsSectionItemClass checkmarkItemWithTitle:LOC(@"VP9") titleDescription:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
-                    [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"SelectCodec"];
-                    [settingsViewController reloadData];
-                    return YES;
-                }],
-                [YTSettingsSectionItemClass checkmarkItemWithTitle:LOC(@"AV1") titleDescription:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
-                    [[NSUserDefaults standardUserDefaults] setInteger:2 forKey:@"SelectCodec"];
-                    [settingsViewController reloadData];
-                    return YES;
-                }]
-            ];
-            YTSettingsPickerViewController *picker = [[%c(YTSettingsPickerViewController) alloc] initWithNavTitle:LOC(@"CODEC") pickerSectionTitle:nil rows:rows selectedItemIndex:Codec() parentResponder:[self parentResponder]];
-            [settingsViewController pushViewController:picker];
-            return YES;
+            return NO;
         }];
-        [sectionItems addObject:codecOptions];
-    }
+    [sectionItems addObject:restartBar];
 
-    if (hasSWVP9VideoDecoder && Codec() != 2) {
-        // Decode threads
-        NSString *decodeThreadsTitle = LOC(@"DECODE_THREADS");
-        YTSettingsSectionItem *decodeThreads = [YTSettingsSectionItemClass itemWithTitle:decodeThreadsTitle
-            titleDescription:LOC(@"DECODE_THREADS_DESC")
+    if (!FixPlayback()) {
+        // Use Codecs
+        if (hasSWVP9VideoDecoder && Codec() == 0) {
+            YTSettingsSectionItem *vp9orav1 = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"USE_VP9_OR_AV1")
+                titleDescription:LOC(@"USE_VP9_OR_AV1_DESC")
+                accessibilityIdentifier:nil
+                switchOn:UseVP9orAV1()
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:UseVP9orAV1Key];
+                    return YES;
+                }
+                settingItemId:0];
+            [sectionItems addObject:vp9orav1];
+        } else if (hasSWVP9VideoDecoder && Codec() == 1) {
+            YTSettingsSectionItem *vp9 = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"USE_VP9")
+                titleDescription:LOC(@"USE_VP9_DESC")
+                accessibilityIdentifier:nil
+                switchOn:UseVP9orAV1()
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:UseVP9orAV1Key];
+                    return YES;
+                }
+                settingItemId:0];
+            [sectionItems addObject:vp9];
+        } else {
+            YTSettingsSectionItem *av1 = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"USE_AV1")
+                titleDescription:LOC(@"USE_AV1_DESC")
+                accessibilityIdentifier:nil
+                switchOn:UseVP9orAV1()
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:UseVP9orAV1Key];
+                    return YES;
+                }
+                settingItemId:0];
+            [sectionItems addObject:av1];
+        }
+
+        if (hasSWVP9VideoDecoder) {
+            // Remove Premium video quality
+            YTSettingsSectionItem *premium = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"PREMIUM")
+                titleDescription:LOC(@"PREMIUM_DESC")
+                accessibilityIdentifier:nil
+                switchOn:Premium()
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:PremiumKey];
+                    return YES;
+                }
+                settingItemId:0];
+            [sectionItems addObject:premium];
+        
+            // Codec Options
+            YTSettingsSectionItem *codecOptions = [YTSettingsSectionItemClass itemWithTitle:LOC(@"CODEC")
+            titleDescription:LOC(@"CODEC_DESC")
             accessibilityIdentifier:nil
             detailTextBlock:^NSString *() {
-                return [NSString stringWithFormat:@"%d", DecodeThreads()];
+                switch (Codec()) {
+                    case 1:
+                        return LOC(@"VP9");
+                    case 2:
+                        return LOC(@"AV1");
+                    case 0:
+                    default:
+                        return LOC(@"BOTH");
+                }
             }
             selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
-                NSMutableArray <YTSettingsSectionItem *> *rows = [NSMutableArray array];
-                for (int i = 1; i <= NSProcessInfo.processInfo.activeProcessorCount; ++i) {
-                    NSString *title = [NSString stringWithFormat:@"%d", i];
-                    NSString *titleDescription = i == 2 ? LOC(@"DECODE_THREADS_DEFAULT_VALUE") : nil;
-                    YTSettingsSectionItem *thread = [YTSettingsSectionItemClass checkmarkItemWithTitle:title titleDescription:titleDescription selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
-                        [[NSUserDefaults standardUserDefaults] setInteger:i forKey:DecodeThreadsKey];
+                NSArray <YTSettingsSectionItem *> *rows = @[
+                    [YTSettingsSectionItemClass checkmarkItemWithTitle:LOC(@"BOTH") titleDescription:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
+                        [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"SelectCodec"];
                         [settingsViewController reloadData];
                         return YES;
-                    }];
-                    [rows addObject:thread];
-                }
-                NSUInteger index = DecodeThreads() - 1;
-                if (index >= NSProcessInfo.processInfo.activeProcessorCount) {
-                    index = 1;
-                    [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:DecodeThreadsKey];
-                }
-                YTSettingsPickerViewController *picker = [[%c(YTSettingsPickerViewController) alloc] initWithNavTitle:decodeThreadsTitle pickerSectionTitle:nil rows:rows selectedItemIndex:index parentResponder:[settingsViewController parentResponder]];
+                    }],
+                    [YTSettingsSectionItemClass checkmarkItemWithTitle:LOC(@"VP9") titleDescription:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
+                        [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"SelectCodec"];
+                        [settingsViewController reloadData];
+                        return YES;
+                    }],
+                    [YTSettingsSectionItemClass checkmarkItemWithTitle:LOC(@"AV1") titleDescription:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
+                        [[NSUserDefaults standardUserDefaults] setInteger:2 forKey:@"SelectCodec"];
+                        [settingsViewController reloadData];
+                        return YES;
+                    }]
+                ];
+                YTSettingsPickerViewController *picker = [[%c(YTSettingsPickerViewController) alloc] initWithNavTitle:LOC(@"CODEC") pickerSectionTitle:nil rows:rows selectedItemIndex:Codec() parentResponder:[self parentResponder]];
                 [settingsViewController pushViewController:picker];
                 return YES;
             }];
-        [sectionItems addObject:decodeThreads];
+            [sectionItems addObject:codecOptions];
+        }
 
-        // VP9 Optimizations bar
-        YTSettingsSectionItem *vp9Bar = [YTSettingsSectionItemClass itemWithTitle:LOC(@"OP_BAR")
-            titleDescription:nil
-            accessibilityIdentifier:nil
-            detailTextBlock:nil
-            selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
-                return NO;
-            }];
-        [sectionItems addObject:vp9Bar];
+        if (hasSWVP9VideoDecoder && Codec() != 2) {
+            // Decode threads
+            NSString *decodeThreadsTitle = LOC(@"DECODE_THREADS");
+            YTSettingsSectionItem *decodeThreads = [YTSettingsSectionItemClass itemWithTitle:decodeThreadsTitle
+                titleDescription:LOC(@"DECODE_THREADS_DESC")
+                accessibilityIdentifier:nil
+                detailTextBlock:^NSString *() {
+                    return [NSString stringWithFormat:@"%d", DecodeThreads()];
+                }
+                selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
+                    NSMutableArray <YTSettingsSectionItem *> *rows = [NSMutableArray array];
+                    for (int i = 1; i <= NSProcessInfo.processInfo.activeProcessorCount; ++i) {
+                        NSString *title = [NSString stringWithFormat:@"%d", i];
+                        NSString *titleDescription = i == 2 ? LOC(@"DECODE_THREADS_DEFAULT_VALUE") : nil;
+                        YTSettingsSectionItem *thread = [YTSettingsSectionItemClass checkmarkItemWithTitle:title titleDescription:titleDescription selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
+                            [[NSUserDefaults standardUserDefaults] setInteger:i forKey:DecodeThreadsKey];
+                            [settingsViewController reloadData];
+                            return YES;
+                        }];
+                        [rows addObject:thread];
+                    }
+                    NSUInteger index = DecodeThreads() - 1;
+                    if (index >= NSProcessInfo.processInfo.activeProcessorCount) {
+                        index = 1;
+                        [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:DecodeThreadsKey];
+                    }
+                    YTSettingsPickerViewController *picker = [[%c(YTSettingsPickerViewController) alloc] initWithNavTitle:decodeThreadsTitle pickerSectionTitle:nil rows:rows selectedItemIndex:index parentResponder:[settingsViewController parentResponder]];
+                    [settingsViewController pushViewController:picker];
+                    return YES;
+                ];
+            [sectionItems addObject:decodeThreads];
 
-        // Skip loop filter
-        YTSettingsSectionItem *skipLoopFilter = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"SKIP_LOOP_FILTER")
-            titleDescription:nil
-            accessibilityIdentifier:nil
-            switchOn:SkipLoopFilter()
-            switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:SkipLoopFilterKey];
-                return YES;
-            }
-            settingItemId:0];
-        [sectionItems addObject:skipLoopFilter];
+            // VP9 Optimizations bar
+            YTSettingsSectionItem *vp9Bar = [YTSettingsSectionItemClass itemWithTitle:LOC(@"OP_BAR")
+                titleDescription:nil
+                accessibilityIdentifier:nil
+                detailTextBlock:nil
+                selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
+                    return NO;
+                }];
+            [sectionItems addObject:vp9Bar];
 
-        // Loop filter optimization
-        YTSettingsSectionItem *loopFilterOptimization = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"LOOP_FILTER_OPTIMIZATION")
-            titleDescription:nil
-            accessibilityIdentifier:nil
-            switchOn:LoopFilterOptimization()
-            switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:LoopFilterOptimizationKey];
-                return YES;
-            }
-            settingItemId:0];
-        [sectionItems addObject:loopFilterOptimization];
+            // Skip loop filter
+            YTSettingsSectionItem *skipLoopFilter = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"SKIP_LOOP_FILTER")
+                titleDescription:nil
+                accessibilityIdentifier:nil
+                switchOn:SkipLoopFilter()
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:SkipLoopFilterKey];
+                    return YES;
+                }
+                settingItemId:0];
+            [sectionItems addObject:skipLoopFilter];
 
-        // Row threading
-        YTSettingsSectionItem *rowThreading = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"ROW_THREADING")
-            titleDescription:nil
-            accessibilityIdentifier:nil
-            switchOn:RowThreading()
-            switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:RowThreadingKey];
-                return YES;
-            }
-            settingItemId:0];
-        [sectionItems addObject:rowThreading];
-    }
-}
+            // Loop filter optimization
+            YTSettingsSectionItem *loopFilterOptimization = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"LOOP_FILTER_OPTIMIZATION")
+                titleDescription:nil
+                accessibilityIdentifier:nil
+                switchOn:LoopFilterOptimization()
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:LoopFilterOptimizationKey];
+                    return YES;
+                }
+                settingItemId:0];
+            [sectionItems addObject:loopFilterOptimization];
 
-        // Extra Features Header
-        YTSettingsSectionItem *extra = [YTSettingsSectionItemClass itemWithTitle:LOC(@"EXTRA")
-            titleDescription:nil
-            accessibilityIdentifier:nil
-            detailTextBlock:nil
-            selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
-                return NO;
-            }];
-        [sectionItems addObject:extra];
-
-        // Fix playback issues
-        YTSettingsSectionItem *fixPlayback = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"FIX_PLAYBACK")
-            titleDescription:LOC(@"FIX_PLAYBACK_DESC")
-            accessibilityIdentifier:nil
-            switchOn:FixPlayback()
-            switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:FixPlaybackKey];
-                return YES;
-            }
-            settingItemId:0];
-        [sectionItems addObject:fixPlayback];
-
-        // Auto reload videos
-        YTSettingsSectionItem *autoReload = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"RELOAD")
-            titleDescription:LOC(@"RELOAD_DESC")
-            accessibilityIdentifier:nil
-            switchOn:AutoReload()
-            switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:AutoReloadKey];
-                return YES;
-            }
-            settingItemId:0];
-        [sectionItems addObject:autoReload];
-
-    if (!FixPlayback()) {
-        // Disables HDR
-        YTSettingsSectionItem *hdr = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"HDR")
-            titleDescription:LOC(@"HDR_DESC")
-            accessibilityIdentifier:nil
-            switchOn:DisablesHDR()
-            switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:DisablesHDRKey];
-                return YES;
-            }
-            settingItemId:0];
-        [sectionItems addObject:hdr];
+            // Row threading
+            YTSettingsSectionItem *rowThreading = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"ROW_THREADING")
+                titleDescription:nil
+                accessibilityIdentifier:nil
+                switchOn:RowThreading()
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:RowThreadingKey];
+                    return YES;
+                }
+                settingItemId:0];
+            [sectionItems addObject:rowThreading];
+        }
     }
 
-    if ([settingsViewController respondsToSelector:@selector(setSectionItems:forCategory:title:icon:titleDescription:headerHidden:)]) {
-        YTIIcon *icon = [%c(YTIIcon) new];
-        icon.iconType = YT_SETTINGS_HD;
-        [settingsViewController setSectionItems:sectionItems forCategory:TweakSection title:TweakName icon:icon titleDescription:nil headerHidden:NO];
-    } else
-        [settingsViewController setSectionItems:sectionItems forCategory:TweakSection title:TweakName titleDescription:nil headerHidden:NO];
-}
+            // Extra Features Header
+            YTSettingsSectionItem *extra = [YTSettingsSectionItemClass itemWithTitle:LOC(@"EXTRA")
+                titleDescription:nil
+                accessibilityIdentifier:nil
+                detailTextBlock:nil
+                selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
+                    return NO;
+                }];
+            [sectionItems addObject:extra];
+
+            // Fix playback issues
+            YTSettingsSectionItem *fixPlayback = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"FIX_PLAYBACK")
+                titleDescription:LOC(@"FIX_PLAYBACK_DESC")
+                accessibilityIdentifier:nil
+                switchOn:FixPlayback()
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:FixPlaybackKey];
+                    return YES;
+                }
+                settingItemId:0];
+            [sectionItems addObject:fixPlayback];
+
+            // Auto reload videos
+            YTSettingsSectionItem *autoReload = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"RELOAD")
+                titleDescription:LOC(@"RELOAD_DESC")
+                accessibilityIdentifier:nil
+                switchOn:AutoReload()
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:AutoReloadKey];
+                    return YES;
+                }
+                settingItemId:0];
+            [sectionItems addObject:autoReload];
+
+        if (!FixPlayback()) {
+            // Disables HDR
+            YTSettingsSectionItem *hdr = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"HDR")
+                titleDescription:LOC(@"HDR_DESC")
+                accessibilityIdentifier:nil
+                switchOn:DisablesHDR()
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:DisablesHDRKey];
+                    return YES;
+                }
+                settingItemId:0];
+            [sectionItems addObject:hdr];
+        }
+
+        if ([settingsViewController respondsToSelector:@selector(setSectionItems:forCategory:title:icon:titleDescription:headerHidden:)]) {
+            YTIIcon *icon = [%c(YTIIcon) new];
+            icon.iconType = YT_SETTINGS_HD;
+            [settingsViewController setSectionItems:sectionItems forCategory:TweakSection title:TweakName icon:icon titleDescription:nil headerHidden:NO];
+        } else
+            [settingsViewController setSectionItems:sectionItems forCategory:TweakSection title:TweakName titleDescription:nil headerHidden:NO];
+    }
 
 - (void)updateSectionForCategory:(NSUInteger)category withEntry:(id)entry {
     if (category == TweakSection) {

@@ -1,32 +1,33 @@
+"RESTART_BAR" = "对这些设置的任何更改都需要重启应用才能生效。"
 "USE_VP9_OR_AV1" = "使用 VP9 和 AV1";
-"USE_VP9_OR_AV1_DESC" = "启用支持最高 4K 分辨率视频的 VP9 和 AV1 编解码器。需要重新启动应用。";
+"USE_VP9_OR_AV1_DESC" = "启用支持最高 4K 分辨率视频的 VP9 和 AV1 编解码器。";
 
 "USE_VP9" = "使用 VP9";
-"USE_VP9_DESC" = "启用支持最高 4K 分辨率视频的 VP9 编解码器。需要重新启动应用。";
+"USE_VP9_DESC" = "启用支持最高 4K 分辨率视频的 VP9 编解码器。";
 
 "USE_AV1" = "使用 AV1";
-"USE_AV1_DESC" = "启用支持最高 4K 分辨率视频的 AV1 编解码器。需要重新启动应用。";
+"USE_AV1_DESC" = "启用支持最高 4K 分辨率视频的 AV1 编解码器。";
 
 "CODEC" = "编解码器";
-"CODEC_DESC" = "您可以选择要在视频中使用的编解码器";
-"BOTH" = "两者";
+"CODEC_DESC" = "您可以选择要在视频中使用的编解码器。";
+"BOTH" = "全部";
 
 "DECODE_THREADS" = "解码线程";
 "DECODE_THREADS_DESC" = "用于 VP9 视频解码的线程数。较高的值可能会提高视频播放性能，但也可能会增加电池消耗。";
 "DECODE_THREADS_DEFAULT_VALUE" = "默认值";
 
 "OP_BAR" = "VP9 优化";
-"SKIP_LOOP_FILTER" = "跳过环路滤波";
-"LOOP_FILTER_OPTIMIZATION" = "环路滤波优化";
+"SKIP_LOOP_FILTER" = "跳过环路滤波器";
+"LOOP_FILTER_OPTIMIZATION" = "环路滤波器优化";
 "ROW_THREADING" = "行线程";
 
 "RELOAD" = "自动重新加载卡住的视频";
-"RELOAD_DESC" = "启用此选项后，卡住的视频将每2.5秒自动重新加载一次";
+"RELOAD_DESC" = "开启此选项将每 2.5 秒自动重新加载卡住的视频。";
 
 "EXTRA" = "额外功能";
 "FIX_PLAYBACK" = "修复播放问题";
-"FIX_PLAYBACK_DESC" = "修复部分用户的视频播放问题。启用后将禁用 VP9 和 AV1。同时视频质量将限制为 1080p，并移除 HDR。";
+"FIX_PLAYBACK_DESC" = "修复部分用户的视频播放问题。开启此功能将禁用 VP9 和 AV1。此外，视频质量将被限制为 1080p，并且将移除 HDR。";
 "PREMIUM" = "移除 Premium 画质";
-"PREMIUM_DESC" = "在某些视频中移除 Premium 视频质量，尤其是在 1080p。";
+"PREMIUM_DESC" = "移除某些视频中的高级视频质量，特别是在 1080p 分辨率下。";
 "HDR" = "禁用 HDR";
-"HDR_DESC" = "在部分视频中禁用 HDR。";
+"HDR_DESC" = "在某些视频中禁用 HDR。";

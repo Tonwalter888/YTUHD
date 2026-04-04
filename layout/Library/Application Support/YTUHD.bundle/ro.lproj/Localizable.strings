@@ -1,32 +1,33 @@
-"USE_VP9_OR_AV1" = "Folosește VP9 și AV1";
-"USE_VP9_OR_AV1_DESC" = "Activează codecurile VP9 și AV1 care suportă video până la 4K. Este necesară repornirea aplicației.";
+"RESTART_BAR" = "Orice modificare a acestor setări necesită repornirea aplicației pentru a intra în vigoare."
+"USE_VP9_OR_AV1" = "Utilizați VP9 și AV1";
+"USE_VP9_OR_AV1_DESC" = "Activați codecurile VP9 și AV1 care acceptă videoclipuri până la rezoluția 4K.";
 
-"USE_VP9" = "Folosește VP9";
-"USE_VP9_DESC" = "Activează codecul VP9 care suportă video până la 4K. Este necesară repornirea aplicației.";
+"USE_VP9" = "Utilizați VP9";
+"USE_VP9_DESC" = "Activați codecul VP9 care acceptă videoclipuri până la rezoluția 4K.";
 
-"USE_AV1" = "Folosește AV1";
-"USE_AV1_DESC" = "Activează codecul AV1 care suportă video până la 4K. Este necesară repornirea aplicației.";
+"USE_AV1" = "Utilizați AV1";
+"USE_AV1_DESC" = "Activați codecul AV1 care acceptă videoclipuri până la rezoluția 4K.";
 
 "CODEC" = "Codec";
-"CODEC_DESC" = "Puteți alege codec-ul pe care doriți să îl utilizați în videoclipuri";
+"CODEC_DESC" = "Puteți alege codecul pe care doriți să îl utilizați în videoclipuri.";
 "BOTH" = "Ambele";
 
 "DECODE_THREADS" = "Fire de decodare";
-"DECODE_THREADS_DESC" = "Numărul de fire utilizate pentru decodarea video VP9. Valorile mai mari pot îmbunătăți performanța redării video, dar pot crește și consumul bateriei.";
+"DECODE_THREADS_DESC" = "Numărul de fire utilizate pentru decodarea video VP9. Valorile mai mari pot îmbunătăți performanța de redare a videoclipurilor, dar pot crește și consumul bateriei.";
 "DECODE_THREADS_DEFAULT_VALUE" = "Valoare implicită";
 
 "OP_BAR" = "Optimizări VP9";
-"SKIP_LOOP_FILTER" = "Omite filtrul de buclă";
-"LOOP_FILTER_OPTIMIZATION" = "Optimizare filtru de buclă";
-"ROW_THREADING" = "Threading pe rânduri";
+"SKIP_LOOP_FILTER" = "Săriți peste filtrul în buclă";
+"LOOP_FILTER_OPTIMIZATION" = "Optimizarea filtrului în buclă";
+"ROW_THREADING" = "Thread-uri pe rând";
 
-"RELOAD" = "Reîncarcă automat videoclipurile blocate";
-"RELOAD_DESC" = "Activarea acestei opțiuni va reîncărca automat videoclipul blocat la fiecare 2.5 secunde";
+"RELOAD" = "Reîncărcare automată a videoclipurilor blocate";
+"RELOAD_DESC" = "Activarea acestei opțiuni va reîncărca automat videoclipul blocat la fiecare 2,5 secunde.";
 
-"EXTRA" = "Funcții suplimentare";
-"FIX_PLAYBACK" = "Remediază problemele de redare";
-"FIX_PLAYBACK_DESC" = "Remediază problemele de redare video pentru unii utilizatori. Activarea acestei opțiuni va dezactiva VP9 și AV1. În plus, calitatea video va fi limitată la 1080p iar HDR va fi eliminat.";
-"PREMIUM" = "Elimină calitatea Premium";
-"PREMIUM_DESC" = "Elimină calitatea video Premium în unele videoclipuri, în special la 1080p.";
-"HDR" = "Desativar HDR";
-"HDR_DESC" = "Desativa HDR em alguns vídeos.";
+"EXTRA" = "Caracteristici suplimentare";
+"FIX_PLAYBACK" = "Remediați problemele de redare";
+"FIX_PLAYBACK_DESC" = "Remediați problemele de redare video pentru unii utilizatori. Activarea acestei opțiuni va dezactiva VP9 și AV1. În plus, calitatea video este limitată la 1080p, iar HDR este eliminat.";
+"PREMIUM" = "Eliminați calitatea Premium";
+"PREMIUM_DESC" = "Elimină calitatea video premium în unele videoclipuri, în special în 1080p.";
+"HDR" = "Dezactivează HDR";
+"HDR_DESC" = "Dezactivează HDR în unele videoclipuri.";

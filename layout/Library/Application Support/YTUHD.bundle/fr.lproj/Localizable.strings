@@ -1,32 +1,33 @@
+"RESTART_BAR" = "Toute modification de ces paramètres nécessite un redémarrage de l'application pour prendre effet."
 "USE_VP9_OR_AV1" = "Utiliser VP9 et AV1";
-"USE_VP9_OR_AV1_DESC" = "Active les codecs VP9 et AV1 prenant en charge les vidéos jusqu'en 4K. Un redémarrage de l'application est requis.";
+"USE_VP9_OR_AV1_DESC" = "Activer les codecs VP9 et AV1 qui prennent en charge les vidéos jusqu'à une résolution 4K.";
 
 "USE_VP9" = "Utiliser VP9";
-"USE_VP9_DESC" = "Active le codec VP9 prenant en charge les vidéos jusqu'en 4K. Un redémarrage de l'application est requis.";
+"USE_VP9_DESC" = "Activer le codec VP9 qui prend en charge les vidéos jusqu'à une résolution 4K.";
 
 "USE_AV1" = "Utiliser AV1";
-"USE_AV1_DESC" = "Active le codec AV1 prenant en charge les vidéos jusqu'en 4K. Un redémarrage de l'application est requis.";
+"USE_AV1_DESC" = "Activer le codec AV1 qui prend en charge les vidéos jusqu'à une résolution 4K.";
 
 "CODEC" = "Codec";
-"CODEC_DESC" = "Vous pouvez choisir le codec que vous souhaitez utiliser dans les vidéos";
+"CODEC_DESC" = "Vous pouvez choisir le codec que vous souhaitez utiliser dans les vidéos.";
 "BOTH" = "Les deux";
 
 "DECODE_THREADS" = "Threads de décodage";
-"DECODE_THREADS_DESC" = "Nombre de threads utilisés pour le décodage vidéo VP9. Des valeurs plus élevées peuvent améliorer les performances de lecture vidéo mais peuvent également augmenter la consommation de la batterie.";
+"DECODE_THREADS_DESC" = "Nombre de threads utilisés pour le décodage vidéo VP9. Des valeurs plus élevées peuvent améliorer les performances de lecture vidéo, mais peuvent également augmenter la consommation de la batterie.";
 "DECODE_THREADS_DEFAULT_VALUE" = "Valeur par défaut";
 
 "OP_BAR" = "Optimisations VP9";
 "SKIP_LOOP_FILTER" = "Ignorer le filtre de boucle";
 "LOOP_FILTER_OPTIMIZATION" = "Optimisation du filtre de boucle";
-"ROW_THREADING" = "Threading par ligne";
+"ROW_THREADING" = "Filetage de ligne";
 
-"RELOAD" = "Recharger automatiquement les vidéos bloquées";
-"RELOAD_DESC" = "En activant cette option, la vidéo bloquée sera rechargée automatiquement toutes les 2.5 secondes";
+"RELOAD" = "Rechargement automatique des vidéos bloquées";
+"RELOAD_DESC" = "L'activation de cette option rechargera automatiquement les vidéos bloquées toutes les 2,5 secondes.";
 
-"EXTRA" = "Funciones extra";
-"FIX_PLAYBACK" = "Solucionar problemas de reproducción";
-"FIX_PLAYBACK_DESC" = "Soluciona problemas de reproducción de video para algunos usuarios. Al activarlo se desactivan VP9 y AV1. Además la calidad del video se limita a 1080p y se elimina HDR.";
-"PREMIUM" = "Eliminar calidad Premium";
-"PREMIUM_DESC" = "Elimina la calidad de video Premium en algunos videos, especialmente en 1080p.";
-"HDR" = "Desactivar HDR";
-"HDR_DESC" = "Desactiva HDR en algunos videos.";
+"EXTRA" = "Fonctionnalités supplémentaires";
+"FIX_PLAYBACK" = "Résoudre les problèmes de lecture";
+"FIX_PLAYBACK_DESC" = "Corrige les problèmes de lecture vidéo pour certains utilisateurs. L'activation de cette option désactivera VP9 et AV1. De plus, la qualité vidéo est limitée à 1080p et le HDR est supprimé.";
+"PREMIUM" = "Supprimer la qualité Premium";
+"PREMIUM_DESC" = "Supprime la qualité vidéo premium dans certaines vidéos, en particulier en 1080p.";
+"HDR" = "Désactiver le HDR";
+"HDR_DESC" = "Désactive le HDR dans certaines vidéos.";

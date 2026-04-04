@@ -1,18 +1,19 @@
+"RESTART_BAR" = "Wszelkie zmiany w tych ustawieniach wymagają ponownego uruchomienia aplikacji, aby zaczęły obowiązywać."
 "USE_VP9_OR_AV1" = "Użyj VP9 i AV1";
-"USE_VP9_OR_AV1_DESC" = "Włącza kodeki VP9 i AV1 obsługujące wideo do 4K. Wymagane jest ponowne uruchomienie aplikacji.";
+"USE_VP9_OR_AV1_DESC" = "Włącz kodeki VP9 i AV1, które obsługują filmy w rozdzielczości do 4K.";
 
 "USE_VP9" = "Użyj VP9";
-"USE_VP9_DESC" = "Włącza kodek VP9 obsługujący wideo do 4K. Wymagane jest ponowne uruchomienie aplikacji.";
+"USE_VP9_DESC" = "Włącz kodek VP9, który obsługuje filmy w rozdzielczości do 4K.";
 
 "USE_AV1" = "Użyj AV1";
-"USE_AV1_DESC" = "Włącza kodek AV1 obsługujący wideo do 4K. Wymagane jest ponowne uruchomienie aplikacji.";
+"USE_AV1_DESC" = "Włącz kodek AV1, który obsługuje filmy w rozdzielczości do 4K.";
 
 "CODEC" = "Kodek";
-"CODEC_DESC" = "Możesz wybrać kodek, którego chcesz używać w filmach";
+"CODEC_DESC" = "Możesz wybrać kodek, którego chcesz używać w filmach.";
 "BOTH" = "Oba";
 
 "DECODE_THREADS" = "Wątki dekodowania";
-"DECODE_THREADS_DESC" = "Liczba wątków używanych do dekodowania wideo VP9. Wyższe wartości mogą poprawić wydajność odtwarzania wideo, ale mogą również zwiększyć zużycie baterii.";
+"DECODE_THREADS_DESC" = "Liczba wątków używanych do dekodowania wideo VP9. Wyższe wartości mogą poprawić wydajność odtwarzania wideo, ale mogą też zwiększyć zużycie baterii.";
 "DECODE_THREADS_DEFAULT_VALUE" = "Wartość domyślna";
 
 "OP_BAR" = "Optymalizacje VP9";
@@ -20,13 +21,13 @@
 "LOOP_FILTER_OPTIMIZATION" = "Optymalizacja filtra pętli";
 "ROW_THREADING" = "Wątkowanie wierszy";
 
-"RELOAD" = "Automatycznie przeładuj zacięte filmy";
-"RELOAD_DESC" = "Po włączeniu tej opcji zacięty film będzie automatycznie przeładowywany co 2.5 sekund";
+"RELOAD" = "Automatyczne ponowne ładowanie zaciętych filmów";
+"RELOAD_DESC" = "Włączenie tej opcji spowoduje automatyczne ponowne załadowanie zablokowanego wideo co 2,5 sekundy.";
 
 "EXTRA" = "Dodatkowe funkcje";
 "FIX_PLAYBACK" = "Napraw problemy z odtwarzaniem";
-"FIX_PLAYBACK_DESC" = "Naprawia problemy z odtwarzaniem wideo u niektórych użytkowników. Włączenie tej opcji wyłączy VP9 i AV1. Dodatkowo jakość wideo zostanie ograniczona do 1080p, a HDR zostanie usunięty.";
+"FIX_PLAYBACK_DESC" = "Naprawia problemy z odtwarzaniem wideo dla niektórych użytkowników. Włączenie tej opcji wyłączy VP9 i AV1. Dodatkowo jakość wideo jest ograniczona do 1080p, a HDR zostaje usunięty.";
 "PREMIUM" = "Usuń jakość Premium";
-"PREMIUM_DESC" = "Usuwa jakość wideo Premium w niektórych filmach, szczególnie w 1080p.";
+"PREMIUM_DESC" = "Usuwa jakość wideo premium w niektórych filmach, zwłaszcza w 1080p.";
 "HDR" = "Wyłącz HDR";
 "HDR_DESC" = "Wyłącza HDR w niektórych filmach.";

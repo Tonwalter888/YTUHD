@@ -1,18 +1,19 @@
+"RESTART_BAR" = "Setiap perubahan pada pengaturan ini memerlukan aplikasi untuk dimulai ulang agar dapat berlaku."
 "USE_VP9_OR_AV1" = "Gunakan VP9 dan AV1";
-"USE_VP9_OR_AV1_DESC" = "Aktifkan codec VP9 dan AV1 yang mendukung video hingga resolusi 4K. Perlu memulai ulang aplikasi.";
+"USE_VP9_OR_AV1_DESC" = "Aktifkan codec VP9 dan AV1 yang mendukung video hingga resolusi 4K.";
 
 "USE_VP9" = "Gunakan VP9";
-"USE_VP9_DESC" = "Aktifkan codec VP9 yang mendukung video hingga resolusi 4K. Perlu memulai ulang aplikasi.";
+"USE_VP9_DESC" = "Aktifkan codec VP9 yang mendukung video hingga resolusi 4K.";
 
 "USE_AV1" = "Gunakan AV1";
-"USE_AV1_DESC" = "Aktifkan codec AV1 yang mendukung video hingga resolusi 4K. Perlu memulai ulang aplikasi.";
+"USE_AV1_DESC" = "Aktifkan codec AV1 yang mendukung video hingga resolusi 4K.";
 
 "CODEC" = "Codec";
-"CODEC_DESC" = "Anda dapat memilih codec yang ingin digunakan dalam video";
+"CODEC_DESC" = "Anda dapat memilih codec yang ingin Anda gunakan dalam video.";
 "BOTH" = "Keduanya";
 
-"DECODE_THREADS" = "Threads decode";
-"DECODE_THREADS_DESC" = "Jumlah threads yang digunakan untuk decoding video VP9. Nilai yang lebih tinggi dapat meningkatkan kinerja pemutaran video tetapi juga dapat meningkatkan konsumsi baterai.";
+"DECODE_THREADS" = "Thread dekode";
+"DECODE_THREADS_DESC" = "Jumlah thread yang digunakan untuk dekode video VP9. Nilai yang lebih tinggi dapat meningkatkan kinerja pemutaran video tetapi juga dapat meningkatkan konsumsi baterai.";
 "DECODE_THREADS_DEFAULT_VALUE" = "Nilai default";
 
 "OP_BAR" = "Optimasi VP9";
@@ -20,13 +21,13 @@
 "LOOP_FILTER_OPTIMIZATION" = "Optimasi filter loop";
 "ROW_THREADING" = "Threading baris";
 
-"RELOAD" = "Muat ulang video macet otomatis";
-"RELOAD_DESC" = "Saat diaktifkan, video yang macet akan dimuat ulang setiap 2.5 detik";
+"RELOAD" = "Muat ulang otomatis video yang macet";
+"RELOAD_DESC" = "Mengaktifkan opsi ini akan memuat ulang video yang macet secara otomatis setiap 2,5 detik.";
 
 "EXTRA" = "Fitur tambahan";
 "FIX_PLAYBACK" = "Perbaiki masalah pemutaran";
-"FIX_PLAYBACK_DESC" = "Memperbaiki masalah pemutaran video untuk beberapa pengguna. Mengaktifkan ini akan menonaktifkan VP9 dan AV1. Selain itu kualitas video dibatasi hingga 1080p dan HDR dihapus.";
+"FIX_PLAYBACK_DESC" = "Perbaiki masalah pemutaran video untuk beberapa pengguna. Mengaktifkan ini akan menonaktifkan VP9 dan AV1. Selain itu, kualitas video dibatasi hingga 1080p dan HDR dihapus.";
 "PREMIUM" = "Hapus kualitas Premium";
-"PREMIUM_DESC" = "Menghapus kualitas video Premium pada beberapa video terutama di 1080p.";
+"PREMIUM_DESC" = "Menghapus kualitas video premium di beberapa video terutama pada 1080p.";
 "HDR" = "Nonaktifkan HDR";
-"HDR_DESC" = "Nonaktifkan HDR pada beberapa video.";
+"HDR_DESC" = "Menonaktifkan HDR di beberapa video.";

@@ -1,32 +1,33 @@
+"RESTART_BAR" = "Bất kỳ thay đổi nào đối với các cài đặt này đều yêu cầu khởi động lại ứng dụng để có hiệu lực."
 "USE_VP9_OR_AV1" = "Sử dụng VP9 và AV1";
-"USE_VP9_OR_AV1_DESC" = "Bật codec VP9 và AV1 hỗ trợ video lên đến độ phân giải 4K. Cần khởi động lại ứng dụng.";
+"USE_VP9_OR_AV1_DESC" = "Bật codec VP9 và AV1 hỗ trợ video lên đến độ phân giải 4K.";
 
 "USE_VP9" = "Sử dụng VP9";
-"USE_VP9_DESC" = "Bật codec VP9 hỗ trợ video lên đến độ phân giải 4K. Cần khởi động lại ứng dụng.";
+"USE_VP9_DESC" = "Bật codec VP9 hỗ trợ video lên đến độ phân giải 4K.";
 
 "USE_AV1" = "Sử dụng AV1";
-"USE_AV1_DESC" = "Bật codec AV1 hỗ trợ video lên đến độ phân giải 4K. Cần khởi động lại ứng dụng.";
+"USE_AV1_DESC" = "Bật codec AV1 hỗ trợ video lên đến độ phân giải 4K.";
 
-"CODEC" = "Bộ mã hóa";
-"CODEC_DESC" = "Bạn có thể chọn bộ mã hóa bạn muốn sử dụng trong video";
+"CODEC" = "Codec";
+"CODEC_DESC" = "Bạn có thể chọn codec bạn muốn sử dụng trong video.";
 "BOTH" = "Cả hai";
 
 "DECODE_THREADS" = "Luồng giải mã";
-"DECODE_THREADS_DESC" = "Số lượng luồng được sử dụng để giải mã video VP9. Giá trị cao hơn có thể cải thiện hiệu suất phát video nhưng cũng có thể tăng mức tiêu thụ pin.";
+"DECODE_THREADS_DESC" = "Số lượng luồng được sử dụng để giải mã video VP9. Giá trị cao hơn có thể cải thiện hiệu suất phát lại video nhưng cũng có thể làm tăng mức tiêu thụ pin.";
 "DECODE_THREADS_DEFAULT_VALUE" = "Giá trị mặc định";
 
 "OP_BAR" = "Tối ưu hóa VP9";
 "SKIP_LOOP_FILTER" = "Bỏ qua bộ lọc vòng lặp";
 "LOOP_FILTER_OPTIMIZATION" = "Tối ưu hóa bộ lọc vòng lặp";
-"ROW_THREADING" = "Luồng theo hàng";
+"ROW_THREADING" = "Tạo luồng theo hàng";
 
-"RELOAD" = "Tự động tải lại video bị treo";
-"RELOAD_DESC" = "Khi bật tùy chọn này, video bị treo sẽ tự động tải lại mỗi 2.5 giây";
+"RELOAD" = "Tự động tải lại video bị kẹt";
+"RELOAD_DESC" = "Bật tùy chọn này sẽ tự động tải lại video bị kẹt sau mỗi 2,5 giây.";
 
-"EXTRA" = "Tính năng bổ sung";
-"FIX_PLAYBACK" = "Sửa lỗi phát video";
-"FIX_PLAYBACK_DESC" = "Sửa lỗi phát video cho một số người dùng. Bật tùy chọn này sẽ vô hiệu hóa VP9 và AV1. Ngoài ra chất lượng video sẽ bị giới hạn ở 1080p và HDR sẽ bị loại bỏ.";
+"EXTRA" = "Các tính năng bổ sung";
+"FIX_PLAYBACK" = "Khắc phục sự cố phát lại";
+"FIX_PLAYBACK_DESC" = "Khắc phục sự cố phát lại video cho một số người dùng. Bật tính năng này sẽ vô hiệu hóa VP9 và AV1. Ngoài ra, chất lượng video bị giới hạn ở 1080p và HDR bị xóa.";
 "PREMIUM" = "Xóa chất lượng Premium";
-"PREMIUM_DESC" = "Xóa chất lượng video Premium trong một số video, đặc biệt ở 1080p.";
+"PREMIUM_DESC" = "Xóa chất lượng video cao cấp trong một số video đặc biệt là ở độ phân giải 1080p.";
 "HDR" = "Tắt HDR";
 "HDR_DESC" = "Tắt HDR trong một số video.";
