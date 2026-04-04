@@ -350,7 +350,7 @@ NSBundle *YTUHDBundle() {
             [settingsViewController setSectionItems:sectionItems forCategory:TweakSection title:TweakName icon:icon titleDescription:nil headerHidden:NO];
         } else
             [settingsViewController setSectionItems:sectionItems forCategory:TweakSection title:TweakName titleDescription:nil headerHidden:NO];
-    }
+}
 
 - (void)updateSectionForCategory:(NSUInteger)category withEntry:(id)entry {
     if (category == TweakSection) {
