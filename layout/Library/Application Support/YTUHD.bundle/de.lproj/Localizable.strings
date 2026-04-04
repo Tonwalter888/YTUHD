@@ -1,4 +1,4 @@
-"RESTART_BAR" = "Änderungen an diesen Einstellungen erfordern einen Neustart der App, um wirksam zu werden."
+"RESTART_BAR" = "Änderungen an diesen Einstellungen erfordern einen Neustart der App, um wirksam zu werden.";
 "USE_VP9_OR_AV1" = "VP9 und AV1 verwenden";
 "USE_VP9_OR_AV1_DESC" = "VP9- und AV1-Codecs aktivieren, die Videos bis zu einer 4K-Auflösung unterstützen.";
 
