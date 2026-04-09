@@ -1,0 +1,33 @@
+"RESTART_BAR" = "Akékoľvek zmeny týchto nastavení vyžadujú reštartovanie aplikácie.";
+"USE_VP9_OR_AV1" = "Použiť VP9 a AV1";
+"USE_VP9_OR_AV1_DESC" = "Povolí kodeky VP9 a AV1, ktoré podporujú videá až do rozlíšenia 4K.";
+
+"USE_VP9" = "Použiť VP9";
+"USE_VP9_DESC" = "Povolí kodek VP9, ktorý podporuje videá až do rozlíšenia 4K.";
+
+"USE_AV1" = "Použiť AV1";
+"USE_AV1_DESC" = "Povolí kodek AV1, ktorý podporuje videá až do rozlíšenia 4K.";
+
+"CODEC" = "Kodek";
+"CODEC_DESC" = "Môžete si vybrať kodek, ktorý chcete vo videách používať.";
+"BOTH" = "Oba";
+
+"DECODE_THREADS" = "Vlákna dekódovania";
+"DECODE_THREADS_DESC" = "Počet vlákien použitých na dekódovanie videa VP9. Vyššie hodnoty môžu zlepšiť výkon prehrávania videa, ale môžu tiež zvýšiť spotrebu batérie.";
+"DECODE_THREADS_DEFAULT_VALUE" = "Predvolená hodnota";
+
+"OP_BAR" = "Optimalizácia VP9";
+"SKIP_LOOP_FILTER" = "Preskočiť slučkový filter";
+"LOOP_FILTER_OPTIMIZATION" = "Optimalizácia slučkového filtra";
+"ROW_THREADING" = "Riadkové viacvláknové spracovanie";
+
+"RELOAD" = "Automaticky obnoviť zaseknuté videá";
+"RELOAD_DESC" = "Zapnutím tejto možnosti sa zaseknuté video automaticky obnoví každé 2,5 sekundy.";
+
+"EXTRA" = "Extra funkcie";
+"FIX_PLAYBACK" = "Opraviť problémy s prehrávaním";
+"FIX_PLAYBACK_DESC" = "Opravuje problémy s prehrávaním videa u niektorých používateľov. Zapnutím tejto možnosti zakážete VP9 a AV1. Kvalita videa je navyše obmedzená na 1080p a HDR je odstránené.";
+"PREMIUM" = "Odstrániť kvalitu Premium";
+"PREMIUM_DESC" = "Odstráni prémiovú kvalitu videa u niektorých videí, najmä v rozlíšení 1080p.";
+"HDR" = "Zakázať HDR";
+"HDR_DESC" = "Zakáže HDR u niektorých videí.";

@@ -1,0 +1,33 @@
+"RESTART_BAR" = "Sebarang perubahan pada tetapan ini memerlukan aplikasi dimulakan semula untuk berkesan.";
+"USE_VP9_OR_AV1" = "Gunakan VP9 dan AV1";
+"USE_VP9_OR_AV1_DESC" = "Dayakan codec VP9 dan AV1 yang menyokong video sehingga resolusi 4K.";
+
+"USE_VP9" = "Gunakan VP9";
+"USE_VP9_DESC" = "Dayakan codec VP9 yang menyokong video sehingga resolusi 4K.";
+
+"USE_AV1" = "Gunakan AV1";
+"USE_AV1_DESC" = "Dayakan codec AV1 yang menyokong video sehingga resolusi 4K.";
+
+"CODEC" = "Codec";
+"CODEC_DESC" = "Anda boleh memilih codec yang ingin anda gunakan dalam video.";
+"BOTH" = "Kedua-duanya";
+
+"DECODE_THREADS" = "Thread dekod";
+"DECODE_THREADS_DESC" = "Bilangan thread yang digunakan untuk penyahkodan video VP9. Nilai yang lebih tinggi boleh meningkatkan prestasi main balik video tetapi juga boleh meningkatkan penggunaan bateri.";
+"DECODE_THREADS_DEFAULT_VALUE" = "Nilai lalai";
+
+"OP_BAR" = "Pengoptimuman VP9";
+"SKIP_LOOP_FILTER" = "Langkau penapis gelung";
+"LOOP_FILTER_OPTIMIZATION" = "Pengoptimuman penapis gelung";
+"ROW_THREADING" = "Threading baris";
+
+"RELOAD" = "Muat semula video sangkut secara automatik";
+"RELOAD_DESC" = "Menghidupkan pilihan ini akan memuat semula video sangkut secara automatik setiap 2.5 saat.";
+
+"EXTRA" = "Ciri tambahan";
+"FIX_PLAYBACK" = "Baiki masalah main balik";
+"FIX_PLAYBACK_DESC" = "Membaiki masalah main balik video untuk sesetengah pengguna. Menghidupkan ciri ini akan menyahdayakan VP9 dan AV1. Selain itu, kualiti video dihadkan kepada 1080p dan HDR dialih keluar.";
+"PREMIUM" = "Alih keluar kualiti Premium";
+"PREMIUM_DESC" = "Alih keluar kualiti video premium dalam sesetengah video terutamanya dalam 1080p.";
+"HDR" = "Nyahdayakan HDR";
+"HDR_DESC" = "Nyahdayakan HDR dalam sesetengah video.";

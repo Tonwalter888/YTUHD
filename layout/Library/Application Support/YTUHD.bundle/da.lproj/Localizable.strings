@@ -1,0 +1,33 @@
+"RESTART_BAR" = "Eventuelle ændringer af disse indstillinger kræver en genstart af appen for at træde i kraft.";
+"USE_VP9_OR_AV1" = "Brug VP9 og AV1";
+"USE_VP9_OR_AV1_DESC" = "Aktiver VP9- og AV1-codecs, der understøtter videoer op til 4K-opløsning.";
+
+"USE_VP9" = "Brug VP9";
+"USE_VP9_DESC" = "Aktiver VP9-codec, der understøtter videoer op til 4K-opløsning.";
+
+"USE_AV1" = "Brug AV1";
+"USE_AV1_DESC" = "Aktiver AV1-codec, der understøtter videoer op til 4K-opløsning.";
+
+"CODEC" = "Codec";
+"CODEC_DESC" = "Du kan vælge den codec, du vil bruge i videoer.";
+"BOTH" = "Begge";
+
+"DECODE_THREADS" = "Afkodningstråde";
+"DECODE_THREADS_DESC" = "Antal tråde, der bruges til VP9-videoafkodning. Højere værdier kan forbedre videoafspilningsydelsen, men kan også øge batteriforbruget.";
+"DECODE_THREADS_DEFAULT_VALUE" = "Standardværdi";
+
+"OP_BAR" = "VP9-optimeringer";
+"SKIP_LOOP_FILTER" = "Spring loop-filter over";
+"LOOP_FILTER_OPTIMIZATION" = "Loop-filter-optimering";
+"ROW_THREADING" = "Rækkethreading";
+
+"RELOAD" = "Genindlæs automatisk fastlåste videoer";
+"RELOAD_DESC" = "Hvis du slår denne indstilling til, genindlæses fastlåste videoer automatisk for hver 2,5 sekunder.";
+
+"EXTRA" = "Ekstra funktioner";
+"FIX_PLAYBACK" = "Ret afspilningsproblemer";
+"FIX_PLAYBACK_DESC" = "Ret videoafspilningsproblemer for nogle brugere. Hvis du slår dette til, deaktiveres VP9 og AV1. Desuden er videokvaliteten begrænset til 1080p, og HDR fjernes.";
+"PREMIUM" = "Fjern Premium-kvalitet";
+"PREMIUM_DESC" = "Fjern premium videokvalitet i nogle videoer, især i 1080p.";
+"HDR" = "Deaktiver HDR";
+"HDR_DESC" = "Deaktiverer HDR i visse videoer.";
