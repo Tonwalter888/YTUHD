@@ -1,0 +1,33 @@
+"RESTART_BAR" = "對這些設定的任何變更都需要重新啟動應用程式才能生效。";
+"USE_VP9_OR_AV1" = "使用 VP9 和 AV1";
+"USE_VP9_OR_AV1_DESC" = "啟用支援最高 4K 解析度影片的 VP9 和 AV1 編解碼器。";
+
+"USE_VP9" = "使用 VP9";
+"USE_VP9_DESC" = "啟用支援最高 4K 解析度影片的 VP9 編解碼器。";
+
+"USE_AV1" = "使用 AV1";
+"USE_AV1_DESC" = "啟用支援最高 4K 解析度影片的 AV1 編解碼器。";
+
+"CODEC" = "編解碼器";
+"CODEC_DESC" = "您可以選擇要在影片中使用的編解碼器。";
+"BOTH" = "全部";
+
+"DECODE_THREADS" = "解碼執行緒";
+"DECODE_THREADS_DESC" = "用於 VP9 影片解碼的執行緒數量。較高的值可能會提高影片播放效能，但也可能會增加電池消耗。";
+"DECODE_THREADS_DEFAULT_VALUE" = "預設值";
+
+"OP_BAR" = "VP9 最佳化";
+"SKIP_LOOP_FILTER" = "跳過環路濾波器";
+"LOOP_FILTER_OPTIMIZATION" = "環路濾波器最佳化";
+"ROW_THREADING" = "行執行緒";
+
+"RELOAD" = "自動重新載入卡住的影片";
+"RELOAD_DESC" = "開啟此選項將每 2.5 秒自動重新載入卡住的影片。";
+
+"EXTRA" = "額外功能";
+"FIX_PLAYBACK" = "修復播放問題";
+"FIX_PLAYBACK_DESC" = "修復部分使用者的影片播放問題。開啟此功能將停用 VP9 和 AV1。此外，影片畫質將被限制為 1080p，並且會移除 HDR。";
+"PREMIUM" = "移除 Premium 畫質";
+"PREMIUM_DESC" = "移除某些影片中的進階影片畫質，特別是在 1080p 解析度下。";
+"HDR" = "停用 HDR";
+"HDR_DESC" = "在某些影片中停用 HDR。";
