@@ -1,6 +1,8 @@
 name: Build YTUHD
 on:
- push:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
    
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -51,7 +53,7 @@ jobs:
           make clean package DEBUG=0 FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=roothide
           mv packages/*.deb ${{ github.workspace }}
 
-      - name: Output tweak .deb(s)
+      - name: Upload the tweak .deb(s)
         uses: actions/upload-artifact@v7
         with:
          name: YTUHD v${{ env.YTUHD_VERSION }}
@@ -60,7 +62,7 @@ jobs:
          overwrite: true
 
       - name: Create a draft release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: v${{ env.YTUHD_VERSION }}
           name: v${{ env.YTUHD_VERSION }} 
