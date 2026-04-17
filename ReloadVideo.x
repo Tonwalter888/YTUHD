@@ -22,7 +22,6 @@ NSTimer *bufferingTimer = nil;
 @end
 
 @interface YTInlinePlayerBarController : NSObject
-@property(nonatomic, weak, readonly) id parentResponder;
 @end
 
 @interface YTInlinePlayerBarContainerView (YTUHD)
@@ -31,10 +30,6 @@ NSTimer *bufferingTimer = nil;
 
 @interface YTMainAppControlsOverlayView (YTUHD)
 - (void)didPressYTUHDReload:(id)arg;
-@end
-
-@interface YTPlayerBarController (YTUHD)
-@property(nonatomic, weak, readonly) YTInlinePlayerBarController *delegate;
 @end
 
 static UIImage *reloadIcon() {
@@ -117,7 +112,6 @@ static UIImage *reloadIcon() {
     YTMainAppVideoPlayerOverlayViewController *_delegate = [delegate valueForKey:@"_delegate"];
     YTPlayerViewController *pvc = _delegate.parentViewController;
     CGFloat OldTime = pvc.currentVideoMediaTime;
-    // YTPlayerBarController *beta = (YTPlayerOverlayManager *)[delegate valueForKey:@"_playerViewController"];
     YTSingleVideoController *video = (YTSingleVideoController *)[self valueForKey:@"_delegate"];
     YTLocalPlaybackController *playbackController = (YTLocalPlaybackController *)[video valueForKey:@"_delegate"];
     [[%c(YTPlayerTapToRetryResponderEvent) eventWithFirstResponder:[playbackController parentResponder]] send];
