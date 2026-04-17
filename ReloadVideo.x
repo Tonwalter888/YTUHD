@@ -16,10 +16,6 @@ NSTimer *bufferingTimer = nil;
 @property (nonatomic, assign) YTPlayerViewController *parentViewController;
 @end
 
-@interface MLHAMQueuePlayer (YTUHD)
-@property (nonatomic, assign) YTPlayerViewController *parentViewController;
-@end
-
 @interface YTMainAppVideoPlayerOverlayView (YTUHD)
 @property (nonatomic, weak, readwrite) YTMainAppVideoPlayerOverlayViewController *delegate;
 @end
@@ -57,7 +53,6 @@ static UIImage *reloadIcon() {
             [bufferingTimer invalidate];
             bufferingTimer = nil;
         }
-        id main = self.delegate;
         __weak typeof(self) weakSelf = self;
         bufferingTimer = [NSTimer scheduledTimerWithTimeInterval:2.5
                             repeats:NO
@@ -65,6 +60,7 @@ static UIImage *reloadIcon() {
                                 bufferingTimer = nil;
                                 __strong typeof(weakSelf) strongSelf = weakSelf;
                                 if (strongSelf) {
+                                    YTMainAppVideoPlayerOverlayViewController *main = (YTMainAppVideoPlayerOverlayViewController *)strongSelf.delegate;
                                     YTPlayerViewController *pvc = main.parentViewController;
                                     CGFloat OldTime = pvc.currentVideoMediaTime;
                                     YTSingleVideoController *video = (YTSingleVideoController *)strongSelf.delegate;
