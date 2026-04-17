@@ -126,7 +126,6 @@ static UIImage *reloadIcon() {
         SelectorKey: @"didPressYTUHDReload:",
         ToggleKey: AddsReloadButtonKey
     });
-
     %init(Top);
     %init(Bottom);
     if (AutoReload()) {
