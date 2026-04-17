@@ -1,5 +1,9 @@
 #import "../YTVideoOverlay/Header.h"
 #import "../YTVideoOverlay/Init.x"
+#import <YouTubeHeader/YTMainAppVideoPlayerOverlayViewController.h>
+#import <YouTubeHeader/YTMainAppVideoPlayerOverlayView.h>
+#import <YouTubeHeader/YTMainAppControlsOverlayView.h>
+#import <YouTubeHeader/YTPlayerViewController.h>
 #import "Header.h"
 
 #define TweakKey @"YTUHD"
@@ -7,6 +11,17 @@
 extern BOOL AutoReload();
 
 NSTimer *bufferingTimer = nil;
+
+@interface YTMainAppVideoPlayerOverlayViewController (YTUHD)
+@property (nonatomic, assign) YTPlayerViewController *parentViewController;
+@end
+
+@interface YTMainAppVideoPlayerOverlayView (YTUHD)
+@property (nonatomic, weak, readwrite) YTMainAppVideoPlayerOverlayViewController *delegate;
+@end
+
+@interface YTInlinePlayerBarController : NSObject
+@end
 
 @interface YTInlinePlayerBarContainerView (YTUHD)
 - (void)didPressYTUHDReload:(id)arg;
