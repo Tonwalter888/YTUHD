@@ -76,6 +76,7 @@ static UIImage *reloadIcon() {
     [self seekToTime:CurrentTime];
 }
 %end
+%end
 
 %group Top
 %hook YTMainAppControlsOverlayView
@@ -119,6 +120,7 @@ static UIImage *reloadIcon() {
         SelectorKey: @"didPressYTUHDReload:",
         ToggleKey: AddsReloadButtonKey
     });
+    %init(Reload);
     %init(Top);
     %init(Bottom);
     if (AutoReload()) {
