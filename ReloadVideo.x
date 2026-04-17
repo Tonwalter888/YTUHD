@@ -4,7 +4,6 @@
 #import <YouTubeHeader/YTMainAppVideoPlayerOverlayView.h>
 #import <YouTubeHeader/YTMainAppControlsOverlayView.h>
 #import <YouTubeHeader/YTPlayerViewController.h>
-#import <YouTubeHeader/YTPlayerBarController.h>
 #import "Header.h"
 
 #define TweakKey @"YTUHD"
