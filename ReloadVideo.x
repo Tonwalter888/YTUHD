@@ -60,7 +60,7 @@ static UIImage *reloadIcon() {
                                 bufferingTimer = nil;
                                 __strong typeof(weakSelf) strongSelf = weakSelf;
                                 if (strongSelf) {
-                                    id main = strongSelf.delegate;
+                                    id main = self.delegate;
                                     YTPlayerViewController *pvc = main.parentViewController;
                                     CGFloat OldTime = pvc.currentVideoMediaTime;
                                     YTSingleVideoController *video = (YTSingleVideoController *)strongSelf.delegate;
