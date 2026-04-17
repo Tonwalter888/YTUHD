@@ -3,6 +3,7 @@
 #import <YouTubeHeader/YTMainAppVideoPlayerOverlayViewController.h>
 #import <YouTubeHeader/YTMainAppVideoPlayerOverlayView.h>
 #import <YouTubeHeader/YTMainAppControlsOverlayView.h>
+#import <YouTubeHeader/YTPlayerViewController.h>
 #import "Header.h"
 
 #define TweakKey @"YTUHD"
@@ -59,9 +60,13 @@ static UIImage *reloadIcon() {
                                 bufferingTimer = nil;
                                 __strong typeof(weakSelf) strongSelf = weakSelf;
                                 if (strongSelf) {
+                                    id main = strongSelf.delegate;
+                                    YTPlayerViewController *pvc = main.parentViewController;
+                                    CGFloat OldTime = self.currentVideoMediaTime;
                                     YTSingleVideoController *video = (YTSingleVideoController *)strongSelf.delegate;
                                     YTLocalPlaybackController *playbackController = (YTLocalPlaybackController *)video.delegate;
                                     [[%c(YTPlayerTapToRetryResponderEvent) eventWithFirstResponder:[playbackController parentResponder]] send];
+                                    [pvc seekToTime:OldTime];
                                 }
                             }];
     } else {
@@ -89,7 +94,7 @@ static UIImage *reloadIcon() {
     YTPlayerViewController *pvc = mainOverlayController.parentViewController;
     CGFloat OldTime = pvc.currentVideoMediaTime;
     YTSingleVideoController *video = (YTSingleVideoController *)[self valueForKey:@"_delegate"];
-    YTLocalPlaybackController *playbackController = (YTLocalPlaybackController *)[video valueForKey:@"_delegate"];
+    YTLocalPlaybackController *playbackController = (YTLocalPlaybackController *)video.delegate;
     [[%c(YTPlayerTapToRetryResponderEvent) eventWithFirstResponder:[playbackController parentResponder]] send];
     [pvc seekToTime:OldTime];
 }
