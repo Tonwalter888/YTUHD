@@ -119,7 +119,7 @@ static UIImage *reloadIcon() {
     CGFloat OldTime = pvc.currentVideoMediaTime;
     // YTPlayerBarController *beta = (YTPlayerOverlayManager *)[delegate valueForKey:@"_playerViewController"];
     YTSingleVideoController *video = (YTSingleVideoController *)[self valueForKey:@"_delegate"];
-    YTLocalPlaybackController *playbackController = (YTLocalPlaybackController *)video.delegate;
+    YTLocalPlaybackController *playbackController = (YTLocalPlaybackController *)[video valueForKey:@"_delegate"];
     [[%c(YTPlayerTapToRetryResponderEvent) eventWithFirstResponder:[playbackController parentResponder]] send];
     [pvc seekToTime:OldTime];
 }
