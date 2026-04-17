@@ -22,7 +22,7 @@ NSTimer *bufferingTimer = nil;
 @end
 
 @interface YTInlinePlayerBarController : NSObject
-@property(nonatomic, weak, readonly) UIResponder *parentResponder;
+@property(nonatomic, weak, readonly) id parentResponder;
 @end
 
 @interface YTInlinePlayerBarContainerView (YTUHD)
@@ -34,7 +34,7 @@ NSTimer *bufferingTimer = nil;
 @end
 
 @interface YTPlayerBarController (YTUHD)
-@property(nonatomic, weak, readonly) id delegate;
+@property(nonatomic, weak, readonly) YTInlinePlayerBarController *delegate;
 @end
 
 static UIImage *reloadIcon() {
