@@ -117,7 +117,7 @@ static UIImage *reloadIcon() {
     YTMainAppVideoPlayerOverlayViewController *_delegate = [delegate valueForKey:@"_delegate"];
     YTPlayerViewController *pvc = _delegate.parentViewController;
     CGFloat OldTime = pvc.currentVideoMediaTime;
-    YTPlayerBarController *beta = (YTPlayerOverlayManager *)[delegate valueForKey:@"_playerViewController"];
+    // YTPlayerBarController *beta = (YTPlayerOverlayManager *)[delegate valueForKey:@"_playerViewController"];
     YTSingleVideoController *video = (YTSingleVideoController *)[self valueForKey:@"_delegate"];
     YTLocalPlaybackController *playbackController = (YTLocalPlaybackController *)video.delegate;
     [[%c(YTPlayerTapToRetryResponderEvent) eventWithFirstResponder:[playbackController parentResponder]] send];
