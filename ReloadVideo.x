@@ -16,6 +16,10 @@ NSTimer *bufferingTimer = nil;
 - (void)didPressYTUHDReload:(id)arg;
 @end
 
+@interface YTPlayerViewController (YTUHD)
+- (void)didPressYTUHDReload;
+@end
+
 static UIImage *reloadIcon() {
     YTIIcon *icon = [%c(YTIIcon) new];
     icon.iconType = 181;
@@ -61,6 +65,18 @@ static UIImage *reloadIcon() {
 %end
 %end
 
+%group Reload
+%hook YTPlayerViewController
+%new
+- (void)didPressYTUHDReload {
+    CGFloat CurrentTime = self.currentVideoMediaTime;
+    YTSingleVideoController *video = (YTSingleVideoController *)[self valueForKey:@"_delegate"];
+    YTLocalPlaybackController *playbackController = (YTLocalPlaybackController *)video.delegate;
+    [[%c(YTPlayerTapToRetryResponderEvent) eventWithFirstResponder:[playbackController parentResponder]] send];
+    [self seekToTime:CurrentTime];
+}
+%end
+
 %group Top
 %hook YTMainAppControlsOverlayView
 
@@ -70,9 +86,10 @@ static UIImage *reloadIcon() {
 
 %new(v@:@)
 - (void)didPressYTUHDReload:(id)arg {
-    YTSingleVideoController *video = (YTSingleVideoController *)[self valueForKey:@"_delegate"];
-    YTLocalPlaybackController *playbackController = (YTLocalPlaybackController *)video.delegate;
-    [[%c(YTPlayerTapToRetryResponderEvent) eventWithFirstResponder:[playbackController parentResponder]] send];
+    YTMainAppVideoPlayerOverlayView *mainOverlayView = (YTMainAppVideoPlayerOverlayView *)self.superview;
+    YTMainAppVideoPlayerOverlayViewController *mainOverlayController = (YTMainAppVideoPlayerOverlayViewController *)mainOverlayView.delegate;
+    YTPlayerViewController *pvc = mainOverlayController.parentViewController;
+    [pvc didPressYTUHDReload];
 }
 
 %end
@@ -87,9 +104,10 @@ static UIImage *reloadIcon() {
 
 %new(v@:@)
 - (void)didPressYTUHDReload:(id)arg {
-    YTSingleVideoController *video = (YTSingleVideoController *)self.delegate;
-    YTLocalPlaybackController *playbackController = (YTLocalPlaybackController *)video.delegate;
-    [[%c(YTPlayerTapToRetryResponderEvent) eventWithFirstResponder:[playbackController parentResponder]] send];
+    YTInlinePlayerBarController *delegate = self.delegate;
+    YTMainAppVideoPlayerOverlayViewController *_delegate = [delegate valueForKey:@"_delegate"];
+    YTPlayerViewController *pvc = _delegate.parentViewController;
+    [pvc didPressYTUHDReload];
 }
 
 %end
