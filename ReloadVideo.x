@@ -4,6 +4,7 @@
 #import <YouTubeHeader/YTMainAppVideoPlayerOverlayView.h>
 #import <YouTubeHeader/YTMainAppControlsOverlayView.h>
 #import <YouTubeHeader/YTPlayerViewController.h>
+#import <YouTubeHeader/YTPlayerBarController.h>
 #import "Header.h"
 
 #define TweakKey @"YTUHD"
@@ -21,6 +22,7 @@ NSTimer *bufferingTimer = nil;
 @end
 
 @interface YTInlinePlayerBarController : NSObject
+@property(nonatomic, weak, readonly) UIResponder *parentResponder;
 @end
 
 @interface YTInlinePlayerBarContainerView (YTUHD)
@@ -29,6 +31,10 @@ NSTimer *bufferingTimer = nil;
 
 @interface YTMainAppControlsOverlayView (YTUHD)
 - (void)didPressYTUHDReload:(id)arg;
+@end
+
+@interface YTPlayerBarController (YTUHD)
+@property(nonatomic, weak, readonly) id delegate;
 @end
 
 static UIImage *reloadIcon() {
