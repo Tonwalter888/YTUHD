@@ -16,6 +16,10 @@ NSTimer *bufferingTimer = nil;
 @property (nonatomic, assign) YTPlayerViewController *parentViewController;
 @end
 
+@interface MLHAMQueuePlayer (YTUHD)
+@property (nonatomic, assign) YTPlayerViewController *parentViewController;
+@end
+
 @interface YTMainAppVideoPlayerOverlayView (YTUHD)
 @property (nonatomic, weak, readwrite) YTMainAppVideoPlayerOverlayViewController *delegate;
 @end
