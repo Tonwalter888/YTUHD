@@ -25,6 +25,7 @@
 "AUTO_RELOAD_DESC" = "Ao ativar esta opção, o vídeo travado será recarregado automaticamente a cada 2,5 segundos.";
 "RELOAD_BUTTON" = "Adicionar botão de recarregar";
 "RELOAD_BUTTON_DESC" = "Adiciona um botão de recarregar ao overlay do vídeo. Você pode configurar o botão no tweak YTVideoOverlay.";
+"POSITION" = "Posição do botão de recarregar";
 
 "EXTRA" = "Recursos extras";
 "FIX_PLAYBACK" = "Corrigir problemas de reprodução";

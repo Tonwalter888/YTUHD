@@ -25,6 +25,7 @@
 "AUTO_RELOAD_DESC" = "Al activar esta opción, el video atascado se recargará automáticamente cada 2.5 segundos.";
 "RELOAD_BUTTON" = "Agregar botón de recarga";
 "RELOAD_BUTTON_DESC" = "Agrega un botón de recarga al overlay del video; puedes configurarlo en el tweak YTVideoOverlay.";
+"POSITION" = "Posición del botón de recarga";
 
 "EXTRA" = "Funciones adicionales";
 "FIX_PLAYBACK" = "Solucionar problemas de reproducción";

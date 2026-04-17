@@ -25,6 +25,7 @@
 "AUTO_RELOAD_DESC" = "När detta alternativ är aktiverat laddas fastnade videor automatiskt om var 2,5 sekund.";
 "RELOAD_BUTTON" = "Lägg till omladdningsknapp";
 "RELOAD_BUTTON_DESC" = "Lägger till en omladdningsknapp i videooverlayen. Du kan konfigurera knappen i YTVideoOverlay-tweak.";
+"POSITION" = "Placering av omladdningsknappen";
 
 "EXTRA" = "Extra funktioner";
 "FIX_PLAYBACK" = "Fixa uppspelningsproblem";

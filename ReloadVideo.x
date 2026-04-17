@@ -87,7 +87,7 @@ static UIImage *reloadIcon() {
 
 %new(v@:@)
 - (void)didPressYTUHDReload:(id)arg {
-    YTSingleVideoController *video = (YTSingleVideoController *)[self valueForKey:@"_delegate"];
+    YTSingleVideoController *video = (YTSingleVideoController *)self.delegate;
     YTLocalPlaybackController *playbackController = (YTLocalPlaybackController *)video.delegate;
     [[%c(YTPlayerTapToRetryResponderEvent) eventWithFirstResponder:[playbackController parentResponder]] send];
 }

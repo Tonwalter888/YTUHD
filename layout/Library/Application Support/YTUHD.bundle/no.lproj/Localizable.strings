@@ -25,6 +25,7 @@
 "AUTO_RELOAD_DESC" = "Når dette alternativet er aktivert, vil fastlåste videoer automatisk lastes inn på nytt hvert 2,5 sekund.";
 "RELOAD_BUTTON" = "Legg til oppdateringsknapp";
 "RELOAD_BUTTON_DESC" = "Legger til en oppdateringsknapp i videooverlayet. Du kan konfigurere knappen i YTVideoOverlay-tweaken.";
+"POSITION" = "Plassering av oppdateringsknappen";
 
 "EXTRA" = "Ekstrafunksjoner";
 "FIX_PLAYBACK" = "Fiks avspillingsproblemer";

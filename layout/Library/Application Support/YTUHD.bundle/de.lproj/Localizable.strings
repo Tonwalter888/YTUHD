@@ -25,6 +25,7 @@
 "AUTO_RELOAD_DESC" = "Wenn diese Option aktiviert ist, werden hängende Videos alle 2,5 Sekunden automatisch neu geladen.";
 "RELOAD_BUTTON" = "Neuladen-Button hinzufügen";
 "RELOAD_BUTTON_DESC" = "Fügt einen Neuladen-Button zum Video-Overlay hinzu. Du kannst den Button im YTVideoOverlay-Tweak konfigurieren.";
+"POSITION" = "Position des Neuladen-Buttons";
 
 "EXTRA" = "Zusätzliche Funktionen";
 "FIX_PLAYBACK" = "Wiedergabeprobleme beheben";

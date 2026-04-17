@@ -25,6 +25,7 @@
 "AUTO_RELOAD_DESC" = "Bu seçenek açıldığında takılan video her 2,5 saniyede bir otomatik olarak yeniden yüklenecektir.";
 "RELOAD_BUTTON" = "Yeniden yükleme düğmesi ekle";
 "RELOAD_BUTTON_DESC" = "Video kaplamasına bir yeniden yükleme düğmesi ekler. Düğmeyi YTVideoOverlay tweak içinde yapılandırabilirsiniz.";
+"POSITION" = "Yeniden yükleme düğmesi konumu";
 
 "EXTRA" = "Ekstra özellikler";
 "FIX_PLAYBACK" = "Oynatma sorunlarını düzelt";

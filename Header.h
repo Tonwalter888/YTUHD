@@ -24,7 +24,7 @@
 
 #define UseVP9orAV1Key @"YTUHDEnableSWVP9orSWAV1"
 #define DecodeThreadsKey @"YTUHDSWVP9DecodeThreads"
-#define SkipLoopFilterKey @"YTUDSWVP9SkipLoopFilter"
+#define SkipLoopFilterKey @"YTUHDSWVP9SkipLoopFilter"
 #define LoopFilterOptimizationKey @"YTUHDSWVP9LoopFilterOptimization"
 #define RowThreadingKey @"YTUHDSWVP9RowThreading"
 #define AutoReloadKey @"YTUHDReloadVideos"

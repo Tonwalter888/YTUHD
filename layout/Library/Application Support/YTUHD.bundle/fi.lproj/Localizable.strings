@@ -25,6 +25,7 @@
 "AUTO_RELOAD_DESC" = "Kun tämä asetus on käytössä, jumittunut video ladataan automaattisesti uudelleen 2,5 sekunnin välein.";
 "RELOAD_BUTTON" = "Lisää uudelleenlatauspainike";
 "RELOAD_BUTTON_DESC" = "Lisää uudelleenlatauspainikkeen videon overlayhin, voit määrittää painikkeen YTVideoOverlay-tweakissa.";
+"POSITION" = "Uudelleenlatauspainikkeen sijainti";
 
 "EXTRA" = "Lisäominaisuudet";
 "FIX_PLAYBACK" = "Korjaa toisto-ongelmat";

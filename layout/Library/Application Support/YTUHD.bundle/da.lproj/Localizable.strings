@@ -25,6 +25,7 @@
 "AUTO_RELOAD_DESC" = "Når denne indstilling er slået til, genindlæses fastlåste videoer automatisk hver 2,5 sekund.";
 "RELOAD_BUTTON" = "Tilføj genindlæsningsknap";
 "RELOAD_BUTTON_DESC" = "Tilføjer en genindlæsningsknap til videooverlayet, du kan konfigurere knappen i YTVideoOverlay tweak.";
+"POSITION" = "Placering af genindlæsningsknap";
 
 "EXTRA" = "Ekstra funktioner";
 "FIX_PLAYBACK" = "Ret afspilningsproblemer";

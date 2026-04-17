@@ -25,6 +25,7 @@
 "AUTO_RELOAD_DESC" = "Ha ez a beállítás be van kapcsolva, a beragadt videó automatikusan újratöltődik 2,5 másodpercenként.";
 "RELOAD_BUTTON" = "Újratöltés gomb hozzáadása";
 "RELOAD_BUTTON_DESC" = "Újratöltés gombot ad a videó overlayhez, a gombot a YTVideoOverlay tweakben állíthatod be.";
+"POSITION" = "Újratöltés gomb helye";
 
 "EXTRA" = "Extra funkciók";
 "FIX_PLAYBACK" = "Lejátszási problémák javítása";

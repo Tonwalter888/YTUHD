@@ -25,6 +25,7 @@
 "AUTO_RELOAD_DESC" = "Bật tùy chọn này sẽ tự động tải lại video bị treo mỗi 2.5 giây.";
 "RELOAD_BUTTON" = "Thêm nút tải lại";
 "RELOAD_BUTTON_DESC" = "Thêm nút tải lại vào lớp phủ video, bạn có thể cấu hình nút trong tweak YTVideoOverlay.";
+"POSITION" = "Vị trí nút tải lại";
 
 "EXTRA" = "Các tính năng bổ sung";
 "FIX_PLAYBACK" = "Khắc phục sự cố phát lại";

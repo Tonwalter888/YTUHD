@@ -25,6 +25,7 @@
 "AUTO_RELOAD_DESC" = "Zapnutím tejto možnosti sa zaseknuté video automaticky znovu načíta každých 2,5 sekundy.";
 "RELOAD_BUTTON" = "Pridať tlačidlo znovu načítať";
 "RELOAD_BUTTON_DESC" = "Pridá tlačidlo znovu načítať do prekrytia videa. Tlačidlo môžete nakonfigurovať v tweaku YTVideoOverlay.";
+"POSITION" = "Pozícia tlačidla znovu načítať";
 
 "EXTRA" = "Extra funkcie";
 "FIX_PLAYBACK" = "Opraviť problémy s prehrávaním";

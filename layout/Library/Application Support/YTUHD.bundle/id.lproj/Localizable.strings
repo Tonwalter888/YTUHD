@@ -25,6 +25,7 @@
 "AUTO_RELOAD_DESC" = "Saat opsi ini diaktifkan, video yang macet akan dimuat ulang otomatis setiap 2,5 detik.";
 "RELOAD_BUTTON" = "Tambahkan tombol muat ulang";
 "RELOAD_BUTTON_DESC" = "Menambahkan tombol muat ulang ke overlay video, Anda dapat mengatur tombol di tweak YTVideoOverlay.";
+"POSITION" = "Posisi tombol muat ulang";
 
 "EXTRA" = "Fitur tambahan";
 "FIX_PLAYBACK" = "Perbaiki masalah pemutaran";

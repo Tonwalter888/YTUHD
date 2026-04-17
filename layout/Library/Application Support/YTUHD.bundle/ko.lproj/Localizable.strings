@@ -25,6 +25,7 @@
 "AUTO_RELOAD_DESC" = "이 옵션을 켜면 멈춘 동영상이 2.5초마다 자동으로 새로고침됩니다.";
 "RELOAD_BUTTON" = "새로고침 버튼 추가";
 "RELOAD_BUTTON_DESC" = "동영상 오버레이에 새로고침 버튼을 추가합니다. 버튼은 YTVideoOverlay tweak에서 설정할 수 있습니다.";
+"POSITION" = "새로고침 버튼 위치";
 
 "EXTRA" = "추가 기능";
 "FIX_PLAYBACK" = "재생 문제 해결";

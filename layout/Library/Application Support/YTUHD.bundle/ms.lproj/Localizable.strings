@@ -25,6 +25,7 @@
 "AUTO_RELOAD_DESC" = "Apabila pilihan ini dihidupkan, video yang tersekat akan dimuat semula secara automatik setiap 2.5 saat.";
 "RELOAD_BUTTON" = "Tambah butang muat semula";
 "RELOAD_BUTTON_DESC" = "Menambah butang muat semula pada overlay video. Anda boleh mengkonfigurasi butang tersebut dalam tweak YTVideoOverlay.";
+"POSITION" = "Kedudukan butang muat semula";
 
 "EXTRA" = "Ciri tambahan";
 "FIX_PLAYBACK" = "Baiki masalah main balik";

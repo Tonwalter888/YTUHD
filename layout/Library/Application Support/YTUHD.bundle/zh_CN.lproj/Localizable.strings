@@ -25,6 +25,7 @@
 "AUTO_RELOAD_DESC" = "开启此选项后，卡住的视频将每2.5秒自动重新加载一次。";
 "RELOAD_BUTTON" = "添加重新加载按钮";
 "RELOAD_BUTTON_DESC" = "在视频覆盖层中添加一个重新加载按钮，你可以在 YTVideoOverlay tweak 中配置该按钮。";
+"POSITION" = "重新加载按钮位置";
 
 "EXTRA" = "额外功能";
 "FIX_PLAYBACK" = "修复播放问题";

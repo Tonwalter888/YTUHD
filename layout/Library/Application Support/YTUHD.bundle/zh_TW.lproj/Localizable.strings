@@ -25,6 +25,7 @@
 "AUTO_RELOAD_DESC" = "開啟此選項後，卡住的影片將每 2.5 秒自動重新載入一次。";
 "RELOAD_BUTTON" = "新增重新載入按鈕";
 "RELOAD_BUTTON_DESC" = "在影片覆蓋層中新增一個重新載入按鈕，你可以在 YTVideoOverlay tweak 中設定該按鈕。";
+"POSITION" = "重新載入按鈕位置";
 
 "EXTRA" = "額外功能";
 "FIX_PLAYBACK" = "修復播放問題";

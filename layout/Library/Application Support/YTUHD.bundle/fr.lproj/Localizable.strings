@@ -25,6 +25,7 @@
 "AUTO_RELOAD_DESC" = "Lorsque cette option est activée, la vidéo bloquée sera rechargée automatiquement toutes les 2,5 secondes.";
 "RELOAD_BUTTON" = "Ajouter un bouton de rechargement";
 "RELOAD_BUTTON_DESC" = "Ajoute un bouton de rechargement à l’overlay vidéo, vous pouvez configurer le bouton dans le tweak YTVideoOverlay.";
+"POSITION" = "Position du bouton de rechargement";
 
 "EXTRA" = "Fonctionnalités supplémentaires";
 "FIX_PLAYBACK" = "Résoudre les problèmes de lecture";
