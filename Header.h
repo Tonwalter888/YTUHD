@@ -15,20 +15,23 @@
 #import <YouTubeHeader/YTLocalPlaybackController.h>
 #import <YouTubeHeader/YTSingleVideoController.h>
 #import <YouTubeHeader/YTPlayerTapToRetryResponderEvent.h>
+#import <YouTubeHeader/YTIIcon.h>
+#import <YouTubeHeader/YTColor.h>
 
 #define IOS_BUILD "19H411" // iOS 15.8.7
 #define MAX_FPS 60
 #define MAX_PIXELS 8294400 // 3840 x 2160 (4K)
 
-#define UseVP9orAV1Key @"EnableSWVP9orSWAV1"
-#define DecodeThreadsKey @"SWVP9DecodeThreads"
-#define SkipLoopFilterKey @"SWVP9SkipLoopFilter"
-#define LoopFilterOptimizationKey @"SWVP9LoopFilterOptimization"
-#define RowThreadingKey @"SWVP9RowThreading"
-#define AutoReloadKey @"ReloadVideos"
-#define CodecKey @"SelectCodec"
-#define FixPlaybackKey @"FixPlaybackIssues"
-#define PremiumKey @"NoPremiumQuality"
-#define DisablesHDRKey @"RemoveHDR"
+#define UseVP9orAV1Key @"YTUHDEnableSWVP9orSWAV1"
+#define DecodeThreadsKey @"YTUHDSWVP9DecodeThreads"
+#define SkipLoopFilterKey @"YTUDSWVP9SkipLoopFilter"
+#define LoopFilterOptimizationKey @"YTUHDSWVP9LoopFilterOptimization"
+#define RowThreadingKey @"YTUHDSWVP9RowThreading"
+#define AutoReloadKey @"YTUHDReloadVideos"
+#define AddsReloadButtonKey @"YTUHDReloadVideoButton"
+#define CodecKey @"YTUHDSelectCodec"
+#define FixPlaybackKey @"YTUHDFixPlaybackIssues"
+#define PremiumKey @"YTUHDNoPremiumQuality"
+#define DisablesHDRKey @"YTUHDRemoveHDR"
 
 #endif

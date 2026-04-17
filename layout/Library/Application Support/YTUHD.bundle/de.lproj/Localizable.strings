@@ -21,8 +21,10 @@
 "LOOP_FILTER_OPTIMIZATION" = "Schleifenfilter-Optimierung";
 "ROW_THREADING" = "Zeilen-Threading";
 
-"RELOAD" = "Hängende Videos automatisch neu laden";
-"RELOAD_DESC" = "Wenn diese Option aktiviert ist, werden hängende Videos alle 2,5 Sekunden automatisch neu geladen.";
+"AUTO_RELOAD" = "Hängende Videos automatisch neu laden";
+"AUTO_RELOAD_DESC" = "Wenn diese Option aktiviert ist, werden hängende Videos alle 2,5 Sekunden automatisch neu geladen.";
+"RELOAD_BUTTON" = "Neuladen-Button hinzufügen";
+"RELOAD_BUTTON_DESC" = "Fügt einen Neuladen-Button zum Video-Overlay hinzu. Du kannst den Button im YTVideoOverlay-Tweak konfigurieren.";
 
 "EXTRA" = "Zusätzliche Funktionen";
 "FIX_PLAYBACK" = "Wiedergabeprobleme beheben";

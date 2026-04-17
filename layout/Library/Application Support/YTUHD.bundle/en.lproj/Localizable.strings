@@ -21,8 +21,10 @@
 "LOOP_FILTER_OPTIMIZATION" = "Loop filter optimization";
 "ROW_THREADING" = "Row threading";
 
-"RELOAD" = "Auto reload stuck videos";
-"RELOAD_DESC" = "Turning this option on will auto reload stuck video every 2.5 seconds."; 
+"AUTO_RELOAD" = "Auto reload stuck videos";
+"AUTO_RELOAD_DESC" = "Turning this option on will auto reload stuck video every 2.5 seconds."; 
+"RELOAD_BUTTON" = "Adds a reload button";
+"RELOAD_BUTTON_DESC" = "Adds a reload button to the video overlay, you can config the button in YTVideoOverlay tweak.";
 
 "EXTRA" = "Extra features";
 "FIX_PLAYBACK" = "Fix playback issues";

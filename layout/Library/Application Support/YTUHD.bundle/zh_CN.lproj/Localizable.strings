@@ -21,8 +21,10 @@
 "LOOP_FILTER_OPTIMIZATION" = "环路滤波器优化";
 "ROW_THREADING" = "行线程";
 
-"RELOAD" = "自动重新加载卡住的视频";
-"RELOAD_DESC" = "开启此选项将每 2.5 秒自动重新加载卡住的视频。";
+"AUTO_RELOAD" = "自动重新加载卡住的视频";
+"AUTO_RELOAD_DESC" = "开启此选项后，卡住的视频将每2.5秒自动重新加载一次。";
+"RELOAD_BUTTON" = "添加重新加载按钮";
+"RELOAD_BUTTON_DESC" = "在视频覆盖层中添加一个重新加载按钮，你可以在 YTVideoOverlay tweak 中配置该按钮。";
 
 "EXTRA" = "额外功能";
 "FIX_PLAYBACK" = "修复播放问题";

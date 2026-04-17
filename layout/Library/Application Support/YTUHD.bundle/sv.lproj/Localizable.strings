@@ -21,8 +21,10 @@
 "LOOP_FILTER_OPTIMIZATION" = "Loop-filter-optimering";
 "ROW_THREADING" = "Radthreading";
 
-"RELOAD" = "Ladda om fastnade videor automatiskt";
-"RELOAD_DESC" = "Om du slår på det här alternativet laddas fastnade videor om automatiskt var 2,5 sekund.";
+"AUTO_RELOAD" = "Ladda om fastnade videor automatiskt";
+"AUTO_RELOAD_DESC" = "När detta alternativ är aktiverat laddas fastnade videor automatiskt om var 2,5 sekund.";
+"RELOAD_BUTTON" = "Lägg till omladdningsknapp";
+"RELOAD_BUTTON_DESC" = "Lägger till en omladdningsknapp i videooverlayen. Du kan konfigurera knappen i YTVideoOverlay-tweak.";
 
 "EXTRA" = "Extra funktioner";
 "FIX_PLAYBACK" = "Fixa uppspelningsproblem";

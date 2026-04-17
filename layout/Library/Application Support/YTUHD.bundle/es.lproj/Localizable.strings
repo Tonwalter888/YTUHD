@@ -21,8 +21,10 @@
 "LOOP_FILTER_OPTIMIZATION" = "Optimización del filtro de bucle";
 "ROW_THREADING" = "Subprocesamiento de filas";
 
-"RELOAD" = "Recarga automática de videos atascados";
-"RELOAD_DESC" = "Al activar esta opción, los videos atascados se recargarán automáticamente cada 2.5 segundos.";
+"AUTO_RELOAD" = "Recargar automáticamente videos atascados";
+"AUTO_RELOAD_DESC" = "Al activar esta opción, el video atascado se recargará automáticamente cada 2.5 segundos.";
+"RELOAD_BUTTON" = "Agregar botón de recarga";
+"RELOAD_BUTTON_DESC" = "Agrega un botón de recarga al overlay del video; puedes configurarlo en el tweak YTVideoOverlay.";
 
 "EXTRA" = "Funciones adicionales";
 "FIX_PLAYBACK" = "Solucionar problemas de reproducción";

@@ -21,8 +21,10 @@
 "LOOP_FILTER_OPTIMIZATION" = "Loop-filter-optimalisering";
 "ROW_THREADING" = "Radthreading";
 
-"RELOAD" = "Last inn fastlåste videoer på nytt automatisk";
-"RELOAD_DESC" = "Hvis du slår på dette alternativet, lastes fastlåste videoer inn på nytt hvert 2,5 sekund.";
+"AUTO_RELOAD" = "Last inn fastlåste videoer automatisk på nytt";
+"AUTO_RELOAD_DESC" = "Når dette alternativet er aktivert, vil fastlåste videoer automatisk lastes inn på nytt hvert 2,5 sekund.";
+"RELOAD_BUTTON" = "Legg til oppdateringsknapp";
+"RELOAD_BUTTON_DESC" = "Legger til en oppdateringsknapp i videooverlayet. Du kan konfigurere knappen i YTVideoOverlay-tweaken.";
 
 "EXTRA" = "Ekstrafunksjoner";
 "FIX_PLAYBACK" = "Fiks avspillingsproblemer";

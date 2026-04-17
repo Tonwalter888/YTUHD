@@ -21,8 +21,10 @@
 "LOOP_FILTER_OPTIMIZATION" = "Optymalizacja filtra pętli";
 "ROW_THREADING" = "Wątkowanie wierszy";
 
-"RELOAD" = "Automatyczne ponowne ładowanie zaciętych filmów";
-"RELOAD_DESC" = "Włączenie tej opcji spowoduje automatyczne ponowne załadowanie zablokowanego wideo co 2,5 sekundy.";
+"AUTO_RELOAD" = "Automatyczne przeładowanie zaciętych filmów";
+"AUTO_RELOAD_DESC" = "Po włączeniu tej opcji zacięty film będzie automatycznie przeładowywany co 2,5 sekundy.";
+"RELOAD_BUTTON" = "Dodaj przycisk przeładowania";
+"RELOAD_BUTTON_DESC" = "Dodaje przycisk przeładowania do nakładki wideo. Możesz skonfigurować przycisk w tweak YTVideoOverlay.";
 
 "EXTRA" = "Dodatkowe funkcje";
 "FIX_PLAYBACK" = "Napraw problemy z odtwarzaniem";

@@ -21,8 +21,10 @@
 "LOOP_FILTER_OPTIMIZATION" = "Döngü filtresi optimizasyonu";
 "ROW_THREADING" = "Satır iş parçacığı";
 
-"RELOAD" = "Sıkışan videoları otomatik yeniden yükle";
-"RELOAD_DESC" = "Bu seçeneği açmak, sıkışan videoyu her 2,5 saniyede bir otomatik olarak yeniden yükleyecektir.";
+"AUTO_RELOAD" = "Takılan videoları otomatik olarak yeniden yükle";
+"AUTO_RELOAD_DESC" = "Bu seçenek açıldığında takılan video her 2,5 saniyede bir otomatik olarak yeniden yüklenecektir.";
+"RELOAD_BUTTON" = "Yeniden yükleme düğmesi ekle";
+"RELOAD_BUTTON_DESC" = "Video kaplamasına bir yeniden yükleme düğmesi ekler. Düğmeyi YTVideoOverlay tweak içinde yapılandırabilirsiniz.";
 
 "EXTRA" = "Ekstra özellikler";
 "FIX_PLAYBACK" = "Oynatma sorunlarını düzelt";

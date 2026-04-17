@@ -21,8 +21,10 @@
 "LOOP_FILTER_OPTIMIZATION" = "Optimasi filter loop";
 "ROW_THREADING" = "Threading baris";
 
-"RELOAD" = "Muat ulang otomatis video yang macet";
-"RELOAD_DESC" = "Mengaktifkan opsi ini akan memuat ulang video yang macet secara otomatis setiap 2,5 detik.";
+"AUTO_RELOAD" = "Muat ulang video yang macet secara otomatis";
+"AUTO_RELOAD_DESC" = "Saat opsi ini diaktifkan, video yang macet akan dimuat ulang otomatis setiap 2,5 detik.";
+"RELOAD_BUTTON" = "Tambahkan tombol muat ulang";
+"RELOAD_BUTTON_DESC" = "Menambahkan tombol muat ulang ke overlay video, Anda dapat mengatur tombol di tweak YTVideoOverlay.";
 
 "EXTRA" = "Fitur tambahan";
 "FIX_PLAYBACK" = "Perbaiki masalah pemutaran";

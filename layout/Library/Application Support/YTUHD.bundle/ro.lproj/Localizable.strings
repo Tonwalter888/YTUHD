@@ -21,8 +21,10 @@
 "LOOP_FILTER_OPTIMIZATION" = "Optimizarea filtrului în buclă";
 "ROW_THREADING" = "Thread-uri pe rând";
 
-"RELOAD" = "Reîncărcare automată a videoclipurilor blocate";
-"RELOAD_DESC" = "Activarea acestei opțiuni va reîncărca automat videoclipul blocat la fiecare 2,5 secunde.";
+"AUTO_RELOAD" = "Reîncarcă automat videoclipurile blocate";
+"AUTO_RELOAD_DESC" = "Activarea acestei opțiuni va reîncărca automat videoclipul blocat la fiecare 2,5 secunde.";
+"RELOAD_BUTTON" = "Adaugă buton de reîncărcare";
+"RELOAD_BUTTON_DESC" = "Adaugă un buton de reîncărcare în overlay-ul video. Poți configura butonul în tweak-ul YTVideoOverlay.";
 
 "EXTRA" = "Caracteristici suplimentare";
 "FIX_PLAYBACK" = "Remediați problemele de redare";

@@ -21,8 +21,10 @@
 "LOOP_FILTER_OPTIMIZATION" = "Otimização do filtro de loop";
 "ROW_THREADING" = "Threading de linha";
 
-"RELOAD" = "Recarregar vídeos travados automaticamente";
-"RELOAD_DESC" = "Ativar esta opção recarregará automaticamente o vídeo travado a cada 2,5 segundos.";
+"AUTO_RELOAD" = "Recarregar vídeos travados automaticamente";
+"AUTO_RELOAD_DESC" = "Ao ativar esta opção, o vídeo travado será recarregado automaticamente a cada 2,5 segundos.";
+"RELOAD_BUTTON" = "Adicionar botão de recarregar";
+"RELOAD_BUTTON_DESC" = "Adiciona um botão de recarregar ao overlay do vídeo. Você pode configurar o botão no tweak YTVideoOverlay.";
 
 "EXTRA" = "Recursos extras";
 "FIX_PLAYBACK" = "Corrigir problemas de reprodução";

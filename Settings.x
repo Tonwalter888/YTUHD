@@ -41,6 +41,10 @@ BOOL AutoReload() {
     return [[NSUserDefaults standardUserDefaults] boolForKey:AutoReloadKey];
 }
 
+BOOL ReloadButton() {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:AddsReloadButtonKey];
+}
+
 BOOL FixPlayback() {
     return [[NSUserDefaults standardUserDefaults] boolForKey:FixPlaybackKey];
 }
@@ -107,7 +111,7 @@ NSBundle *YTUHDBundle() {
     YTSettingsViewController *settingsViewController = [self valueForKey:@"_settingsViewControllerDelegate"];
 
     // Tweak Version Header
-    YTSettingsSectionItem *tweakVersion = [YTSettingsSectionItemClass itemWithTitle:@"YTUHD v1.12.12"
+    YTSettingsSectionItem *tweakVersion = [YTSettingsSectionItemClass itemWithTitle:@"YTUHD v1.13.0"
         titleDescription:nil
         accessibilityIdentifier:nil
         detailTextBlock:nil
@@ -319,8 +323,8 @@ NSBundle *YTUHDBundle() {
             [sectionItems addObject:fixPlayback];
 
             // Auto reload videos
-            YTSettingsSectionItem *autoReload = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"RELOAD")
-                titleDescription:LOC(@"RELOAD_DESC")
+            YTSettingsSectionItem *autoReload = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"AUTO_RELOAD")
+                titleDescription:LOC(@"AUTO_RELOAD_DESC")
                 accessibilityIdentifier:nil
                 switchOn:AutoReload()
                 switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
@@ -329,6 +333,18 @@ NSBundle *YTUHDBundle() {
                 }
                 settingItemId:0];
             [sectionItems addObject:autoReload];
+
+            // Adds a reload button
+            YTSettingsSectionItem *reloadButton = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"RELOAD_BUTTON")
+                titleDescription:LOC(@"RELOAD_BUTTON_DESC")
+                accessibilityIdentifier:nil
+                switchOn:ReloadButton()
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:AddsReloadButtonKey];
+                    return YES;
+                }
+                settingItemId:0];
+            [sectionItems addObject:reloadButton];
 
         if (!FixPlayback()) {
             // Disables HDR

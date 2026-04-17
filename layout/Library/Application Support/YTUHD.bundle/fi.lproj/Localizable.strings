@@ -21,8 +21,10 @@
 "LOOP_FILTER_OPTIMIZATION" = "Silmukkasuodattimen optimointi";
 "ROW_THREADING" = "Rivisäikeistys";
 
-"RELOAD" = "Lataa jumiutuneet videot uudelleen automaattisesti";
-"RELOAD_DESC" = "Tämän asetuksen kytkeminen päälle lataa jumiutuneen videon uudelleen 2,5 sekunnin välein.";
+"AUTO_RELOAD" = "Lataa jumittuneet videot automaattisesti uudelleen";
+"AUTO_RELOAD_DESC" = "Kun tämä asetus on käytössä, jumittunut video ladataan automaattisesti uudelleen 2,5 sekunnin välein.";
+"RELOAD_BUTTON" = "Lisää uudelleenlatauspainike";
+"RELOAD_BUTTON_DESC" = "Lisää uudelleenlatauspainikkeen videon overlayhin, voit määrittää painikkeen YTVideoOverlay-tweakissa.";
 
 "EXTRA" = "Lisäominaisuudet";
 "FIX_PLAYBACK" = "Korjaa toisto-ongelmat";

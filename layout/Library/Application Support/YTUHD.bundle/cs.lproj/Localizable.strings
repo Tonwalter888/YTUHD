@@ -21,8 +21,10 @@
 "LOOP_FILTER_OPTIMIZATION" = "Optimalizace smyčkového filtru";
 "ROW_THREADING" = "Řádkové vícovláknové zpracování";
 
-"RELOAD" = "Automaticky obnovit zaseknutá videa";
-"RELOAD_DESC" = "Zapnutím této možnosti se zaseknuté video automaticky obnoví každé 2,5 sekundy.";
+"AUTO_RELOAD" = "Automaticky znovu načítat zaseknutá videa";
+"AUTO_RELOAD_DESC" = "Zapnutím této možnosti se zaseknuté video automaticky znovu načte každých 2,5 sekundy.";
+"RELOAD_BUTTON" = "Přidat tlačítko znovu načíst";
+"RELOAD_BUTTON_DESC" = "Přidá tlačítko znovu načíst do překrytí videa, tlačítko můžete nastavit v tweaku YTVideoOverlay.";
 
 "EXTRA" = "Extra funkce";
 "FIX_PLAYBACK" = "Opravit problémy s přehráváním";

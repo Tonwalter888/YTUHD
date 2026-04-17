@@ -21,8 +21,10 @@
 "LOOP_FILTER_OPTIMIZATION" = "Ottimizzazione del filtro di loop";
 "ROW_THREADING" = "Threading delle righe";
 
-"RELOAD" = "Ricarica automatica dei video bloccati";
-"RELOAD_DESC" = "Attivando questa opzione, i video bloccati verranno ricaricati automaticamente ogni 2,5 secondi.";
+"AUTO_RELOAD" = "Ricarica automaticamente i video bloccati";
+"AUTO_RELOAD_DESC" = "Attivando questa opzione, il video bloccato verrà ricaricato automaticamente ogni 2,5 secondi.";
+"RELOAD_BUTTON" = "Aggiungi pulsante di ricarica";
+"RELOAD_BUTTON_DESC" = "Aggiunge un pulsante di ricarica all’overlay del video; puoi configurarlo nel tweak YTVideoOverlay.";
 
 "EXTRA" = "Funzionalità extra";
 "FIX_PLAYBACK" = "Risolvi i problemi di riproduzione";

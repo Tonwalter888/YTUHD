@@ -21,8 +21,10 @@
 "LOOP_FILTER_OPTIMIZATION" = "Loop-filteroptimalisatie";
 "ROW_THREADING" = "Rij-threading";
 
-"RELOAD" = "Vastgelopen video's automatisch herladen";
-"RELOAD_DESC" = "Als u deze optie inschakelt, wordt een vastgelopen video elke 2,5 seconden automatisch opnieuw geladen.";
+"AUTO_RELOAD" = "Vastgelopen video's automatisch opnieuw laden";
+"AUTO_RELOAD_DESC" = "Als deze optie is ingeschakeld, wordt een vastgelopen video elke 2,5 seconden automatisch opnieuw geladen.";
+"RELOAD_BUTTON" = "Herlaadknop toevoegen";
+"RELOAD_BUTTON_DESC" = "Voegt een herlaadknop toe aan de video-overlay. Je kunt de knop configureren in de YTVideoOverlay tweak.";
 
 "EXTRA" = "Extra functies";
 "FIX_PLAYBACK" = "Afspeelproblemen oplossen";

@@ -21,8 +21,10 @@
 "LOOP_FILTER_OPTIMIZATION" = "Pengoptimuman penapis gelung";
 "ROW_THREADING" = "Threading baris";
 
-"RELOAD" = "Muat semula video sangkut secara automatik";
-"RELOAD_DESC" = "Menghidupkan pilihan ini akan memuat semula video sangkut secara automatik setiap 2.5 saat.";
+"AUTO_RELOAD" = "Muat semula video tersekat secara automatik";
+"AUTO_RELOAD_DESC" = "Apabila pilihan ini dihidupkan, video yang tersekat akan dimuat semula secara automatik setiap 2.5 saat.";
+"RELOAD_BUTTON" = "Tambah butang muat semula";
+"RELOAD_BUTTON_DESC" = "Menambah butang muat semula pada overlay video. Anda boleh mengkonfigurasi butang tersebut dalam tweak YTVideoOverlay.";
 
 "EXTRA" = "Ciri tambahan";
 "FIX_PLAYBACK" = "Baiki masalah main balik";

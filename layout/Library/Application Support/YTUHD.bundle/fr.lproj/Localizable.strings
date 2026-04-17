@@ -21,8 +21,10 @@
 "LOOP_FILTER_OPTIMIZATION" = "Optimisation du filtre de boucle";
 "ROW_THREADING" = "Filetage de ligne";
 
-"RELOAD" = "Rechargement automatique des vidéos bloquées";
-"RELOAD_DESC" = "L'activation de cette option rechargera automatiquement les vidéos bloquées toutes les 2,5 secondes.";
+"AUTO_RELOAD" = "Recharger automatiquement les vidéos bloquées";
+"AUTO_RELOAD_DESC" = "Lorsque cette option est activée, la vidéo bloquée sera rechargée automatiquement toutes les 2,5 secondes.";
+"RELOAD_BUTTON" = "Ajouter un bouton de rechargement";
+"RELOAD_BUTTON_DESC" = "Ajoute un bouton de rechargement à l’overlay vidéo, vous pouvez configurer le bouton dans le tweak YTVideoOverlay.";
 
 "EXTRA" = "Fonctionnalités supplémentaires";
 "FIX_PLAYBACK" = "Résoudre les problèmes de lecture";

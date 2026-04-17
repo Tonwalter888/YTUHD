@@ -21,8 +21,10 @@
 "LOOP_FILTER_OPTIMIZATION" = "Tối ưu hóa bộ lọc vòng lặp";
 "ROW_THREADING" = "Tạo luồng theo hàng";
 
-"RELOAD" = "Tự động tải lại video bị kẹt";
-"RELOAD_DESC" = "Bật tùy chọn này sẽ tự động tải lại video bị kẹt sau mỗi 2,5 giây.";
+"AUTO_RELOAD" = "Tự động tải lại video bị treo";
+"AUTO_RELOAD_DESC" = "Bật tùy chọn này sẽ tự động tải lại video bị treo mỗi 2.5 giây.";
+"RELOAD_BUTTON" = "Thêm nút tải lại";
+"RELOAD_BUTTON_DESC" = "Thêm nút tải lại vào lớp phủ video, bạn có thể cấu hình nút trong tweak YTVideoOverlay.";
 
 "EXTRA" = "Các tính năng bổ sung";
 "FIX_PLAYBACK" = "Khắc phục sự cố phát lại";
