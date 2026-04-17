@@ -62,7 +62,7 @@ static UIImage *reloadIcon() {
                                 if (strongSelf) {
                                     id main = strongSelf.delegate;
                                     YTPlayerViewController *pvc = main.parentViewController;
-                                    CGFloat OldTime = self.currentVideoMediaTime;
+                                    CGFloat OldTime = pvc.currentVideoMediaTime;
                                     YTSingleVideoController *video = (YTSingleVideoController *)strongSelf.delegate;
                                     YTLocalPlaybackController *playbackController = (YTLocalPlaybackController *)video.delegate;
                                     [[%c(YTPlayerTapToRetryResponderEvent) eventWithFirstResponder:[playbackController parentResponder]] send];
