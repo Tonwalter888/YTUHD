@@ -30,7 +30,5 @@
 "EXTRA" = "Extra funktioner";
 "FIX_PLAYBACK" = "Fixa uppspelningsproblem";
 "FIX_PLAYBACK_DESC" = "Fixar videouppspelningsproblem för vissa användare. Om du slår på detta inaktiveras VP9 och AV1. Dessutom är videokvaliteten begränsad till 1080p och HDR tas bort.";
-"PREMIUM" = "Ta bort Premium-kvalitet";
-"PREMIUM_DESC" = "Ta bort premiumvideokvalitet i vissa videor, särskilt i 1080p.";
 "HDR" = "Inaktivera HDR";
 "HDR_DESC" = "Inaktiverar HDR i vissa videor.";

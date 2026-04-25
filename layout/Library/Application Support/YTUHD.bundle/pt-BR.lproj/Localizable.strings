@@ -30,7 +30,5 @@
 "EXTRA" = "Recursos extras";
 "FIX_PLAYBACK" = "Corrigir problemas de reprodução";
 "FIX_PLAYBACK_DESC" = "Corrige problemas de reprodução de vídeo para alguns usuários. Ativar isso desabilitará VP9 e AV1. Além disso, a qualidade do vídeo é limitada a 1080p e o HDR é removido.";
-"PREMIUM" = "Remover qualidade Premium";
-"PREMIUM_DESC" = "Remove a qualidade de vídeo premium em alguns vídeos, especialmente em 1080p.";
 "HDR" = "Desativar HDR";
 "HDR_DESC" = "Desativa o HDR em alguns vídeos.";

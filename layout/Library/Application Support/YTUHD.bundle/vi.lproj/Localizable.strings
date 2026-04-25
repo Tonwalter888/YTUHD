@@ -30,7 +30,5 @@
 "EXTRA" = "Các tính năng bổ sung";
 "FIX_PLAYBACK" = "Khắc phục sự cố phát lại";
 "FIX_PLAYBACK_DESC" = "Khắc phục sự cố phát lại video cho một số người dùng. Bật tính năng này sẽ vô hiệu hóa VP9 và AV1. Ngoài ra, chất lượng video bị giới hạn ở 1080p và HDR bị xóa.";
-"PREMIUM" = "Xóa chất lượng Premium";
-"PREMIUM_DESC" = "Xóa chất lượng video cao cấp trong một số video đặc biệt là ở độ phân giải 1080p.";
 "HDR" = "Tắt HDR";
 "HDR_DESC" = "Tắt HDR trong một số video.";

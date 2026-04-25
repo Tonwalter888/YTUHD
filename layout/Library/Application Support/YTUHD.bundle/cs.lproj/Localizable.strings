@@ -30,7 +30,5 @@
 "EXTRA" = "Extra funkce";
 "FIX_PLAYBACK" = "Opravit problémy s přehráváním";
 "FIX_PLAYBACK_DESC" = "Opravuje problémy s přehráváním videa u některých uživatelů. Zapnutím této možnosti zakážete VP9 a AV1. Kvalita videa je navíc omezena na 1080p a HDR je odstraněno.";
-"PREMIUM" = "Odstranit kvalitu Premium";
-"PREMIUM_DESC" = "Odstraní prémiovou kvalitu videa u některých videí, zejména v rozlišení 1080p.";
 "HDR" = "Zakázat HDR";
 "HDR_DESC" = "Zakáže HDR u některých videí.";

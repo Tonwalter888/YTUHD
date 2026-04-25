@@ -30,7 +30,5 @@
 "EXTRA" = "Lisäominaisuudet";
 "FIX_PLAYBACK" = "Korjaa toisto-ongelmat";
 "FIX_PLAYBACK_DESC" = "Korjaa videon toisto-ongelmia joillakin käyttäjillä. Tämän kytkeminen päälle poistaa VP9:n ja AV1:n käytöstä. Lisäksi videon laatu on rajoitettu 1080p:hen ja HDR poistetaan.";
-"PREMIUM" = "Poista Premium-laatu";
-"PREMIUM_DESC" = "Poista premium-videolaatu joistakin videoista, erityisesti 1080p-resoluutiolla.";
 "HDR" = "Poista HDR käytöstä";
 "HDR_DESC" = "Poistaa HDR:n käytöstä joissakin videoissa.";

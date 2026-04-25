@@ -30,7 +30,5 @@
 "EXTRA" = "Caracteristici suplimentare";
 "FIX_PLAYBACK" = "Remediați problemele de redare";
 "FIX_PLAYBACK_DESC" = "Remediați problemele de redare video pentru unii utilizatori. Activarea acestei opțiuni va dezactiva VP9 și AV1. În plus, calitatea video este limitată la 1080p, iar HDR este eliminat.";
-"PREMIUM" = "Eliminați calitatea Premium";
-"PREMIUM_DESC" = "Elimină calitatea video premium în unele videoclipuri, în special în 1080p.";
 "HDR" = "Dezactivează HDR";
 "HDR_DESC" = "Dezactivează HDR în unele videoclipuri.";

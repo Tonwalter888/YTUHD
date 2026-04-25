@@ -11,7 +11,6 @@ extern "C" {
     BOOL RowThreading();
     BOOL FixPlayback();
     BOOL DisablesHDR();
-    BOOL Premium();
     int Codec();
 }
 
@@ -203,7 +202,7 @@ static void hookFormatsBase(YTIHamplayerConfig *config) {
     if (!IS_IOS_OR_NEWER(iOS_15_0)) {
         %init(Spoofing);
     }
-    if (!DisablesHDR() && !Premium()) {
+    if (!DisablesHDR()) {
         %init(HLS);
     }
 }

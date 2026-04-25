@@ -30,7 +30,5 @@
 "EXTRA" = "Fonctionnalités supplémentaires";
 "FIX_PLAYBACK" = "Résoudre les problèmes de lecture";
 "FIX_PLAYBACK_DESC" = "Corrige les problèmes de lecture vidéo pour certains utilisateurs. L'activation de cette option désactivera VP9 et AV1. De plus, la qualité vidéo est limitée à 1080p et le HDR est supprimé.";
-"PREMIUM" = "Supprimer la qualité Premium";
-"PREMIUM_DESC" = "Supprime la qualité vidéo premium dans certaines vidéos, en particulier en 1080p.";
 "HDR" = "Désactiver le HDR";
 "HDR_DESC" = "Désactive le HDR dans certaines vidéos.";

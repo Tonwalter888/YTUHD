@@ -31,7 +31,6 @@
 #define AddsReloadButtonKey @"YTUHDReloadVideoButton"
 #define CodecKey @"YTUHDSelectCodec"
 #define FixPlaybackKey @"YTUHDFixPlaybackIssues"
-#define PremiumKey @"YTUHDNoPremiumQuality"
 #define DisablesHDRKey @"YTUHDRemoveHDR"
 
 #endif

@@ -30,7 +30,5 @@
 "EXTRA" = "Extra features";
 "FIX_PLAYBACK" = "Fix playback issues";
 "FIX_PLAYBACK_DESC" = "Fix video playback issues for some users. Turning this on will disable VP9 and AV1. Plus the video quality is limited to 1080p and HDR is removed.";
-"PREMIUM" = "Remove Premium quality";
-"PREMIUM_DESC" = "Remove premium video quality in some videos especially in 1080p.";
 "HDR" = "Disables HDR";
 "HDR_DESC" = "Disables HDR in some videos.";

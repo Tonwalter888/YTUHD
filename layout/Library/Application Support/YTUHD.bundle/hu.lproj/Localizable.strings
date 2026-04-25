@@ -30,7 +30,5 @@
 "EXTRA" = "Extra funkciók";
 "FIX_PLAYBACK" = "Lejátszási problémák javítása";
 "FIX_PLAYBACK_DESC" = "Javítja a videólejátszási problémákat néhány felhasználó számára. Ennek bekapcsolása letiltja a VP9 és AV1 kódolást. Ezenkívül a videó minősége 1080p-re korlátozódik, és a HDR el lesz távolítva.";
-"PREMIUM" = "Prémium minőség eltávolítása";
-"PREMIUM_DESC" = "Eltávolítja a prémium videóminőséget bizonyos videókból, különösen 1080p felbontásnál.";
 "HDR" = "HDR letiltása";
 "HDR_DESC" = "Letiltja a HDR-t bizonyos videókban.";

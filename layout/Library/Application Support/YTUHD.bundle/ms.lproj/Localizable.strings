@@ -30,7 +30,5 @@
 "EXTRA" = "Ciri tambahan";
 "FIX_PLAYBACK" = "Baiki masalah main balik";
 "FIX_PLAYBACK_DESC" = "Membaiki masalah main balik video untuk sesetengah pengguna. Menghidupkan ciri ini akan menyahdayakan VP9 dan AV1. Selain itu, kualiti video dihadkan kepada 1080p dan HDR dialih keluar.";
-"PREMIUM" = "Alih keluar kualiti Premium";
-"PREMIUM_DESC" = "Alih keluar kualiti video premium dalam sesetengah video terutamanya dalam 1080p.";
 "HDR" = "Nyahdayakan HDR";
 "HDR_DESC" = "Nyahdayakan HDR dalam sesetengah video.";

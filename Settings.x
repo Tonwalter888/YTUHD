@@ -49,10 +49,6 @@ BOOL FixPlayback() {
     return [[NSUserDefaults standardUserDefaults] boolForKey:FixPlaybackKey];
 }
 
-BOOL Premium() {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:PremiumKey];
-}
-
 BOOL DisablesHDR() {
     return [[NSUserDefaults standardUserDefaults] boolForKey:DisablesHDRKey];
 }
@@ -335,18 +331,6 @@ NSBundle *YTUHDBundle() {
             [sectionItems addObject:reloadButton];
 
         if (!FixPlayback()) {
-            // Remove Premium video quality
-            YTSettingsSectionItem *premium = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"PREMIUM")
-                titleDescription:LOC(@"PREMIUM_DESC")
-                accessibilityIdentifier:nil
-                switchOn:Premium()
-                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:PremiumKey];
-                    return YES;
-                }
-                settingItemId:0];
-            [sectionItems addObject:premium];
-
             // Disables HDR
             YTSettingsSectionItem *hdr = [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"HDR")
                 titleDescription:LOC(@"HDR_DESC")

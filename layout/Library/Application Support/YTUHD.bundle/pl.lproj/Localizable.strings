@@ -30,7 +30,5 @@
 "EXTRA" = "Dodatkowe funkcje";
 "FIX_PLAYBACK" = "Napraw problemy z odtwarzaniem";
 "FIX_PLAYBACK_DESC" = "Naprawia problemy z odtwarzaniem wideo dla niektórych użytkowników. Włączenie tej opcji wyłączy VP9 i AV1. Dodatkowo jakość wideo jest ograniczona do 1080p, a HDR zostaje usunięty.";
-"PREMIUM" = "Usuń jakość Premium";
-"PREMIUM_DESC" = "Usuwa jakość wideo premium w niektórych filmach, zwłaszcza w 1080p.";
 "HDR" = "Wyłącz HDR";
 "HDR_DESC" = "Wyłącza HDR w niektórych filmach.";

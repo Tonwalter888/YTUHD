@@ -30,7 +30,5 @@
 "EXTRA" = "Extra functies";
 "FIX_PLAYBACK" = "Afspeelproblemen oplossen";
 "FIX_PLAYBACK_DESC" = "Los videoweergaveproblemen op voor sommige gebruikers. Als u dit inschakelt, worden VP9 en AV1 uitgeschakeld. Bovendien is de videokwaliteit beperkt tot 1080p en wordt HDR verwijderd.";
-"PREMIUM" = "Premium-kwaliteit verwijderen";
-"PREMIUM_DESC" = "Verwijder de premium videokwaliteit in sommige video's, vooral in 1080p.";
 "HDR" = "HDR uitschakelen";
 "HDR_DESC" = "Schakelt HDR uit in sommige video's.";
