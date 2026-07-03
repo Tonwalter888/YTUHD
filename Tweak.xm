@@ -95,13 +95,13 @@ static void hookFormatsBase(YTIHamplayerConfig *config) {
 
 - (NSArray *)filterFormats:(NSArray *)formats {
     NSArray *temp = %orig;
-    return filteredAlot(temp);
+    return filteredFormats(temp);
 }
 
 - (id)getSelectableFormatDataAndReturnError:(NSError **)error {
     [self setValue:@(NO) forKey:@"_postponePreferredFormatFiltering"];
     id temp = %orig;
-    return filteredAlot(temp);
+    return filteredFormats(temp);
 }
 
 - (void)setFormats:(NSArray *)formats {
