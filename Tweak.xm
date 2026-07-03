@@ -93,11 +93,15 @@ static void hookFormatsBase(YTIHamplayerConfig *config) {
 
 %hook HAMDefaultABRPolicy
 
-- (NSArray *)filterFormats:(NSArray *)formats { return filteredFormats(%orig); }
+- (NSArray *)filterFormats:(NSArray *)formats {
+    NSArray *temp = %orig;
+    return filteredAlot(temp);
+}
 
 - (id)getSelectableFormatDataAndReturnError:(NSError **)error {
     [self setValue:@(NO) forKey:@"_postponePreferredFormatFiltering"];
-    return filteredFormats(%orig);
+    id temp = %orig;
+    return filteredAlot(temp);
 }
 
 - (void)setFormats:(NSArray *)formats {

@@ -36,11 +36,15 @@ NSArray <MLFormat *> *filteredAlot(NSArray <MLFormat *> *sth) {
 
 %hook HAMDefaultABRPolicy
 
-- (NSArray *)filterFormats:(NSArray *)formats { return filteredAlot(%orig); }
+- (NSArray *)filterFormats:(NSArray *)formats {
+    NSArray *temp = %orig;
+    return filteredAlot(temp);
+}
 
 - (id)getSelectableFormatDataAndReturnError:(NSError **)error {
     [self setValue:@(NO) forKey:@"_postponePreferredFormatFiltering"];
-    return filteredAlot(%orig);
+    id temp = %orig;
+    return filteredAlot(temp);
 }
 
 - (void)setFormats:(NSArray *)formats {
